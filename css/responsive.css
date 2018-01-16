@@ -1,0 +1,22 @@
+@media (min-width:1200px){
+    .box-products.slide .shopcol{
+        width: 20%;
+    }
+    #product .box-products.slide .shopcol {
+        width: 33.33333333%;
+    }
+}
+@media (max-width:1200px) and (min-width:992px){
+    .box-products.slide .shopcol{
+        width: 20%;
+    }
+    #product .box-products.slide .shopcol {
+        width: 33.33333333%;
+    }
+    #wpo-mainnav .navbar-inverse .navbar-nav>li {
+        margin: 0px 0px;
+    }
+    #wpo-mainnav .navbar ul.nav>li>a{
+        padding: 0 15px;
+    }
+}
