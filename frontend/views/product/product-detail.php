@@ -1,4 +1,7 @@
+<?php
 
+use common\components\RelatedProductWidget;
+?>
 <div id="wpo-mainbody" class="container wpo-mainbody">
 
         <nav class="woocommerce-breadcrumb" itemprop="breadcrumb"><a class="home" href="">Home</a>&nbsp;/&nbsp;<a href="">Fragrance</a>&nbsp;/&nbsp;<a href="">Men</a>&nbsp;/&nbsp;Product1</nav>
@@ -17,18 +20,40 @@
                                                 <div class="images">
 
                                                         <div class="yith_magnifier_zoom_wrap"><div class="yith_magnifier_zoom_wrap"><div class="yith_magnifier_zoom_wrap"><div class="yith_magnifier_zoom_wrap"><div class="yith_magnifier_zoom_wrap"><div class="yith_magnifier_zoom_wrap"><div class="yith_magnifier_zoom_wrap"><div class="yith_magnifier_zoom_wrap"><div class="yith_magnifier_zoom_wrap"><div class="yith_magnifier_zoom_wrap"><div class="yith_magnifier_zoom_wrap"><div class="yith_magnifier_zoom_wrap">
-                                                                                                                                                        <a href="<?= Yii::$app->homeUrl ?>images/products/bottle1.png" itemprop="image" class="yith_magnifier_zoom woocommerce-main-image" title="product1">
-                                                                                                                                                                <img src="<?= Yii::$app->homeUrl ?>images/products/bottle1.png" class="attachment-shop_single wp-post-image" alt="product13"></a>
+                                                                                                                                                        <?php
+                                                                                                                                                        $product_image = Yii::$app->basePath . '/../uploads/product/' . $product_details->id . '/profile/' . $product_details->canonical_name . '.' . $product_details->profile;
+                                                                                                                                                        if (file_exists($product_image)) {
+                                                                                                                                                                ?>
+                                                                                                                                                                <a href="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/profile/' . $product_details->canonical_name . '_big.' . $product_details->profile ?>" itemprop="image" class="yith_magnifier_zoom woocommerce-main-image" title="product1">
+                                                                                                                                                                        <img src="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/profile/' . $product_details->canonical_name . '_big.' . $product_details->profile ?>" class="attachment-shop_single wp-post-image" alt="product13"></a>
+<?php } else { ?>
+                                                                                                                                                                <a href="<?= Yii::$app->homeUrl . 'uploads/product/gallery_dummy.png' ?>?scale.height='400'" itemprop="image" class="yith_magnifier_zoom woocommerce-main-image" title="product1">
+                                                                                                                                                                        <img src="<?= Yii::$app->homeUrl . 'uploads/product/gallery_dummy.png' ?>?scale.height='400'" class="attachment-shop_single wp-post-image" alt="product13"></a>
+<?php } ?>
                                                                                                                                                         <div class="yith_magnifier_mousetrap" style="width: 100%; height: 100%; top: 0px; left: 0px;"></div><div class="yith_magnifier_mousetrap" style="width: 100%; height: 100%; top: 0px; left: 0px;"></div><div class="yith_magnifier_mousetrap" style="width: 100%; height: 100%; top: 0px; left: 0px;"></div><div class="yith_magnifier_mousetrap" style="width: 100%; height: 100%; top: 0px; left: 0px;"></div><div class="yith_magnifier_mousetrap" style="width: 100%; height: 100%; top: 0px; left: 0px;"></div><div class="yith_magnifier_mousetrap" style="width: 100%; height: 100%; top: 0px; left: 0px; cursor: pointer;"></div></div></div></div></div></div></div></div></div></div></div></div></div>
                                                         <div class="thumbnails slider">
                                                                 <div class="caroufredsel_wrapper" style="display: block; text-align: center; float: none; position: relative; top: auto; right: auto; bottom: auto; left: auto; z-index: auto; height: 150px; margin: 0px; overflow: hidden;">
                                                                         <ul class="yith_magnifier_gallery" style="text-align: left; float: none; position: absolute; top: 0px; right: auto; bottom: auto; left: 0px; margin: 0px; width: 2130px; height: 150px; z-index: auto;">
-                                                                                <li class="yith_magnifier_thumbnail first" style="width: 142px;"><a href="<?= Yii::$app->homeUrl ?>images/products/bottle1.png" class="yith_magnifier_thumbnail first" title="product1" data-small="<?= Yii::$app->homeUrl ?>images/products/bottle1.png"><img width="84" height="120" src="<?= Yii::$app->homeUrl ?>images/products/bottle1.png" class="attachment-shop_thumbnail" alt="product1"></a></li>
-                                                                                <li class="yith_magnifier_thumbnail" style="width: 142px;"><a href="<?= Yii::$app->homeUrl ?>images/products/bottle2.png" class="yith_magnifier_thumbnail" title="product2" data-small="<?= Yii::$app->homeUrl ?>images/products/bottle2.png"><img width="84" height="120" src="<?= Yii::$app->homeUrl ?>images/products/bottle2.png" class="attachment-shop_thumbnail" alt="product2"></a></li>
-                                                                                <li class="yith_magnifier_thumbnail" style="width: 142px;"><a href="<?= Yii::$app->homeUrl ?>images/products/bottle3.png" class="yith_magnifier_thumbnail" title="product3" data-small="<?= Yii::$app->homeUrl ?>images/products/bottle3.png"><img width="84" height="120" src="<?= Yii::$app->homeUrl ?>images/products/bottle3.png" class="attachment-shop_thumbnail" alt="product3"></a></li>
-                                                                                <li class="yith_magnifier_thumbnail" style="width: 142px;"><a href="<?= Yii::$app->homeUrl ?>images/products/bottle4.png" class="yith_magnifier_thumbnail" title="product4" data-small="<?= Yii::$app->homeUrl ?>images/products/bottle4.png"><img width="84" height="120" src="<?= Yii::$app->homeUrl ?>images/products/bottle4.png" class="attachment-shop_thumbnail" alt="product4"></a></li>
-                                                                                <li class="yith_magnifier_thumbnail" style="width: 142px;"><a href="<?= Yii::$app->homeUrl ?>images/products/bottle5.png" class="yith_magnifier_thumbnail" title="product5" data-small="<?= Yii::$app->homeUrl ?>images/products/bottle5.png"><img width="84" height="120" src="<?= Yii::$app->homeUrl ?>images/products/bottle5.png" class="attachment-shop_thumbnail" alt="product5"></a></li>
-                                                                                <li class="yith_magnifier_thumbnail" style="width: 142px;"><a href="<?= Yii::$app->homeUrl ?>images/products/bottle6.png" class="yith_magnifier_thumbnail" title="product6" data-small="<?= Yii::$app->homeUrl ?>images/products/bottle6.png"><img width="84" height="120" src="<?= Yii::$app->homeUrl ?>images/products/bottle6.png" class="attachment-shop_thumbnail" alt="product6"></a></li>
+<?php if (file_exists($product_image)) { ?>
+                                                                                        <li class="yith_magnifier_thumbnail" style="width: 142px;"><a href="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/profile/' . $product_details->canonical_name . '_big.' . $product_details->profile ?>" class="yith_magnifier_thumbnail first" title="product1" data-small="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/profile/' . $product_details->canonical_name . '_big.' . $product_details->profile ?>"><img width="84" height="120" src="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/profile/' . $product_details->canonical_name . '_big.' . $product_details->profile ?>" class="attachment-shop_thumbnail" alt="product1"></a></li>
+
+                                                                                        <?php
+                                                                                }
+                                                                                $path = Yii::getAlias('@paths') . '/product/' . $product_details->id . '/gallery_thumb';
+                                                                                if (count(glob("{$path}/*")) > 0) {
+                                                                                        foreach (glob("{$path}/*") as $file) {
+
+                                                                                                $arry = explode('/', $file);
+                                                                                                $img_nmee = end($arry);
+                                                                                                $img_nmees = explode('.', $img_nmee);
+                                                                                                if ($img_nmees['1'] != '') {
+                                                                                                        ?>
+                                                                                                        <li class="yith_magnifier_thumbnail first" style="width: 142px;"><a href="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/gallery/' . end($arry) ?>" class="yith_magnifier_thumbnail first" title="product1" data-small="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/gallery/' . end($arry) ?>"><img width="84" height="120" src="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/gallery/' . end($arry) ?>" class="attachment-shop_thumbnail" alt="product1"></a></li>
+                                                                                                        <?php
+                                                                                                }
+                                                                                        }
+                                                                                }
+                                                                                ?>
                                                                         </ul>
                                                                 </div>
 
@@ -85,7 +110,7 @@
                                                 </script>        </div>
                                         <div class="col-md-6 col-sm-6">
                                                 <div class="summary entry-summary">
-                                                        <h1 itemprop="name" class="heading_title product_title entry-title">DAVIDOFF</h1>
+                                                        <h1 itemprop="name" class="heading_title product_title entry-title"><?= $product_details->product_name ?></h1>
                                                         <div class="woocommerce-product-rating" itemprop="aggregateRating" itemscope="" itemtype="">
                                                                 <div class="star-rating" title="Rated 4.00 out of 5">
                                                                         <span style="width:80%">
@@ -96,7 +121,7 @@
 
                                                         <div>
 
-                                                                <p class="price"><span class="amount">£35.00</span></p>
+                                                                <p class="price"><span class="amount">£<?= $product_details->offer_price ?></span></p>
 
                                                                 <meta itemprop="price" content="35">
                                                                 <meta itemprop="priceCurrency" content="GBP">
@@ -131,7 +156,7 @@
                                                         </div>
 
                                                         <div class="clear"></div><a href="" class="compare button" data-product_id="113">Add To Cart</a><div itemprop="description" class="description">
-                                                                <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+                                                                <p><?= $product_details->main_description ?></p>
                                                         </div><div class="product_meta">
 
 
@@ -166,8 +191,7 @@
 
                                                         <h2>Product Description</h2>
 
-                                                        <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies
-                                                                mi vitae est. Mauris placerat eleifend leo.</p>
+                                                        <p><?= $product_details->product_detail ?></p>
                                                 </div>
                                                 <div class="tab-pane" id="tab-reviews">
                                                         <div id="reviews">
@@ -549,205 +573,9 @@
                                                 <br/>
                                                 <br/>
 
-                                                <div class="woocommrece related products">
-                                                        <div class="box-heading"><span>Related Products</span></div>
-                                                        <div class="box-content">
-                                                                <div class="box-products slide" id="productcarouse-C3htu">
-                                                                        <div class="carousel-inner">
-                                                                                <div class="item active">
-                                                                                        <div class="row">
-                                                                                                <!-- Product Item -->
-                                                                                                <div class=" col-lg-3 col-md-4 col-sm-4 col-xs-6 post-72 product type-product status-publish has-post-thumbnail product_cat-men product_cat-shirt product_cat-top product_tag-test1 product_tag-test2 sale shipping-taxable purchasable product-type-simple product-cat-men product-cat-shirt product-cat-top product-tag-test1 product-tag-test2 outofstock">
-                                                                                                        <div class="product-block product product-grid">
-                                                                                                                <div class="product-inner">
-                                                                                                                        <div class="image">
-                                                                                                                                <a href="">
-                                                                                                                                        <img src="<?= Yii::$app->homeUrl ?>images/products/5.png" class="attachment-shop_catalog image-hover" alt="product18" />
-                                                                                                                                        <img src="<?= Yii::$app->homeUrl ?>images/products/5.png" class="image-effect wp-post-image" alt="product16" /> </a>
-                                                                                                                                <div class="product-action">
-                                                                                                                                        <div class="add-to-cart">
-                                                                                                                                                <a href="" rel="nofollow" data-product_id="112" data-product_sku="" data-quantity="1" class="btn-cart button add_to_cart_button product_type_simple"><i class="fa-fw fa fa-shopping-cart"></i>Add to cart</a>
-                                                                                                                                        </div>
-                                                                                                                                        <div class="wishlist-compare">
-                                                                                                                                                <a class="wishlist fa fa-heart" title="Add to Wish List"><span>Add to Wish List</span></a>
-                                                                                                                                                </a>-->
-                                                                                                                                        </div>
-                                                                                                                                </div>
-                                                                                                                        </div>
-
-                                                                                                                        <div class="product-meta">
-                                                                                                                                <div class="warp-info">
-                                                                                                                                        <h3 class="name">
-                                                                                                                                                <a href="">Farlap Shirt</a>
-                                                                                                                                        </h3>
-
-                                                                                                                                        <span class="price"><span class="amount">&pound;90.00</span></span>
-
-                                                                                                                                        <!--quickview-->
-                                                                                                                                        <a href="#" class="wpo-colorbox cboxElement quickview" data-productslug="ninja-silhouette-2" data-toggle="modal" data-target="#wpo_modal_quickview">
-                                                                                                                                                <span class="fa fa-plus"></span>
-                                                                                                                                                <span>Quick view</span>
-                                                                                                                                        </a>
-
-                                                                                                                                </div>
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </div>
+<?= RelatedProductWidget::widget(['id' => $product_details->related_product]) ?>
 
 
-
-
-
-                                                                                                </div>
-                                                                                                <!-- End Product Item -->
-
-
-                                                                                                <!-- Product Item -->
-                                                                                                <div class=" col-lg-3 col-md-4 col-sm-4 col-xs-6 post-114 product type-product status-publish has-post-thumbnail product_cat-men product_cat-shirt product_cat-top product_tag-test1 product_tag-test2 sale shipping-taxable purchasable product-type-simple product-cat-men product-cat-shirt product-cat-top product-tag-test1 product-tag-test2 instock">
-                                                                                                        <div class="product-block product product-grid">
-                                                                                                                <div class="product-inner">
-                                                                                                                        <div class="image">
-                                                                                                                                <a href="">
-                                                                                                                                        <img src="<?= Yii::$app->homeUrl ?>images/products/3.png" class="attachment-shop_catalog image-hover" alt="product18" />
-                                                                                                                                        <img src="<?= Yii::$app->homeUrl ?>images/products/3.png" class="image-effect wp-post-image" alt="product16" /> </a>
-                                                                                                                                <div class="product-action">
-                                                                                                                                        <div class="add-to-cart">
-                                                                                                                                                <a href="" rel="nofollow" data-product_id="112" data-product_sku="" data-quantity="1" class="btn-cart button add_to_cart_button product_type_simple"><i class="fa-fw fa fa-shopping-cart"></i>Add to cart</a>
-                                                                                                                                        </div>
-                                                                                                                                        <div class="wishlist-compare">
-                                                                                                                                                <a class="wishlist fa fa-heart" title="Add to Wish List"><span>Add to Wish List</span></a>
-                                                                                                                                                </a>-->
-                                                                                                                                        </div>
-                                                                                                                                </div>
-                                                                                                                        </div>
-
-                                                                                                                        <div class="product-meta">
-                                                                                                                                <div class="warp-info">
-                                                                                                                                        <h3 class="name">
-                                                                                                                                                <a href="">Farlap Shirt</a>
-                                                                                                                                        </h3>
-
-                                                                                                                                        <span class="price"><span class="amount">&pound;90.00</span></span>
-
-                                                                                                                                        <!--quickview-->
-                                                                                                                                        <a href="#" class="wpo-colorbox cboxElement quickview" data-productslug="ninja-silhouette-2" data-toggle="modal" data-target="#wpo_modal_quickview">
-                                                                                                                                                <span class="fa fa-plus"></span>
-                                                                                                                                                <span>Quick view</span>
-                                                                                                                                        </a>
-
-                                                                                                                                </div>
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </div>
-
-
-
-
-
-                                                                                                </div>
-
-                                                                                                <div class="col-lg-3 col-md-4 col-sm-4 col-xs-6 post-114 product type-product status-publish has-post-thumbnail product_cat-men product_cat-shirt product_cat-top product_tag-test1 product_tag-test2 sale shipping-taxable purchasable product-type-simple product-cat-men product-cat-shirt product-cat-top product-tag-test1 product-tag-test2 instock">
-                                                                                                        <div class="product-block product product-grid">
-                                                                                                                <div class="product-inner">
-                                                                                                                        <div class="image">
-                                                                                                                                <a href="">
-                                                                                                                                        <img src="<?= Yii::$app->homeUrl ?>images/products/2.png" class="attachment-shop_catalog image-hover" alt="product18" />
-                                                                                                                                        <img src="<?= Yii::$app->homeUrl ?>images/products/2.png" class="image-effect wp-post-image" alt="product16" /> </a>
-                                                                                                                                <div class="product-action">
-                                                                                                                                        <div class="add-to-cart">
-                                                                                                                                                <a href="" rel="nofollow" data-product_id="112" data-product_sku="" data-quantity="1" class="btn-cart button add_to_cart_button product_type_simple"><i class="fa-fw fa fa-shopping-cart"></i>Add to cart</a>
-                                                                                                                                        </div>
-                                                                                                                                        <div class="wishlist-compare">
-                                                                                                                                                <a class="wishlist fa fa-heart" title="Add to Wish List"><span>Add to Wish List</span></a>
-                                                                                                                                                </a>-->
-                                                                                                                                        </div>
-                                                                                                                                </div>
-                                                                                                                        </div>
-
-                                                                                                                        <div class="product-meta">
-                                                                                                                                <div class="warp-info">
-                                                                                                                                        <h3 class="name">
-                                                                                                                                                <a href="">Farlap Shirt</a>
-                                                                                                                                        </h3>
-
-                                                                                                                                        <span class="price"><span class="amount">&pound;90.00</span></span>
-
-                                                                                                                                        <!--quickview-->
-                                                                                                                                        <a href="#" class="wpo-colorbox cboxElement quickview" data-productslug="ninja-silhouette-2" data-toggle="modal" data-target="#wpo_modal_quickview">
-                                                                                                                                                <span class="fa fa-plus"></span>
-                                                                                                                                                <span>Quick view</span>
-                                                                                                                                        </a>
-
-                                                                                                                                </div>
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </div>
-
-
-
-
-
-                                                                                                </div>
-
-                                                                                                <div class=" last col-lg-3 col-md-4 col-sm-4 col-xs-6 post-114 product type-product status-publish has-post-thumbnail product_cat-men product_cat-shirt product_cat-top product_tag-test1 product_tag-test2 sale shipping-taxable purchasable product-type-simple product-cat-men product-cat-shirt product-cat-top product-tag-test1 product-tag-test2 instock">
-                                                                                                        <div class="product-block product product-grid">
-                                                                                                                <div class="product-inner">
-                                                                                                                        <div class="image">
-                                                                                                                                <a href="">
-                                                                                                                                        <img src="<?= Yii::$app->homeUrl ?>images/products/4.png" class="attachment-shop_catalog image-hover" alt="product18" />
-                                                                                                                                        <img src="<?= Yii::$app->homeUrl ?>images/products/4.png" class="image-effect wp-post-image" alt="product16" /> </a>
-                                                                                                                                <div class="product-action">
-                                                                                                                                        <div class="add-to-cart">
-                                                                                                                                                <a href="" rel="nofollow" data-product_id="112" data-product_sku="" data-quantity="1" class="btn-cart button add_to_cart_button product_type_simple"><i class="fa-fw fa fa-shopping-cart"></i>Add to cart</a>
-                                                                                                                                        </div>
-                                                                                                                                        <div class="wishlist-compare">
-                                                                                                                                                <a class="wishlist fa fa-heart" title="Add to Wish List"><span>Add to Wish List</span></a>
-                                                                                                                                                </a>-->
-                                                                                                                                        </div>
-                                                                                                                                </div>
-                                                                                                                        </div>
-
-                                                                                                                        <div class="product-meta">
-                                                                                                                                <div class="warp-info">
-                                                                                                                                        <h3 class="name">
-                                                                                                                                                <a href="">Farlap Shirt</a>
-                                                                                                                                        </h3>
-
-                                                                                                                                        <span class="price"><span class="amount">&pound;90.00</span></span>
-
-                                                                                                                                        <!--quickview-->
-                                                                                                                                        <a href="#" class="wpo-colorbox cboxElement quickview" data-productslug="ninja-silhouette-2" data-toggle="modal" data-target="#wpo_modal_quickview">
-                                                                                                                                                <span class="fa fa-plus"></span>
-                                                                                                                                                <span>Quick view</span>
-                                                                                                                                        </a>
-
-                                                                                                                                </div>
-                                                                                                                        </div>
-                                                                                                                </div>
-                                                                                                        </div>
-
-
-
-
-
-                                                                                                </div>
-                                                                                                <!-- End Product Item -->
-
-                                                                                        </div>
-                                                                                </div>
-                                                                        </div>
-
-
-                                                                </div>
-
-
-                                                                <meta itemprop="url" content="index33a9.html?product=woo-logo-2">
-
-                                                        </div>
-                                                        <!-- #product-113 -->
-
-
-                                                </div>
                                         </div>
                                 </div>
                         </div>

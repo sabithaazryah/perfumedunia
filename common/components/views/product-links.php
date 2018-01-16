@@ -7,7 +7,7 @@ use common\models\Fregrance;
         <div class="product-block product product-grid">
                 <div class="product-inner">
                         <div class="image">
-                                <a href="<?= Yii::$app->homeUrl . 'product_detail/' . $model->canonical_name ?>">
+                                <a href="<?= Yii::$app->homeUrl . 'product/product_detail?product=' . $model->canonical_name ?>">
 
                                         <?php
                                         $product_image = Yii::$app->basePath . '/../uploads/product/' . $model->id . '/profile/' . $model->canonical_name . '.' . $model->profile;

@@ -134,6 +134,7 @@ class ProductController extends \yii\web\Controller {
          * @return mixed
          */
         public function actionProduct_detail($product) {
+
                 if (isset(Yii::$app->user->identity->id)) {
                         $user_id = Yii::$app->user->identity->id;
                 } else {
@@ -151,6 +152,10 @@ class ProductController extends \yii\web\Controller {
                             'user_id' => $user_id,
                             'shipping_limit' => $shipping_limit,
                 ]);
+        }
+
+        public function actionDetail($product) {
+                die('hiiiiiiiiii');
         }
 
         /**
