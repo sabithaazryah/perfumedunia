@@ -34,7 +34,9 @@ and open the template in the editor.
 
                 <meta charset="UTF-8">
 
-
+                <script>
+                        var homeUrl = '<?= yii::$app->homeUrl; ?>';
+                </script>
                 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><!-- For SEO -->
                 <meta name="description" content="">
                 <meta name="keywords" content="">
@@ -160,30 +162,36 @@ and open the template in the editor.
                                                 <i class="fa fa-times"></i>
                                         </button>
                                 </div>
+                                <?php
+                                $catag = Category::find()->where(['status' => 1, 'main_category' => 1, 'category_code' => 'coral-perfumes'])->one();
+                                $catag_2 = Category::find()->where(['status' => 1, 'main_category' => 2])->one();
+                                if (isset($params['id']))
+                                        $prod_main_catag = Category::find()->where(['status' => 1, 'category_code' => $params['id']])->one();
+                                ?>
                                 <nav  class="navbar navbar-offcanvas navbar-static" role="navigation">
                                         <div class="navbar-collapse">
                                                 <ul id="main-menu-offcanvas" class="wpo-menu-top nav navbar-nav">
                                                         <li id="menu-item-384" class="dropdown menu-item-384 level-0"><a href="javascript:void(0)">Fragrances <b class="caret"></b></a>
                                                                 <ul class="dropdown-menu">
-                                                                        <li id="menu-item-385" class="menu-item-385 level-1"><a href="<?= Yii::$app->homeUrl ?>product/index">Men's</a></li>
-                                                                        <li id="menu-item-385" class="menu-item-385 level-1"><a href="#">Women's</a></li>
-                                                                        <li id="menu-item-385" class="menu-item-385 level-1"><a href="#">Oriental</a></li>
-                                                                        <li id="menu-item-385" class="menu-item-385 level-1"><a href="#">Gift sets</a></li>
-                                                                        <li id="menu-item-385" class="menu-item-385 level-1"><a href="#">Bakhour</a></li>
-                                                                        <li id="menu-item-385" class="menu-item-385 level-1"><a href="#">Brands</a></li>
+                                                                        <li id="menu-item-385" class="menu-item-385 level-1"><?= Html::a("Men's", ['/product/index', 'id' => $catag->category_code], ['class' => '']) ?></li>
+                                                                        <li id="menu-item-385" class="menu-item-385 level-1"><?= Html::a("Women's", ['/product/index'], ['class' => '']) ?></li>
+                                                                        <li id="menu-item-385" class="menu-item-385 level-1"><?= Html::a("Oriental", ['/product/index'], ['class' => '']) ?></li>
+                                                                        <li id="menu-item-385" class="menu-item-385 level-1"><?= Html::a("Gift sets", ['/product/index'], ['class' => '']) ?></li>
+                                                                        <li id="menu-item-385" class="menu-item-385 level-1"><?= Html::a("Bakhour", ['/product/index'], ['class' => '']) ?></li>
+                                                                        <li id="menu-item-385" class="menu-item-385 level-1"><?= Html::a("Brands", ['/product/index'], ['class' => '']) ?></li>
                                                                 </ul>
                                                         </li>
-                                                        <li id="menu-item-370" class="menu-item-370 level-0"><a href="">Watches</a></li>
-                                                        <li id="menu-item-1619" class="menu-item-1619 level-0"><a href="#">Jewellery</a></li>
-                                                        <li id="menu-item-1620" class="menu-item-1620 level-0"><a href="#">Eyewear</a></li>
-                                                        <li id="menu-item-1620" class="menu-item-1620 level-0"><a href="#">Bags</a></li>
+                                                        <li id="menu-item-370" class="menu-item-370 level-0"><?= Html::a("Watches", ['/product/index'], ['class' => '']) ?></li>
+                                                        <li id="menu-item-1619" class="menu-item-1619 level-0"><?= Html::a("Jewellery", ['/product/index'], ['class' => '']) ?></li>
+                                                        <li id="menu-item-1620" class="menu-item-1620 level-0"><?= Html::a("Eyewear", ['/product/index'], ['class' => '']) ?></li>
+                                                        <li id="menu-item-1620" class="menu-item-1620 level-0"><?= Html::a("Bags", ['/product/index'], ['class' => '']) ?></li>
 
                                                         <li id="menu-item-388" class="dropdown menu-item-388 level-0"><a href="#">Accessories <b class="caret"></b></a>
                                                                 <ul class="dropdown-menu">
-                                                                        <li id="menu-item-389" class="menu-item-389 level-1"><a href="#">Belts</a></li>
-                                                                        <li id="menu-item-390" class="menu-item-390 level-1"><a href="#">Wallets</a></li>
-                                                                        <li id="menu-item-391" class="menu-item-391 level-1"><a href="#">Card Holder</a></li>
-                                                                        <li id="menu-item-393" class="menu-item-393 level-1"><a href="#">Novelties</a></li>
+                                                                        <li id="menu-item-389" class="menu-item-389 level-1"><?= Html::a("Belts", ['/product/index'], ['class' => '']) ?></li>
+                                                                        <li id="menu-item-390" class="menu-item-390 level-1"><?= Html::a("Wallets", ['/product/index'], ['class' => '']) ?></li>
+                                                                        <li id="menu-item-391" class="menu-item-391 level-1"><?= Html::a("Card Holder", ['/product/index'], ['class' => '']) ?></li>
+                                                                        <li id="menu-item-393" class="menu-item-393 level-1"><?= Html::a("Novelties", ['/product/index'], ['class' => '']) ?></li>
                                                                 </ul>
                                                         </li>
                                                         <li id="menu-item-1620" class="menu-item-1620 level-0"><a href="#">Offers</a></li>
@@ -197,91 +205,7 @@ and open the template in the editor.
                 <!-- START Wrapper -->
                 <div class="wpo-wrapper">
                         <header id="header">
-                                <!--                <section id="topbar">
-                                                    <div class="inner"><div class="container">
-                                                            <div class="row">
-                                                                <div class="col-sm-6 col-xs-6">
-                                                                    <div class="pull-left customer-links">
-                                                                        <a href="#" title="Login / Register">Login / Register</a>
-                                                                    </div>
 
-                                                                                                        <div class="pull-left">
-                                                                                                            language
-
-                                                                                                            <div class="select-wrapper language btn-group pull-right">
-                                                                                                                <a href="#" class="btn btn-link btn-switcher dropdown-toggle" data-toggle="dropdown">Language<span class="caret"></span></a>
-                                                                                                                <ul class="dropdown-menu">
-                                                                                                                    <li><a href="#"><span class="img flag1"></span>English</a></li>
-                                                                                                                    <li><a href="#"><span class="img flag2"></span>Arabic</a></li>
-                                                                                                                </ul>
-                                                                                                            </div>
-
-                                                                                                        </div>
-
-
-
-
-
-                                                                </div>
-                                                                <div class="col-sm-6 col-xs-6">
-                                                                    <div class="pull-right header-right">
-                                                                        <div id="cart">
-                                                                            <span class=" fa fa-shopping-cart pull-left"></span>
-                                                                            <div class="media-body heading">
-                                                                                <a class="cart-link dropdown-toggle" data-toggle="dropdown" >
-                                                                                    <span class="cart-title hidden-xs">CART:</span> 0 items - <span class="amount">&pound;0.00</span>		             </a>
-                                                                                <div class="content dropdown-menu">
-
-
-                                                                                    <ul class="cart_list product_list_widget ">
-
-
-                                                                                        <li class="empty">No products in the cart.</li>
-
-
-                                                                                    </ul>
-                                                                                    end product list
-
-
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="hidden-sm hidden-xs search-form pull-right">
-                                                                        <div class="wpo_search pull-right">
-                                                                            <form role="search" method="get" action="">
-                                                                                <input type="text" name="s" placeholder="Search..." />
-                                                                                <span class="button-search">
-                                                                                    <input type="submit" value="&nbsp;">
-                                                                                    <input type="hidden" name="post_type" value="product" />
-                                                                                </span>
-                                                                            </form>
-                                                                        </div>
-
-
-                                                                    </div>
-
-
-
-
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </section>-->
-
-                                <!--                <section id="header-main">
-                                                    <div class="container">
-                                                        <div class="row header-wrap">
-                                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 inner">
-                                                                <a class="logo" href="index.php">
-                                                                    <img src="images/logo.png" alt="Perfume Dunia">
-                                                                </a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </section>-->
 
 
                                 <section id="wpo-mainnav">
@@ -304,20 +228,23 @@ and open the template in the editor.
                                                                         </div><!-- //END #navbar-header -->
                                                                         <div class="visible-xs visible-sm search-mobile">
                                                                                 <div class="wpo_search pull-right">
-                                                                                        <form role="search" method="get" action="">
-                                                                                                <input type="text" name="s" placeholder="Search..." />
-                                                                                                <span class="button-search">
-                                                                                                        <input type="submit" value="&nbsp;">
-                                                                                                        <input type="hidden" name="post_type" value="product" />
-                                                                                                </span>
-                                                                                        </form>
+
+                                                                                        <?= Html::beginForm(['/product/index'], 'get', ['id' => 'serach-formms']) ?>
+                                                                                        <input type="text" placeholder="Search..." class="search-keyword" name="keyword"/>
+                                                                                        <div class="search-keyword-dropdown"></div>
+
+                                                                                        <span class="button-search">
+                                                                                                <input type="submit" value="&nbsp;">
+                                                                                                <input type="hidden" name="post_type" value="product" />
+                                                                                        </span>
+                                                                                        <?= Html::endForm() ?>
                                                                                 </div>
                                                                         </div>
                                                                         <div class="collapse navbar-collapse navbar-ex1-collapse">
 
                                                                                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                                                                                         <section id="Logo">
-                                                                                                <a class="logo" href="index.php">
+                                                                                                <a class="logo" href="<?= Yii::$app->homeUrl ?>">
                                                                                                         <img src="<?= Yii::$app->homeUrl ?>images/logo.png" alt="Perfume Dunia">
                                                                                                 </a>
                                                                                         </section>
@@ -329,13 +256,18 @@ and open the template in the editor.
                                                                                                         <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5" style="position: absolute; right: 100px;">
                                                                                                                 <div class="hidden-sm hidden-xs search-form">
                                                                                                                         <div class="wpo_search pull-right">
-                                                                                                                                <form role="search" method="get" action="">
-                                                                                                                                        <input type="text" name="s" placeholder="Search..." />
-                                                                                                                                        <span class="button-search">
-                                                                                                                                                <input type="submit" value="&nbsp;">
-                                                                                                                                                <input type="hidden" name="post_type" value="product" />
-                                                                                                                                        </span>
-                                                                                                                                </form>
+                                                                                                                                <?= Html::beginForm(['/product/index'], 'get', ['id' => 'serach-formm']) ?>
+                                                                                                                                <input type="text" placeholder="Search..." class="search-keyword" name="keyword" autocomplete="off"  value="<?php
+                                                                                                                                if (isset($_GET['keyword']) && $_GET['keyword'] != '') {
+                                                                                                                                        echo $_GET['keyword'];
+                                                                                                                                }
+                                                                                                                                ?>"/>
+                                                                                                                                <div class="search-keyword-dropdown"></div>
+                                                                                                                                <span class="button-search">
+                                                                                                                                        <input type="submit" value="&nbsp;">
+                                                                                                                                        <!--<input type="hidden" name="post_type" value="product" />-->
+                                                                                                                                </span>
+                                                                                                                                <?= Html::endForm() ?>
                                                                                                                         </div>
                                                                                                                 </div>
 
@@ -349,7 +281,19 @@ and open the template in the editor.
                                                                                                                                                 <span class="dropdown-triangle-up"></span>
                                                                                                                                                 <li><a href="">My account</a></li>
                                                                                                                                                 <li><a href="">My wishlist</a></li>
-                                                                                                                                                <li class="call-popup popup1" data-toggle="modal" data-target="#fsModal"><a href="">Log in</a></li>
+                                                                                                                                                <?php if (empty(Yii::$app->user->identity)) { ?>
+                                                                                                                                                        <li class="call-popup popup1" data-toggle="modal" data-target="#fsModal"><a href="">Log in</a></li>
+                                                                                                                                                        <?php
+                                                                                                                                                } else {
+                                                                                                                                                        echo '<li class="last">'
+                                                                                                                                                        . Html::beginForm(['/site/logout'], 'post') . '<a>'
+                                                                                                                                                        . Html::submitButton(
+                                                                                                                                                                'Logout', ['style' => 'background: white;height:0;border: none;']
+                                                                                                                                                        ) . '</a>'
+                                                                                                                                                        . Html::endForm()
+                                                                                                                                                        . '</li>';
+                                                                                                                                                        ?>
+                                                                                                                                                <?php } ?>
                                                                                                                                         </ul>
                                                                                                                                 </li>
 
@@ -425,58 +369,25 @@ and open the template in the editor.
                                                                                                                                                         <!--<h3 class="widget-title">Categories</h3>-->
                                                                                                                                                         <div class="menu-shortcode-container">
                                                                                                                                                                 <ul id="menu-shortcode" class="megamenu-items">
-                                                                                                                                                                        <li id="menu-item-366" class="menu-item-366" data-id="366"    data-alignsub="left" data-level="2"><a href="<?= Yii::$app->homeUrl ?>product/index">Men's</a></li>
-                                                                                                                                                                        <li id="menu-item-362" class="menu-item-362" data-id="362"    data-alignsub="left" data-level="2"><a href="#">Women's</a></li>
-                                                                                                                                                                        <li id="menu-item-361" class="menu-item-361" data-id="361"    data-alignsub="left" data-level="2"><a href="#">Oriental</a></li>
-                                                                                                                                                                        <li id="menu-item-361" class="menu-item-361" data-id="361"    data-alignsub="left" data-level="2"><a href="#">Gift sets</a></li>
-                                                                                                                                                                        <li id="menu-item-361" class="menu-item-361" data-id="361"    data-alignsub="left" data-level="2"><a href="#">Bakhour</a></li>
-                                                                                                                                                                        <li id="menu-item-361" class="menu-item-361" data-id="361"    data-alignsub="left" data-level="2"><a href="#">Brands</a></li>
+                                                                                                                                                                        <li id="menu-item-366" class="menu-item-366" data-id="366"    data-alignsub="left" data-level="2"><?= Html::a("Men's", ['/product/index', 'id' => $catag->category_code], ['class' => '']) ?></li>
+                                                                                                                                                                        <li id="menu-item-362" class="menu-item-362" data-id="362"    data-alignsub="left" data-level="2"><?= Html::a("Women's", ['/product/index'], ['class' => '']) ?></li>
+                                                                                                                                                                        <li id="menu-item-361" class="menu-item-361" data-id="361"    data-alignsub="left" data-level="2"><?= Html::a("Oriental", ['/product/index'], ['class' => '']) ?></li>
+                                                                                                                                                                        <li id="menu-item-361" class="menu-item-361" data-id="361"    data-alignsub="left" data-level="2"><?= Html::a("Gift sets", ['/product/index'], ['class' => '']) ?></li>
+                                                                                                                                                                        <li id="menu-item-361" class="menu-item-361" data-id="361"    data-alignsub="left" data-level="2"><?= Html::a("Bakhour", ['/product/index'], ['class' => '']) ?></li>
+                                                                                                                                                                        <li id="menu-item-361" class="menu-item-361" data-id="361"    data-alignsub="left" data-level="2"><?= Html::a("Brands", ['/product/index'], ['class' => '']) ?></li>
                                                                                                                                                                 </ul>
                                                                                                                                                         </div>
                                                                                                                                                 </div>
                                                                                                                                         </div>
                                                                                                                                 </div>
-                                                                                                                                <!--                                                            <div class="mega-col col-md-2 " >
-                                                                                                                                                                                                <div class="mega-col-inner">
-                                                                                                                                                                                                    <div id="wid-32" class="wpo-widget">
-                                                                                                                                                                                                        <h3 class="widget-title">Information</h3>
-                                                                                                                                                                                                        <div class="menu-information-container">
-                                                                                                                                                                                                        <ul id="menu-information" class="megamenu-items">
-                                                                                                                                                                                                        <li id="menu-item-1520" class="menu-item-1520" data-id="1520"    data-alignsub="left" data-level="2"><a href="#">About Us</a></li>
-                                                                                                                                                                                                        <li id="menu-item-1521" class="menu-item-1521" data-id="1521"    data-alignsub="left" data-level="2"><a href="#">Delivery Information</a></li>
-                                                                                                                                                                                                        <li id="menu-item-1522" class="menu-item-1522" data-id="1522"    data-alignsub="left" data-level="2"><a href="#">Privacy Policy</a></li>
-                                                                                                                                                                                                        <li id="menu-item-1523" class="menu-item-1523" data-id="1523"    data-alignsub="left" data-level="2"><a href="#">Terms &#038; Conditions</a></li>
-                                                                                                                                                                                                        </ul>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                </div>
-                                                                                                                                                                                            </div>-->
-                                                                                                                                <!--                                                            <div class="mega-col col-md-2 " >
-                                                                                                                                                                                                <div class="mega-col-inner">
-                                                                                                                                                                                                    <div id="wid-23" class="wpo-widget">
-
-                                                                                                                                                                                                    </div>
-
-                                                                                                                                                                                                </div>
-
-                                                                                                                                                                                            </div>
-                                                                                                                                                                                            <div class="mega-col col-md-6 " >
-                                                                                                                                                                                                <div class="mega-col-inner">
-                                                                                                                                                                                                    <div id="wid-24" class="wpo-widget">
-                                                                                                                                                                                                        <div class="video-responsive">
-                                                                                                                                                                                                        <iframe width="500" height="281" src="https://www.youtube.com/embed/D3T8fFjy_xA?feature=oembed&amp;wmode=opaque"  gesture="media" allow="encrypted-media" allowfullscreen></iframe>
-                                                                                                                                                                                                        </div>
-                                                                                                                                                                                                    </div>
-                                                                                                                                                                                                </div>
-                                                                                                                                                                                            </div>-->
                                                                                                                         </div>
                                                                                                                 </div>
                                                                                                         </div>
                                                                                                 </li>
-                                                                                                <li class="menu-item-370 depth-0 aligned-left " data-id="370"    data-alignsub="left" data-level="1"><a href="" class="" >Watches</a></li>
-                                                                                                <li class="menu-item-1620 depth-0 aligned-left " data-id="1620"    data-alignsub="left" data-level="1"><a href="#" class="dropdown-toggle" >Jewellery</a></li>
-                                                                                                <li class="menu-item-384 depth-0 aligned-left " data-id="384"    data-alignsub="left" data-level="1"><a href="#" class="dropdown-toggle" >Eyewear</a></li>
-                                                                                                <li class="menu-item-388 depth-0 aligned-left " data-id="388"    data-alignsub="left" data-level="1"><a href="#" class="dropdown-toggle" >Bags</a></li>
+                                                                                                <li class="menu-item-370 depth-0 aligned-left " data-id="370"    data-alignsub="left" data-level="1"><?= Html::a("Watches", ['/product/index'], ['class' => '']) ?></li>
+                                                                                                <li class="menu-item-1620 depth-0 aligned-left " data-id="1620"    data-alignsub="left" data-level="1"><?= Html::a("Jewellery", ['/product/index'], ['class' => '']) ?></li>
+                                                                                                <li class="menu-item-384 depth-0 aligned-left " data-id="384"    data-alignsub="left" data-level="1"><?= Html::a("Eyewear", ['/product/index'], ['class' => '']) ?></li>
+                                                                                                <li class="menu-item-388 depth-0 aligned-left " data-id="388"    data-alignsub="left" data-level="1"><?= Html::a("Bags", ['/product/index'], ['class' => '']) ?></li>
                                                                                                 <li class="menu-item-378 dropdown parent mega depth-0 aligned-left " data-id="378"    data-alignsub="left" data-level="1"><a href="#" class="dropdown-toggle" >Accessories <b class="caret"></b></a>
                                                                                                         <div class="dropdown-menu"  >
                                                                                                                 <div class="dropdown-menu-inner">
@@ -484,10 +395,10 @@ and open the template in the editor.
                                                                                                                                 <div class="mega-col col-md-12 "  data-type="menu">
                                                                                                                                         <div class="mega-col-inner">
                                                                                                                                                 <ul class="megamenu-items">
-                                                                                                                                                        <li class="menu-item-379 " data-id="379"    data-alignsub="left" data-level="2"><a href="#">Belts</a></li>
-                                                                                                                                                        <li class="menu-item-380 " data-id="380"    data-alignsub="left" data-level="2"><a href="#">Wallets</a></li>
-                                                                                                                                                        <li class="menu-item-381 " data-id="381"    data-alignsub="left" data-level="2"><a href="#"> Card Holder</a></li>
-                                                                                                                                                        <li class="menu-item-382 " data-id="382"    data-alignsub="left" data-level="2"><a href="#">Novelties</a></li>
+                                                                                                                                                        <li class="menu-item-379 " data-id="379"    data-alignsub="left" data-level="2"><?= Html::a("Belts", ['/product/index'], ['class' => '']) ?></li>
+                                                                                                                                                        <li class="menu-item-380 " data-id="380"    data-alignsub="left" data-level="2"><?= Html::a("Wallets", ['/product/index'], ['class' => '']) ?></li>
+                                                                                                                                                        <li class="menu-item-381 " data-id="381"    data-alignsub="left" data-level="2"><?= Html::a("Card Holder", ['/product/index'], ['class' => '']) ?></li>
+                                                                                                                                                        <li class="menu-item-382 " data-id="382"    data-alignsub="left" data-level="2"><?= Html::a("Novelties", ['/product/index'], ['class' => '']) ?></li>
                                                                                                                                                 </ul>
                                                                                                                                         </div>
                                                                                                                                 </div>
@@ -524,7 +435,7 @@ and open the template in the editor.
                                                                                         <div class="wpb_single_image wpb_content_element overlay vc_align_left">
                                                                                                 <div class="wpb_wrapper">
 
-                                                                                                        <img class=" vc_box_border_grey " src="./images/logo.png" width="144" height="98" alt="logo_footer" title="logo_footer"" />
+                                                                                                        <img class=" vc_box_border_grey " src="<?= Yii::$app->homeUrl ?>./images/logo.png" width="144" height="98" alt="logo_footer" title="logo_footer"" />
                                                                                                 </div>
                                                                                         </div>
                                                                                 </div>
@@ -553,11 +464,11 @@ and open the template in the editor.
                                                                                                         <div class="network-social">
                                                                                                                 <div class="box-heading">Follow Us On Social</div>
                                                                                                                 <ul class="social">
-                                                                                                                        <li><a class="facebook" href="#"><i class="fa fa-facebook stack">Â </i></a></li>
-                                                                                                                        <li><a class="twitter" href="#"><i class="fa fa-twitter stack">Â </i></a></li>
-                                                                                                                        <li><a class="google" href="#"><i class="fa fa-google-plus stack">Â </i></a></li>
-                                                                                                                        <li><a class="youtube" href="#"><i class="fa fa-youtube stack">Â </i></a></li>
-                                                                                                                        <li><a class="skype" href="#"><i class="fa fa-skype stack">Â </i></a></li>
+                                                                                                                        <li><a class="facebook" href="#"><i class="fa fa-facebook stack"> </i></a></li>
+                                                                                                                        <li><a class="twitter" href="#"><i class="fa fa-twitter stack"> </i></a></li>
+                                                                                                                        <li><a class="google" href="#"><i class="fa fa-google-plus stack"> </i></a></li>
+                                                                                                                        <li><a class="youtube" href="#"><i class="fa fa-youtube stack"> </i></a></li>
+                                                                                                                        <li><a class="skype" href="#"><i class="fa fa-skype stack"> </i></a></li>
                                                                                                                 </ul>
                                                                                                         </div>
 
@@ -680,7 +591,7 @@ and open the template in the editor.
                                                                 <aside id="text-13" class="widget clearfix widget_text">			<div class="textwidget"><div class="col-sm-10 col-lg-offset-2 col-md-offset-2 ">
                                                                                         <div class="newsletter-content">
                                                                                                 <div class="img pull-left">
-                                                                                                        <img src="wp-content/themes/fashion/images/avatar.png">
+                                                                                                        <img src="<?= Yii::$app->homeUrl ?>wp-content/themes/fashion/images/avatar.png">
                                                                                                 </div>
                                                                                                 <div class="box form-newsletter pull-right">
                                                                                                         <div class="box-left pull-left">
@@ -1477,6 +1388,7 @@ and open the template in the editor.
                 <script type='text/javascript' src='<?= Yii::$app->homeUrl ?>wp-content/plugins/yith-woocommerce-zoom-magnifier/assets/js/jquery.carouFredSel.minf731.js?ver=6.2.1'></script>
                 <script type='text/javascript' src='<?= Yii::$app->homeUrl ?>wp-content/plugins/yith-woocommerce-zoom-magnifier/assets/js/yith_magnifier.mind279.js?ver=1.1.5'></script>
                 <script type='text/javascript' src='<?= Yii::$app->homeUrl ?>wp-content/plugins/yith-woocommerce-zoom-magnifier/assets/js/frontend.mind279.js?ver=1.1.5'></script>
+                <script type='text/javascript' src='<?= Yii::$app->homeUrl ?>js/custom.js'></script>
                 <!--<script type='text/javascript' src='wp-content/plugins/js_composer/assets/js/js_composer_front83b6.js?ver=4.6.2'></script>-->
 
                 <script>
@@ -1492,6 +1404,71 @@ and open the template in the editor.
                                 jQuery(".call-popup").click(function () {
                                         jQuery(".log-popup").addClass("activepop");
                                 });
+                                jQuery('.search-keyword').on('keyup', function (e) {
+                                        if (jQuery(this).val()[0] === " ") {
+
+
+                                        } else {
+
+                                                if (e.keyCode != 40 && e.keyCode != 38 && e.keyCode != 27) {
+                                                        jQuery.ajax({
+                                                                url: homeUrl + 'product/search-keyword',
+                                                                type: "POST",
+                                                                data: {keyword: $(this).val()},
+                                                                success: function (data) {
+                                                                        jQuery('.search-keyword-dropdown').html(data);
+                                                                }
+                                                        });
+                                                }
+                                        }
+                                });
+                                /********* selected li value to textbox **********/
+                                jQuery(document).on('click', '.search-dropdown li', function () {
+                                        jQuery('.search-dropdown').hide();
+                                        jQuery('.search-keyword').val($(this).attr('id'));
+                                        jQuery('form#serach-formm').submit();
+                                });
+
+                                /********************li navigation keys ***************/
+                                jQuery('.search-keyword').on('keydown', function (e) {
+
+                                        if (e.keyCode == 40) { //down
+
+                                                var selected = $(".search-selected");
+                                                jQuery('.search-dropdown li').removeClass('search-selected');
+                                                if (selected.next().length == 0) {
+                                                        selected.siblings().first().addClass('search-selected');
+                                                } else {
+                                                        selected.next().addClass('search-selected');
+                                                }
+                                        } else if (e.keyCode == 38) { //up
+
+                                                var selected = $(".search-selected");
+                                                jQuery('.search-dropdown li').removeClass('search-selected');
+                                                if (selected.prev().length == 0) {
+                                                        selected.siblings().last().addClass('search-selected');
+                                                } else {
+                                                        selected.prev().addClass('search-selected');
+                                                }
+                                        } else if (e.keyCode == 27) { //escape
+
+                                                jQuery('.search-dropdown').hide();
+                                                jQuery('.search-keyword').val('');
+
+                                        } else if (e.keyCode == 13) { //enter
+
+                                                var value = jQuery('.search-selected').attr('id');
+                                                jQuery('.search-dropdown').hide();
+                                                jQuery('.search-keyword').val(value);
+                                                jQuery('form#serach-formm').submit();
+                                                e.preventDefault();
+                                        }
+
+                                        $(".search-dropdown").scrollTop(0);//set to top
+                                        $(".search-dropdown").scrollTop($('.search-selected:first').offset().top - $(".search-dropdown").height())
+
+                                });
+
                         });
 
                 </script>
@@ -1513,9 +1490,9 @@ and open the template in the editor.
                                         <?php
                                         $modellogin = new LoginForm();
                                         ?>
-                                        <?php $form_login = ActiveForm::begin(['action' => Yii::$app->homeUrl . 'site/login', 'id' => 'login-form', 'options' => ['class' => 'popup-form']]); ?>
+                                        <?php $form_login = ActiveForm::begin(['action' => Yii::$app->homeUrl . 'site/login?go=' . Yii::$app->request->hostInfo . Yii::$app->request->url, 'id' => 'login-form', 'options' => ['class' => 'popup-form']]); ?>
                                         <!--<form class="popup-form">-->
-                                        <input type="email" name="LoginForm[email]" placeholder="Email">
+                                        <input type="text" name="LoginForm[email]" placeholder="Email" required="required">
                                         <input type="password" name="LoginForm[password]" placeholder="Password" required="required">
                                         <?= Html::submitButton('LOGIN', ['class' => 'btn btn-warning', 'name' => 'login-button']) ?>
                                         <!--</form>-->
@@ -1528,12 +1505,12 @@ and open the template in the editor.
                                         <?php
                                         $modelregister = new User();
                                         ?>
-                                        <?php $form_signin = ActiveForm::begin(['action' => Yii::$app->homeUrl . 'site/register', 'id' => 'signup-form', 'options' => ['class' => 'popup-form']]); ?>
+                                        <?php $form_signin = ActiveForm::begin(['action' => Yii::$app->homeUrl . 'site/signup', 'id' => 'signup-form', 'options' => ['class' => 'popup-form']]); ?>
                                         <!--<form class="popup-form">-->
-                                        <input type="text" name="User[username]" placeholder="Username">
-                                        <input type="email" name="User[email]" placeholder="Email">
-                                        <input type="password" name="User[password]" placeholder="Password">
-                                        <input type="password" name="User[re-password]" placeholder="Re-Password">
+                                        <input type="text" name="User[username]" placeholder="Username" required="">
+                                        <input type="email" name="User[email]" placeholder="Email" required=''>
+                                        <input type="password" name="User[password]" placeholder="Password" required="" id='password'>
+                                        <input type="password" name="User[re-password]" placeholder="Re-Password" required="" id='repassword'>
                                         <?= Html::submitButton('SIGN UP', ['class' => 'btn btn-warning']) ?>
                                         <!--<button type="submit">SIGN UP</button>-->
                                         <!--</form>-->
@@ -1548,3 +1525,5 @@ and open the template in the editor.
         </body>
 
 </html>
+
+

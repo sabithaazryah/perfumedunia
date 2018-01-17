@@ -29,11 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="panel panel-default">
                                 <div class="panel-body"><div class="demo-create">
 
-						<?=
-						$this->render('_form', [
-						    'model' => $model,
-						])
-						?>
+                                                <?=
+                                                $this->render('_form', [
+                                                    'model' => $model,
+                                                ])
+                                                ?>
                                         </div>
                                 </div>
                         </div>
@@ -47,96 +47,96 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <span>Search</span>
                                         </button>
 
-					<?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
+                                        <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
 
-					<?=
-					GridView::widget([
-					    'dataProvider' => $dataProvider,
-					    'filterModel' => $searchModel,
-					    'columns' => [
-						    ['class' => 'yii\grid\SerialColumn'],
+                                        <?=
+                                        GridView::widget([
+                                            'dataProvider' => $dataProvider,
+                                            'filterModel' => $searchModel,
+                                            'columns' => [
+                                                    ['class' => 'yii\grid\SerialColumn'],
 //                            'id',
-						[
-						    'attribute' => 'main_category',
-						    'filter' => ['1' => 'Womens', '2' => 'Mens', '3' => 'Oriental', '4' => 'Gift Sets', '5' => 'Brand'],
-						    'value' => function($data) {
-							    if ($data->main_category == 1) {
-								    $val = 'Womens';
-							    } elseif ($data->main_category == 2) {
-								    $val = 'Mens';
-							    } elseif ($data->main_category == 3) {
-								    $val = 'Oriental';
-							    } elseif ($data->main_category == 4) {
-								    $val = 'Gift Sets';
-							    } elseif ($data->main_category == 5) {
-								    $val = 'Brand';
-							    }
-							    return $val;
-						    }
-						],
-						'category',
-						'category_code',
+                                                [
+                                                    'attribute' => 'main_category',
+                                                    'filter' => ['1' => 'Womens', '2' => 'Mens', '3' => 'Oriental', '4' => 'Gift Sets', '5' => 'Brand'],
+                                                    'value' => function($data) {
+                                                            if ($data->main_category == 1) {
+                                                                    $val = 'Fragrances';
+                                                            } elseif ($data->main_category == 2) {
+                                                                    $val = 'Watches';
+                                                            } elseif ($data->main_category == 3) {
+                                                                    $val = 'Jewellery';
+                                                            } elseif ($data->main_category == 4) {
+                                                                    $val = 'Eyewear';
+                                                            } elseif ($data->main_category == 5) {
+                                                                    $val = 'Accessories';
+                                                            }
+                                                            return $val;
+                                                    }
+                                                ],
+                                                'category',
+                                                'category_code',
 //                            'CB',
 //                            'UB',
 //                            'DOC',
-						// 'DOU',
-						[
-						    'attribute' => 'status',
-						    'filter' => ['1' => 'Enable', '0' => 'Disable'],
-						    'value' => function($data) {
-							    return $data->status == 1 ? 'Enable' : 'Disable';
-						    }
-						],
+                                                // 'DOU',
+                                                [
+                                                    'attribute' => 'status',
+                                                    'filter' => ['1' => 'Enable', '0' => 'Disable'],
+                                                    'value' => function($data) {
+                                                            return $data->status == 1 ? 'Enable' : 'Disable';
+                                                    }
+                                                ],
 //                                ['class' => 'yii\grid\ActionColumn',
 //                                    'template' => '{update}{delete}'],
-						[
-						    'class' => 'yii\grid\ActionColumn',
+                                                [
+                                                    'class' => 'yii\grid\ActionColumn',
 //                                    'contentOptions' => ['style' => 'width:100px;'],
-						    'header' => 'Actions',
-						    'template' => '{update}{delete}',
-						    'buttons' => [
-							'update' => function ($url, $model) {
-								return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
-									    'title' => Yii::t('app', 'update'),
-									    'class' => '',
-								]);
-							},
-							'delete' => function ($url, $model) {
-								return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-									    'title' => Yii::t('app', 'delete'),
-									    'class' => '',
-									    'data' => [
-										'confirm' => 'Are you sure you want to delete this item?',
-									    ],
-								]);
-							},
-						    ],
-						    'urlCreator' => function ($action, $model) {
-							    if ($action === 'update') {
-								    $url = Url::to(['index', 'id' => $model->id]);
-								    return $url;
-							    }
-							    if ($action === 'delete') {
-								    $url = Url::to(['del', 'id' => $model->id]);
-								    return $url;
-							    }
-						    }
-						],
-					    ],
-					]);
-					?>
+                                                    'header' => 'Actions',
+                                                    'template' => '{update}{delete}',
+                                                    'buttons' => [
+                                                        'update' => function ($url, $model) {
+                                                                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                                                            'title' => Yii::t('app', 'update'),
+                                                                            'class' => '',
+                                                                ]);
+                                                        },
+                                                        'delete' => function ($url, $model) {
+                                                                return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                                                            'title' => Yii::t('app', 'delete'),
+                                                                            'class' => '',
+                                                                            'data' => [
+                                                                                'confirm' => 'Are you sure you want to delete this item?',
+                                                                            ],
+                                                                ]);
+                                                        },
+                                                    ],
+                                                    'urlCreator' => function ($action, $model) {
+                                                            if ($action === 'update') {
+                                                                    $url = Url::to(['index', 'id' => $model->id]);
+                                                                    return $url;
+                                                            }
+                                                            if ($action === 'delete') {
+                                                                    $url = Url::to(['del', 'id' => $model->id]);
+                                                                    return $url;
+                                                            }
+                                                    }
+                                                ],
+                                            ],
+                                        ]);
+                                        ?>
                                 </div>
                         </div>
                 </div>
         </div>
 </div>
 <script>
-	$(document).ready(function () {
-		$(".filters").slideToggle();
-		$("#search-option").click(function () {
-			$(".filters").slideToggle();
-		});
-	});
+        $(document).ready(function () {
+                $(".filters").slideToggle();
+                $("#search-option").click(function () {
+                        $(".filters").slideToggle();
+                });
+        });
 </script>
 
 

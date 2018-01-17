@@ -16,20 +16,41 @@ use common\models\CmsMetaTags;
 
 class ProductController extends \yii\web\Controller {
 
+        public function beforeAction($action) {
+                $this->enableCsrfValidation = false;
+                return parent::beforeAction($action);
+        }
+
         /**
          * Displays a Products based on category.
          * @param category_code $id
          * @return mixed
          */
         public function actionIndex($id = null, $type = null, $category = null, $featured = null, $keyword = null) {
+
                 $catag = "";
                 $searchModel = new ProductSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
                 $dataProvider->pagination->pageSize = 42;
 
 
+                if (!empty($id) && $id != null) {
+                        $catag = Category::find()->where(['category_code' => $id])->one();
+                        $category = $catag->main_category;
+                } else {
+                        $catag = "";
+                }
+
+                if (isset($keyword) && $keyword != '') {
+                        $this->Search($keyword, $dataProvider);
+                }
+                if (!empty($category)) {
+                        $dataProvider->query->andWhere(['main_category' => $category]);
+                }
+
                 if (!empty($id)) {
-                        $dataProvider->query->andWhere(['main_category' => $id]);
+                        $dataProvider->query->andWhere(['category' => $catag->id]);
+                        $category = $catag->main_category;
                 }
 
                 if ((!empty($type) && $type == 0) || $type != "") {
@@ -64,23 +85,6 @@ class ProductController extends \yii\web\Controller {
                             'keyword' => $keyword,
                 ]);
         }
-
-//	public function actionInternational($id = null, $type = null) {
-//		$catag = Category::find()->where(['category_code' => $id])->one();
-//		$categories = Category::find()->where(['status' => 1])->all();
-//		$searchModel = new ProductSearch();
-//		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-//		$dataProvider->query->andWhere(['main_category' => 2]);
-//		if (!empty($id)) {
-//			$dataProvider->query->andWhere(['category' => $catag->id]);
-//		}
-//		return $this->render('index', [
-//			    'categories' => $categories,
-//			    'dataProvider' => $dataProvider,
-//			    'id' => $id,
-//		]);
-//	}
-
 
         public function Search($keyword, $dataProvider) {
                 $dataProvider->query->andWhere(['like', 'product_name', $keyword])->orWhere(['like', 'canonical_name', $keyword]);
@@ -271,6 +275,7 @@ class ProductController extends \yii\web\Controller {
          */
         public function actionSaveReview() {
                 if (Yii::$app->request->isAjax) {
+
                         $model_review = new \common\models\CustomerReviews();
                         if ($model_review->load(Yii::$app->request->post())) {
                                 $model_review->user_id = Yii::$app->user->identity->id;
@@ -352,6 +357,7 @@ class ProductController extends \yii\web\Controller {
                 if (Yii::$app->request->isAjax) {
 
                         $keyword = $_POST['keyword'];
+
                         if ($keyword != '' || !empty($keyword)) {
                                 $search_tags = \common\models\MasterSearchTag::find()->select('tag_name')->where(['status' => 1])->andWhere((['like', 'tag_name', $keyword]))->all();
                                 $products = Product::find()->where(['status' => 1])->select('product_name')->andWhere((['like', 'product_name', $keyword]))->all();

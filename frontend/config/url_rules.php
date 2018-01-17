@@ -33,5 +33,5 @@ return [
     '<id>' => 'product/index',
     'products/<featured>/<category>' => 'product/index',
     'products/<featured>' => 'product/index',
-//    'product-detail/<product:\w+(-\w+)*>' => 'product/product_detail',
+    'product-detail/<product:\w+(-\w+)*>' => 'product/product_detail',
 ];

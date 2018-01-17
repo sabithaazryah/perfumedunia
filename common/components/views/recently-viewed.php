@@ -6,60 +6,73 @@ use common\components\ProductLinksWidget;
 ?>
 <?php
 if (!empty($recently_viewed)) {
-	?>
-	<div class="international-brands">
-		<h1>Recently viewed</h1>
-		<div class="product-slider">
-			<div id="adv_gp_products_1_columns_carousel" class="carousel slide four_shows_one_move gp_products_carousel_wrapper" data-ride="carousel" data-interval="2000">
-				<!--========= Wrapper for slides =========-->
-				<div class="carousel-inner" role="listbox">
+        ?>
+        <div class="woocommrece products box-element">
 
-					<!--========= 1st slide =========-->
-					<?php
-					$j = 0;
-					$k = 1;
-					foreach ($recently_viewed as $recent) {
-						$j++;
-						$model = \common\models\Product::findOne($recent->product_id);
-						if ($model) {
-							?>
-							<div class="item <?php
-							if ($j == 1) {
-								echo ' active';
-							}
-							?> " >
-								<div class="col-xs-12 col-sm-6 col-md-3 gp_products_item">
-									<?= ProductLinksWidget::widget(['id' => $model->id, 'div_id' => $k]) ?>
-								</div>
-							</div>
-							<?php
-						}
-						$k++;
-					}
-					?>
+                <div class="box-heading"><span>You may also like…</span></div>
+
+                <div class="box-content">
+                        <div class="box-products slide" id="productcarouse-9fMZN">
+                                <div class="carousel-inner">
+                                        <div class="item active">
+                                                <div class="row">
+
+                                                        <?php
+                                                        $f = 0;
+                                                        $count = count($recently_viewed);
+                                                        foreach ($recently_viewed as $featured) {
 
 
+                                                                $f++;
+                                                                if ($f % 5 == 1) {
+                                                                        $class = 1;
+                                                                } else if ($f == $count) {
+                                                                        $class = 0;
+                                                                } else {
+                                                                        $class = '';
+                                                                }
+                                                                ?>
 
-				</div>
+                                                                <?= ProductLinksWidget::widget(['id' => $featured->product_id, 'first' => $class]) ?>
+                                                                <?php
+                                                                if ($f % 5 == 0) {
+                                                                        if ($f != $count) {
+                                                                                ?>
+                                                                        </div>
+                                                                </div>
+                                                                <div class="item">
 
-				<!--======= Navigation Buttons =========-->
+                                                                        <div class="row">
+                                                                                <?php
+                                                                        }
+                                                                }
+                                                        }
+                                                        ?>
 
-				<!--======= Left Button =========-->
-				<a class="left carousel-control gp_products_carousel_control_left" href="#adv_gp_products_1_columns_carousel" role="button" data-slide="prev">
-					<span class="fa fa-angle-left gp_products_carousel_control_icons" aria-hidden="true"></span>
-					<span class="sr-only">Previous</span>
-				</a>
 
-				<!--======= Right Button =========-->
-				<a class="right carousel-control gp_products_carousel_control_right" href="#adv_gp_products_1_columns_carousel" role="button" data-slide="next">
-					<span class="fa fa-angle-right gp_products_carousel_control_icons" aria-hidden="true"></span>
-					<span class="sr-only">Next</span>
-				</a>
 
-			</div> <!--*-*-*-*-*-*-*-*-*-*- END BOOTSTRAP CAROUSEL *-*-*-*-*-*-*-*-*-*-->
-		</div>
-	</div>
-	<?php
-}
-?>
+
+
+
+                                                        <!-- End Product Item -->
+
+                                                </div>
+                                        </div>
+                                </div>
+
+
+                        </div>
+
+                        <br/>
+                        <br/>
+                        <br/>
+
+
+
+
+                </div>
+
+                <?php
+        }
+        ?>
 

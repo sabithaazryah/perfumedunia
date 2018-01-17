@@ -79,33 +79,7 @@ $brands_sub = Category::find()->where(['status' => 1, 'main_category' => 2])->al
                                                                 ]) : $this->render('no_product');
                                                         ?>
 
-
-
-
-
-
-
-
-
-
                                                 </div>
-
-
-
-                                                <div class="wrapper clearfix product-bottom">
-                                                        <nav class="woocommerce-pagination paging">
-                                                                <ul class="page-numbers">
-                                                                        <li><span class="page-numbers current">1</span></li>
-                                                                        <li><a class="page-numbers" href="">2</a></li>
-                                                                        <li><a class="next page-numbers" href="">→</a></li>
-                                                                </ul>
-                                                        </nav>
-                                                        <div class="woocommerce-result-count pull-right">
-                                                                Showing 1–6 of 7 results</div>
-                                                </div>
-
-
-
                                         </div>
                                 </div>
                         </section>
@@ -116,24 +90,24 @@ $brands_sub = Category::find()->where(['status' => 1, 'main_category' => 2])->al
                                                 <ul class="product-categories">
                                                         <li class="cat-item cat-item-238 current-cat cat-parent"><a href="">Fragrances</a>
                                                                 <ul class="children">
-                                                                        <li class="cat-item cat-item-239"><a href="">Man's</a></li>
-                                                                        <li class="cat-item cat-item-240"><a href="">Women's</a></li>
-                                                                        <li class="cat-item cat-item-241"><a href="">Oriental</a></li>
-                                                                        <li class="cat-item cat-item-242"><a href="">Gift Sets</a></li>
-                                                                        <li class="cat-item cat-item-243"><a href="">Bakhour</a></li>
-                                                                        <li class="cat-item cat-item-244"><a href="">Brands</a></li>
+                                                                        <li class="cat-item cat-item-239"><?= Html::a("Men's", ['/product/index'], ['class' => '']) ?></li>
+                                                                        <li class="cat-item cat-item-240"><?= Html::a("Women's", ['/product/index'], ['class' => '']) ?></li>
+                                                                        <li class="cat-item cat-item-241"><?= Html::a("Oriental", ['/product/index'], ['class' => '']) ?></li>
+                                                                        <li class="cat-item cat-item-242"><?= Html::a("Gift sets", ['/product/index'], ['class' => '']) ?></li>
+                                                                        <li class="cat-item cat-item-243"><?= Html::a("Bakhour", ['/product/index'], ['class' => '']) ?></li>
+                                                                        <li class="cat-item cat-item-244"><?= Html::a("Brands", ['/product/index'], ['class' => '']) ?></li>
                                                                 </ul>
                                                         </li>
-                                                        <li class="cat-item cat-item-247"><a href="">Watches</a></li>
-                                                        <li class="cat-item cat-item-252"><a href="">Jewellery</a></li>
-                                                        <li class="cat-item cat-item-250"><a href="">Eyewear</a></li>
-                                                        <li class="cat-item cat-item-251"><a href="">Bags</a></li>
+                                                        <li class="cat-item cat-item-247"><?= Html::a("Watches", ['/product/index'], ['class' => '']) ?></li>
+                                                        <li class="cat-item cat-item-252"><?= Html::a("Jewellery", ['/product/index'], ['class' => '']) ?></li>
+                                                        <li class="cat-item cat-item-250"><?= Html::a("Eyewear", ['/product/index'], ['class' => '']) ?></li>
+                                                        <li class="cat-item cat-item-251"><?= Html::a("Bags", ['/product/index'], ['class' => '']) ?></li>
                                                         <li class="cat-item cat-item-241 cat-parent"><a href="">Accessories</a>
                                                                 <ul class="children">
-                                                                        <li class="cat-item cat-item-243"><a href="">Belts</a></li>
-                                                                        <li class="cat-item cat-item-244"><a href="">Wallets</a></li>
-                                                                        <li class="cat-item cat-item-242"><a href="">Card Holder</a></li>
-                                                                        <li class="cat-item cat-item-242"><a href="">Novelties</a></li>
+                                                                        <li class="cat-item cat-item-243"><?= Html::a("Belts", ['/product/index'], ['class' => '']) ?></li>
+                                                                        <li class="cat-item cat-item-244"><?= Html::a("Wallets", ['/product/index'], ['class' => '']) ?></li>
+                                                                        <li class="cat-item cat-item-242"><?= Html::a("Card Holder", ['/product/index'], ['class' => '']) ?></li>
+                                                                        <li class="cat-item cat-item-242"><?= Html::a("Novelties", ['/product/index'], ['class' => '']) ?></li>
                                                                 </ul>
                                                         </li>
                                                 </ul>
@@ -143,7 +117,7 @@ $brands_sub = Category::find()->where(['status' => 1, 'main_category' => 2])->al
                                                 <ul class="product_list_widget">
                                                         <div class="item-product-widget clearfix">
                                                                 <div class="images pull-left">
-                                                                        <img src="images/products/1.jpg" class="attachment-shop_thumbnail wp-post-image" alt="product-3"> </div>
+                                                                        <img src="<?= Yii::$app->homeUrl ?>images/products/1.jpg" class="attachment-shop_thumbnail wp-post-image" alt="product-3"> </div>
                                                                 <div class="product-meta">
                                                                         <div class="title">
                                                                                 <a href="" title="">
@@ -156,7 +130,7 @@ $brands_sub = Category::find()->where(['status' => 1, 'main_category' => 2])->al
                                                         </div>
                                                         <div class="item-product-widget clearfix">
                                                                 <div class="images pull-left">
-                                                                        <img src="images/products/2.png" class="attachment-shop_thumbnail wp-post-image" alt="product5"> </div>
+                                                                        <img src="<?= Yii::$app->homeUrl ?>images/products/2.png" class="attachment-shop_thumbnail wp-post-image" alt="product5"> </div>
                                                                 <div class="product-meta">
                                                                         <div class="title">
                                                                                 <a href="" title="Simple product">
@@ -169,7 +143,7 @@ $brands_sub = Category::find()->where(['status' => 1, 'main_category' => 2])->al
                                                         </div>
                                                         <div class="item-product-widget clearfix">
                                                                 <div class="images pull-left">
-                                                                        <img src="images/products/3.png" class="attachment-shop_thumbnail wp-post-image" alt="product1"> </div>
+                                                                        <img src="<?= Yii::$app->homeUrl ?>images/products/3.png" class="attachment-shop_thumbnail wp-post-image" alt="product1"> </div>
                                                                 <div class="product-meta">
                                                                         <div class="title">
                                                                                 <a href="" title="">
@@ -182,7 +156,7 @@ $brands_sub = Category::find()->where(['status' => 1, 'main_category' => 2])->al
                                                         </div>
                                                         <div class="item-product-widget clearfix">
                                                                 <div class="images pull-left">
-                                                                        <img src="images/products/4.png" class="attachment-shop_thumbnail wp-post-image" alt="product16"> </div>
+                                                                        <img src="<?= Yii::$app->homeUrl ?>images/products/4.png" class="attachment-shop_thumbnail wp-post-image" alt="product16"> </div>
                                                                 <div class="product-meta">
                                                                         <div class="title">
                                                                                 <a href="" title="">
@@ -195,7 +169,7 @@ $brands_sub = Category::find()->where(['status' => 1, 'main_category' => 2])->al
                                                         </div>
                                                         <div class="item-product-widget clearfix">
                                                                 <div class="images pull-left">
-                                                                        <img src="images/products/5.png" class="attachment-shop_thumbnail wp-post-image" alt="product18"> </div>
+                                                                        <img src="<?= Yii::$app->homeUrl ?>images/products/5.png" class="attachment-shop_thumbnail wp-post-image" alt="product18"> </div>
                                                                 <div class="product-meta">
                                                                         <div class="title">
                                                                                 <a href="" title="Out of stock">
