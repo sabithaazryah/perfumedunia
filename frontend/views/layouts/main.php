@@ -35,7 +35,7 @@ and open the template in the editor.
                 <meta charset="UTF-8">
 
                 <script>
-                        var homeUrl = '<?= yii::$app->homeUrl; ?>';
+                var homeUrl='<?= Yii::$app->homeUrl;?>'
                 </script>
                 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><!-- For SEO -->
                 <meta name="description" content="">
@@ -299,54 +299,8 @@ and open the template in the editor.
 
                                                                                                                                 <!--<li class="customer-links"> <a class=""></a></li>-->
                                                                                                                                 <li id="cart"  class="cart dropdown open">  <a class="dropdown-toggle shp-ca" data-toggle="dropdown" ></a>
-                                                                                                                                        <div class="dropdown-menu dropdown-menu-right larger text-left cart-dropdown" role="menu" style="opacity: 1;">
-                                                                                                                                                <span class="dropdown-triangle-up"></span>
-                                                                                                                                                <a href="#" class="dd-close-btn"><i class="ti-close"></i></a>
-                                                                                                                                                <div class="dropdown-head">
-                                                                                                                                                        <h4 class="pull-left">2 items in the shopping bag</h4>
-                                                                                                                                                </div>
-                                                                                                                                                <div class="dd-wrapper">
-                                                                                                                                                        <div class="dd-list-empty">There is no product in shopping cart!</div>
-                                                                                                                                                        <div id="cart-product-group" class="dropdown-product-list">
-                                                                                                                                                                <div class="dd-product-group" id="pr5">
-                                                                                                                                                                        <div class="dd-product-box pull-left">
-                                                                                                                                                                                <a href="product-detail.php" title="product name">
-                                                                                                                                                                                        <img src="images/products/bottle3.png" alt="product name">
-                                                                                                                                                                                </a>
-                                                                                                                                                                        </div>
-                                                                                                                                                                        <div class="dd-product-desc pull-left">
-                                                                                                                                                                                <a class="title">Beautiful Fit Velvet Sweater For Him test for longer header test for longer header</a>
-                                                                                                                                                                                <div class="qty">1 x <span class="active">$700.00</span></div>
-                                                                                                                                                                                <a href="#" class="close-btn ddr"><i class="ti-close"></i></a>
-                                                                                                                                                                        </div>
-                                                                                                                                                                </div>
-                                                                                                                                                                <div class="dd-product-group" id="pr6">
-                                                                                                                                                                        <div class="dd-product-box pull-left">
-                                                                                                                                                                                <a href="product-detail.php" title="product name">
-                                                                                                                                                                                        <img src="images/products/bottle4.png" alt="product name">
-                                                                                                                                                                                </a>
-                                                                                                                                                                        </div>
-                                                                                                                                                                        <div class="dd-product-desc pull-left">
-                                                                                                                                                                                <a class="title">Beautiful Fit Velvet Sweater For Here</a>
-                                                                                                                                                                                <div class="qty">1 x <span class="active">$800.00</span></div>
-                                                                                                                                                                                <a href="#" class="close-btn ddr"><i class="ti-close"></i></a>
-                                                                                                                                                                        </div>
-                                                                                                                                                                </div>
-                                                                                                                                                                <div class="text-center clear-all-btn">
-                                                                                                                                                                        <span class="cart-block-subtotal">
-                                                                                                                                                                                Cart Subtotal: $1500.00
-                                                                                                                                                                        </span>
-                                                                                                                                                                </div>
-                                                                                                                                                        </div>
-                                                                                                                                                        <div class="row no-gutter">
-                                                                                                                                                                <div class="col-xs-6">
-                                                                                                                                                                        <a href="cart.php" class="btn btn-md btn-third-col btn-w100">View Cart</a>
-                                                                                                                                                                </div>
-                                                                                                                                                                <div class="col-xs-6">
-                                                                                                                                                                        <a href="" class="btn btn-md btn-third-col btn-w100">Procced to Checkout</a>
-                                                                                                                                                                </div>
-                                                                                                                                                        </div>
-                                                                                                                                                </div>
+                                                                                                                                        <div class="dropdown-menu shop-cart dropdown-menu-right larger text-left cart-dropdown" role="menu" style="opacity: 1;">
+                                                                                                                                            <?= common\components\CartDetailWidget::widget()?>
                                                                                                                                         </div>
                                                                                                                                 </li>
                                                                                                                                 <!--<li id="cart">  <a class="cart-link dropdown-toggle" data-toggle="dropdown" ></a></li>-->

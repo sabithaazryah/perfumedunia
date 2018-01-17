@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Html;
 use common\components\RelatedProductWidget;
 use common\components\RecentlyViewedWidget;
 use common\models\Product;
@@ -14,9 +15,10 @@ use yii\helpers\Html;
 
 
 
-                        <!--                        <div class="alert alert-success">
-                                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                                        <a href="cart.php" class="button wc-forward">View Cart</a> “Lorem ipsum“ has been added to your cart. </div>-->
+            <div class="alert alert-success hide">
+                <a href="<?= Yii::$app->homeUrl.'cart/mycart'?>" class="button wc-forward">View Cart</a> â€œ<?= $product_details->product_name ?>â€œ has been added to your cart.
+                <a class="close-alert"><i class="fa fa-close"></i></a>
+            </div>
 
                         <div itemscope="" itemtype="h" id="product-113" class="product-info post-113 product type-product status-publish has-post-thumbnail product_cat-men product_cat-shirt product_cat-top product_tag-dummy featured shipping-taxable product-type-external product-cat-men product-cat-shirt product-cat-top product-tag-dummy instock">
                                 <div id="single-product" class="row box-element">
@@ -161,7 +163,10 @@ use yii\helpers\Html;
 
                                                         </div>
 
-                                                        <div class="clear"></div><a href="" class="compare button add-cart" data-product_id="113">Add To Cart</a><div itemprop="description" class="description">
+                            <div class="clear"></div>
+                            <?= Html::a('Add To Cart', '', ['class' => 'compare button add-cart', 'id' => $product_details->canonical_name]) ?>
+                            <!--<a href="" class="compare button add-cart" data-product_id="113">Add To Cart</a>-->
+                            <div itemprop="description" class="description">
                                                                 <p><?= $product_details->main_description ?></p>
                                                         </div><div class="product_meta">
 
