@@ -93,7 +93,7 @@ class Cart extends \yii\db\ActiveRecord {
             $cart_content = Cart::content($cart_contents);
             $cart_total = Cart::total($cart_contents);
             echo '<span class="dropdown-triangle-up"></span><a href="#" class="dd-close-btn"><i class="ti-close"></i></a><div class="dropdown-head">
-<h4 class="pull-left">' . Cart::cart_count($cart_contents) . ' items in the shopping bag</h4></div><div class="dd-wrapper">
+<h4 class="pull-left">' . Cart::cart_count() . ' items in the shopping bag</h4></div><div class="dd-wrapper">
 <div id="cart-product-group" class="dropdown-product-list">' . $cart_content .
             '<div class="text-center clear-all-btn"><span class="cart-block-subtotal">Cart Subtotal: $' . sprintf("%0.2f", $cart_total) . '</span></div></div>
   <div class="row no-gutter"><div class="col-xs-6">
@@ -101,7 +101,7 @@ class Cart extends \yii\db\ActiveRecord {
   <a href="" class="btn btn-md btn-third-col btn-w100">Procced to Checkout</a></div></div></div>';
         } else {
             echo '<span class="dropdown-triangle-up"></span><a href="#" class="dd-close-btn"><i class="ti-close"></i></a><div class="dropdown-head">
-<h4 class="pull-left">' . Cart::cart_count($cart_contents) . ' items in the shopping bag</h4></div><div class="dd-wrapper">
+<h4 class="pull-left">' . Cart::cart_count() . ' items in the shopping bag</h4></div><div class="dd-wrapper">
     <div class="dd-list-empty">There is no product in shoppings cart!</div></div>';
         }
     }
@@ -154,7 +154,7 @@ class Cart extends \yii\db\ActiveRecord {
         return $subtotal;
     }
 
-    public static function cart_count($cart_contents) {
+    public static function cart_count() {
         $condition = Cart::usercheck();
         $cart_items = Cart::find()->where($condition)->all();
         if (!empty($cart_items)) {
@@ -196,6 +196,10 @@ class Cart extends \yii\db\ActiveRecord {
                 return;
             }
         }
+    }
+    public static function ProductStock($product_id){
+        $product=Product::find()->where(['id' => $product_id, 'status' => '1'])->one();
+        return $product->stock;
     }
 
     public static function date() {

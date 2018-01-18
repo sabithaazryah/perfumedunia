@@ -1,6 +1,5 @@
 <?php
 
-use yii\helpers\Html;
 use common\components\RelatedProductWidget;
 use common\components\RecentlyViewedWidget;
 use common\models\Product;

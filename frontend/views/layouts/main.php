@@ -14,6 +14,8 @@ use common\models\Category;
 use common\models\LoginForm;
 use common\models\User;
 
+
+$cart_count = common\components\Cartcount::Count();
 AppAsset::register($this);
 $params = $parameters = \yii::$app->getRequest()->getQueryParams();
 ?>

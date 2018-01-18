@@ -47,10 +47,10 @@ $this->title = 'Shopping Cart';
                                             $image = '<img src="' . Yii::$app->homeUrl . 'uploads/product/profile_thumb.png" alt=""/>';
                                         }
                                         ?>
-                                        <tr class="cart_item tr_<?= $cart_item->id ?>">
+                                        <tr class="cart_item tr_<?= yii::$app->EncryptDecrypt->Encrypt('encrypt', $cart_item->id); ?>">
 
                                             <td class="product-remove">
-                                                <a class="remove remove_cart" title="Remove this item" data-product_id="<?= $cart_item->id ?>">×</a> </td>
+                                                <a class="remove remove_cart" title="Remove this item" data-product_id="<?= yii::$app->EncryptDecrypt->Encrypt('encrypt', $cart_item->id); ?>">×</a> </td>
 
                                             <td class="product-thumbnail">
                                                 <a href=""><?= $image ?></a> </td>
@@ -64,14 +64,14 @@ $this->title = 'Shopping Cart';
                                             <td class="product-quantity">
                                                 <div class="quantity-adder">
                                                     <div class="quantity buttons_added"><input type="button" value="-" class="minus">
-                                                        <input type="number" step="1" min="1" name="cart[7f6ffaa6bb0b408017b62254211691b5][qty]" value="<?= $cart_item->quantity ?>" title="Qty" class="input-text qty text" size="4">
+                                                        <input type="number" step="1" min="1" max="<?= $prod_details->stock ?>"name="cart[qty]" value="<?= $cart_item->quantity ?>" title="Qty" class="input-text qty cart_quantity text" size="4" id="quantity_<?= yii::$app->EncryptDecrypt->Encrypt('encrypt', $cart_item->id); ?>">
                                                         <input type="button" value="+" class="plus"></div>
                                                 </div>
                                             </td>
 
                                             <td class="product-subtotal">
                                                 <?php $total = $price * $cart_item->quantity; ?>
-                                                <span class="amount">£<?= sprintf("%0.2f", $total) ?></span> </td>
+                                                <span class="amount" id="total_<?= yii::$app->EncryptDecrypt->Encrypt('encrypt', $cart_item->id) ?>">£<?= sprintf("%0.2f", $total) ?></span> </td>
                                         </tr>
                                     <?php } ?>
                                     <tr>
@@ -120,17 +120,25 @@ $this->title = 'Shopping Cart';
 
 
                                                 <ul id="shipping_method">
-                                                    <?php if ($shipping == '0') { ?>
-                                                        <li>
-                                                            <input type="radio" name="shipping_method[0]" data-index="0" id="shipping_method_0_free_shipping" value="free_shipping" checked="checked" class="shipping_method">
-                                                            <label for="shipping_method_0_free_shipping">Free Shipping</label>
-                                                        </li>
-                                                    <?php } else { ?>
-                                                        <li>
-                                                            <input type="radio" name="shipping_method[0]" data-index="0" id="shipping_method_0_international_delivery" value="international_delivery" class="shipping_method">
-                                                            <label for="shipping_method_0_international_delivery">International Delivery: <span class="amount shipping-cost">£<?= sprintf("%0.2f", $shipping) ?></span></label>
-                                                        </li>
-                                                    <?php } ?>
+                                                    <?php
+                                                    $free='';
+                                                    $charge='';
+                                                    if ($shipping == '0') {
+                                                        $free = 'checked="checked"';
+                                                    }else{
+                                                        $charge = 'checked="checked"';
+                                                    }
+                                                    ?>
+                                                    <li class="free_shipping">
+                                                        <input type="radio" name="shipping_method[0]" data-index="0" id="shipping_method_0_free_shipping" value="free_shipping" <?= $free?> class="shipping_method" disabled="disabled">
+                                                        <label for="shipping_method_0_free_shipping">Free Shipping</label>
+                                                    </li>
+<?php // } else {  ?>
+                                                    <li class="shipping_">
+                                                        <input type="radio" name="shipping_method[0]" data-index="0" id="shipping_method_0_international_delivery" value="international_delivery" <?= $charge?> class="shipping_method" disabled="disabled">
+                                                        <label for="shipping_method_0_international_delivery">International Delivery: <span class="amount shipping-cost">£<?= sprintf("%0.2f", $shipping) ?></span></label>
+                                                    </li>
+<?php // }  ?>
                                                 </ul>
 
                                             </td>

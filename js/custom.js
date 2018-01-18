@@ -56,8 +56,25 @@ $(document).ready(function () {
             });
         }
     });
+    jQuery('.cart_quantity').on('change keyup', function () {
+//        showLoader();
+        var quantity = this.value
+        var $ids = $(this).attr('id');
+        var ids = $ids.split('_');
+        var id = ids['1'];
+        var $count = $('#cart_count').val();
+        if (quantity != '' && parseInt(quantity) > '0') {
+            findstock(id, quantity);
+            updatecart(id, quantity, $count);
+        } else if (quantity != '') {
+            $('#quantity_' + id).val('1');
+        }
+    });
 });
 
+
+
+/************************************************************************************************************/
 function getcart() {
 
     jQuery.ajax({
@@ -69,6 +86,50 @@ function getcart() {
     }).done(function (data) {
         jQuery('.shop-cart').html('').html(data);
 //        hideLoader();
+    });
+}
+function findstock(id, quantity) {
+    jQuery.ajax({
+        type: "POST",
+        url: homeUrl + 'cart/findstock',
+        data: {cartid: id, quantity: quantity},
+        success: function (data) {
+            var $data = JSON.parse(data);
+            if ($data.msg === "success") {
+                $('#total_' + id).html('£' + $data.total);
+                $('#quantity_' + id).val($data.quantity);
+//                hideLoader();
+            } else {
+                location.reload();
+//                hideLoader();
+            }
+//
+        }
+    });
+}
+function updatecart(id, quantity, count) {
+    jQuery.ajax({
+        type: "POST",
+        url: homeUrl + 'cart/updatecart',
+        data: {cartid: id, quantity: quantity, count: count},
+        success: function (data) {
+            var $data = JSON.parse(data);
+            if ($data.msg === "success") {
+                $("#cart_count").val($data.cart_count);
+                $('.cart_subtotal').html('£' + $data.subtotal);
+                if ($data.shipping === '0') {
+//                    console.log('ivde');
+                    $('#shipping_method_0_free_shipping').attr("checked", "checked");
+                    $('#shipping_method_0_international_delivery').attr("checked", "false");
+                } else {
+//                    console.log('engane');
+                    $('#shipping_method_0_free_shipping').attr("checked", "false");
+                    $('#shipping_method_0_international_delivery').attr("checked", "checked");
+                }
+                $('.grand_total').html('£' + $data.grandtotal);
+//                hideLoader();
+            }
+        }
     });
 }
 
