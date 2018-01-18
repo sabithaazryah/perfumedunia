@@ -29,7 +29,9 @@ else
                                 </a>
                                 <div class="product-action">
                                         <div class="add-to-cart">
-                                                <a href="" rel="nofollow" data-product_id="112" data-product_sku="" data-quantity="1" class="btn-cart button add_to_cart_button product_type_simple"><i class="fa-fw fa fa-shopping-cart"></i>Add to cart</a>
+<!--                                                <a href="" rel="nofollow" data-product_id="112" data-product_sku="" data-quantity="1" class="btn-cart button add_to_cart_button product_type_simple">
+                                                    <i class="fa-fw fa fa-shopping-cart"></i>Add to cart</a>-->
+                                                <?= Html::a('<i class="fa-fw fa fa-shopping-cart"></i>Add to cart', '', ['class' => 'btn-cart button add_to_cart_button product_type_simple add-cart', 'id' => $model->canonical_name]) ?>
                                         </div>
                                         <div class="wishlist-compare">
                                                 <a class="wishlist fa fa-heart" title="Add to Wish List"><span>Add to Wish List</span></a>

@@ -126,11 +126,15 @@ use yii\helpers\ArrayHelper;
     $(document).ready(function () {
         $('input[type=radio][name=default-address]').change(function () {
             var idd = $(this).val();
-            $.ajax({
+            jQuery.ajax({
                 url: '<?= Yii::$app->homeUrl; ?>myaccounts/user/change-status',
                 type: "POST",
                 data: {id: idd},
                 success: function (data) {
+                    if (data == 1) {
+//                            $("#useraddress-" + idd).remove();
+//                            location.reload();
+                        }
                 }
             });
         });

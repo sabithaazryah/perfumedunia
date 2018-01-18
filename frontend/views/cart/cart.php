@@ -84,9 +84,14 @@ $this->title = 'Shopping Cart';
 
 
                                             </div>
-
-                                            <input type="submit" class="btn btn-default" name="update_cart" value="Update Cart"> <input type="submit" class="checkout-button btn btn-default alt wc-forward" name="proceed" value="Proceed to Checkout">
-
+                                            <input type="submit" class="btn btn-default" name="update_cart" value="Update Cart">
+                                            <?php if (empty(Yii::$app->user->identity)) { ?>
+                                                <!--<li class="call-popup popup1" data-toggle="modal" data-target="#fsModal"><a href="">Log in</a></li>-->
+                                                <input type="button" class="checkout-button btn btn-default alt wc-forward" data-toggle="modal" data-target="#fsModal" value="Login to Checkout">
+                                            <?php } else {
+                                                ?>
+                                                <input type="submit" class="checkout-button btn btn-default alt wc-forward" name="proceed" value="Proceed to Checkout">
+                                            <?php } ?>
 
                                             <input type="hidden" id="_wpnonce" name="_wpnonce" value="e5604b90fe"><input type="hidden" name="_wp_http_referer" value=""> </td>
                                     </tr>
@@ -121,24 +126,24 @@ $this->title = 'Shopping Cart';
 
                                                 <ul id="shipping_method">
                                                     <?php
-                                                    $free='';
-                                                    $charge='';
                                                     if ($shipping == '0') {
-                                                        $free = 'checked="checked"';
-                                                    }else{
-                                                        $charge = 'checked="checked"';
+                                                        $free = '';
+                                                        $charge = 'hide';
+                                                    } else {
+                                                        $charge = '';
+                                                        $free = 'hide';
                                                     }
                                                     ?>
-                                                    <li class="free_shipping">
-                                                        <input type="radio" name="shipping_method[0]" data-index="0" id="shipping_method_0_free_shipping" value="free_shipping" <?= $free?> class="shipping_method" disabled="disabled">
+                                                    <li class="free_shipping <?= $free ?>">
+                                                        <input type="radio" name="shipping_method[0]" data-index="0" id="shipping_method_0_free_shipping" value="free_shipping"  class="shipping_method" checked="checked" disabled="disabled">
                                                         <label for="shipping_method_0_free_shipping">Free Shipping</label>
                                                     </li>
-<?php // } else {  ?>
-                                                    <li class="shipping_">
-                                                        <input type="radio" name="shipping_method[0]" data-index="0" id="shipping_method_0_international_delivery" value="international_delivery" <?= $charge?> class="shipping_method" disabled="disabled">
-                                                        <label for="shipping_method_0_international_delivery">International Delivery: <span class="amount shipping-cost">£<?= sprintf("%0.2f", $shipping) ?></span></label>
+                                                    <?php // } else {   ?>
+                                                    <li class="shipping_ <?= $charge ?>">
+                                                        <input type="radio" name="shipping_method_[0]" data-index="0" id="shipping_method_0_international_delivery" value="international_delivery" class="shipping_method" checked="checked" disabled="disabled">
+                                                        <label for="shipping_method_0_international_delivery">International Delivery: <span class="amount shipping-cost">£<?= sprintf("%0.2f", $ship_charge) ?></span></label>
                                                     </li>
-<?php // }  ?>
+                                                    <?php // }   ?>
                                                 </ul>
 
                                             </td>
@@ -160,8 +165,11 @@ $this->title = 'Shopping Cart';
 
 
                                 <div class="wc-proceed-to-checkout">
-
-                                    <a href="payment-method.php" class="checkout-button button alt wc-forward">Proceed to Checkout</a>
+                                    <?php if (empty(Yii::$app->user->identity)) { ?>
+                                        <a href="javascript:void(0)" class="checkout-button button alt wc-forward" data-toggle="modal" data-target="#fsModal">Login to Checkout</a>
+                                    <?php } else { ?>
+                                        <a href="payment-method.php" class="checkout-button button alt wc-forward">Proceed to Checkout</a>
+                                    <?php } ?>
                                 </div>
 
 

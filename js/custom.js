@@ -117,14 +117,14 @@ function updatecart(id, quantity, count) {
             if ($data.msg === "success") {
                 $("#cart_count").val($data.cart_count);
                 $('.cart_subtotal').html('£' + $data.subtotal);
-                if ($data.shipping === '0') {
+                if ($data.shipping === '0.00') {
 //                    console.log('ivde');
-                    $('#shipping_method_0_free_shipping').attr("checked", "checked");
-                    $('#shipping_method_0_international_delivery').attr("checked", "false");
+                   $('.free_shipping').removeClass('hide');
+                   $('.shipping_').addClass('hide');
                 } else {
 //                    console.log('engane');
-                    $('#shipping_method_0_free_shipping').attr("checked", "false");
-                    $('#shipping_method_0_international_delivery').attr("checked", "checked");
+                   $('.free_shipping').addClass('hide');
+                   $('.shipping_').removeClass('hide');
                 }
                 $('.grand_total').html('£' + $data.grandtotal);
 //                hideLoader();

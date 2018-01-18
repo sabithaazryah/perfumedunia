@@ -281,7 +281,9 @@ and open the template in the editor.
                                                                                                                                 <li class="customer-links dropdown open"> <a class=""></a>
                                                                                                                                         <ul class="dropdown-menu dropdown-menu-right text-left cart-dropdown" role="menu" style="opacity: 1;">
                                                                                                                                                 <span class="dropdown-triangle-up"></span>
-                                                                                                                                                <li><a href="">My account</a></li>
+                                                                                                                                                <?php if (!empty(Yii::$app->user->identity)) { ?>
+                                                                                                                                                <li><a href="<?= Yii::$app->homeUrl.'my-account'?>">My account</a></li>
+                                                                                                                                                <?php }?>
                                                                                                                                                 <li><a href="">My wishlist</a></li>
                                                                                                                                                 <?php if (empty(Yii::$app->user->identity)) { ?>
                                                                                                                                                         <li class="call-popup popup1" data-toggle="modal" data-target="#fsModal"><a href="">Log in</a></li>

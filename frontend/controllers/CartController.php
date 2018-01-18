@@ -110,7 +110,7 @@ class CartController extends \yii\web\Controller {
 //			$shipping = $shippinng_limit > $subtotal ? Cart::shipping_charge($cart_items) : '0';
             $grand_total = $shipping + $subtotal;
 //            $grand_total = $this->net_amount($subtotal, $cart_items);
-            return $this->render('cart', ['cart_items' => $cart_items, 'subtotal' => $subtotal, 'model' => $model, 'order' => $order, 'shipping' => $ship_charge, 'grand_total' => $grand_total]);
+            return $this->render('cart', ['cart_items' => $cart_items, 'subtotal' => $subtotal, 'model' => $model, 'order' => $order, 'shipping' => $shipping, 'grand_total' => $grand_total, 'ship_charge' => $ship_charge]);
         } else {
             return $this->render('emptycart');
         }
@@ -181,7 +181,7 @@ class CartController extends \yii\web\Controller {
             }
         }
     }
-    
+
     public function actionUpdatecart() {
         if (yii::$app->request->isAjax) {
             $cart_id = Yii::$app->request->post()['cartid'];
@@ -206,9 +206,9 @@ class CartController extends \yii\web\Controller {
                         $ship_charge = Settings::findOne(2)->value;
                         $shipping = $shippinng_limit > $subtotal ? $ship_charge : 0;
                         $grandtotal = $shipping + $subtotal;
-                        $cart_count= Cart::cart_count();
+                        $cart_count = Cart::cart_count();
                     }
-                    echo json_encode(array('msg' => 'success', 'subtotal' => sprintf('%0.2f', $subtotal), 'grandtotal' => sprintf('%0.2f', $grandtotal), 'shipping' => sprintf('%0.2f', $shipping),'cart_count'=>$cart_count));
+                    echo json_encode(array('msg' => 'success', 'subtotal' => sprintf('%0.2f', $subtotal), 'grandtotal' => sprintf('%0.2f', $grandtotal), 'shipping' => sprintf('%0.2f', $shipping), 'cart_count' => $cart_count));
                 } else {
                     echo json_encode(array('msg' => 'error', 'content' => 'Cannot be Changed'));
                 }
@@ -217,8 +217,6 @@ class CartController extends \yii\web\Controller {
     }
 
     /*     * *********************End*********************************************** */
-
-   
 
     public function actionCheckout() {
 //        $this->redirect(['cart/proceed']);
