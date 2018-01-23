@@ -36,86 +36,43 @@ use yii\helpers\ArrayHelper;
         <?= Yii::$app->controller->renderPartial('_leftside_menu'); ?>
         <div class="settings">
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 right-box" style="padding: 50px 15px;">
-                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 my-account-cntnt margin-auto align-center">
+                <div class="col-lg-12 col-md-12 col-sm-8 col-xs-12 my-account-cntnt margin-auto align-center">
                     <div class="form-feild-box">
-                        <?php
-                        $form = ActiveForm::begin([
-                                    'options' => [
-                                        'autocomplete' => 'off'
-                                    ],
-                        ]);
-                        ?>
+                        <?php $form = ActiveForm::begin(); ?>
+                        <div class="col-md-8 pad-0">
+                            <?= $form->field($model, 'name')->textInput(['maxlength' => true])->label('Name*') ?>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <?= $form->field($model, 'address')->textInput(['maxlength' => true])->label('Address*') ?>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <?= $form->field($model, 'landmark')->textInput(['maxlength' => true]) ?>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <?= $form->field($model, 'location')->textInput(['maxlength' => true]) ?>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <?= $form->field($model, 'emirate')->dropDownList(ArrayHelper::map(Emirates::find()->all(), 'id', 'name'), ['prompt' => 'select']); ?>
 
-                        <div class="section__content">
-                            <div class="fieldset" data-address-fields="">
+                        </div>
 
-
-                                <div class="field field--optional field--half" data-address-field="name">
-
-                                    <div class="form-row">
-                                          <!--<? $form->field($model, 'name')->textInput(['class'=>'input-text','placeholder'=>'Name']);?>-->
-                                        <input type="text" class="input-text"  name="UserAddress[name]" placeholder="Name" />
-                                        <label class="label-helper" for="input">Name</label>
-                                    </div>
-                                </div>
-                                <div class="field field--optional field--half" data-address-field="address">
-
-                                    <div class="form-row">
-                                        <input type="text" class="input-text" name="UserAddress[address]" id="input checkout_shipping_address_first_name" placeholder="Address" />
-                                        <label class="label-helper" for="input">Address</label>
-                                    </div>
-                                </div>
-                                <div class="field field--optional field--half" data-address-field="landmark">
-
-                                    <div class="form-row">
-                                        <input type="text" class="input-text" name="UserAddress[landmark]" id="input checkout_shipping_address_first_name" placeholder="Landmark" />
-                                        <label class="label-helper" for="input">Landmark</label>
-                                    </div>
-                                </div>
-                                <div class="field field--optional field--half" data-address-field="location">
-
-                                    <div class="form-row">
-                                        <input type="text" class="input-text" name="UserAddress[location]" id="input checkout_shipping_address_first_name" placeholder="Location" />
-                                        <label class="label-helper" for="input">Location</label>
-                                    </div>
-                                </div>
-                                <div class="field field--required field--show-floating-label field--three-eights ptop10" data-address-field="country" data-google-places="true">
-
-                                    <div class="field__input-wrapper field__input-wrapper--select">
-                                        <label class="field__label field__label--visible label-helper" for="checkout_shipping_address_country">Country</label>
-                                        <?= $form->field($model, 'emirate')->dropDownList(ArrayHelper::map(Emirates::find()->all(), 'id', 'name'), ['prompt' => 'select', 'class' => 'field__input field__input--select'])->label(FALSE); ?>
-<!--                                        <select size="1" autocomplete="shipping country" data-backup="country" class="field__input field__input--select" aria-required="true" name="checkout[shipping_address][country]" id="checkout_shipping_address_country">
-                                            <option data-code="IN" selected="selected" value="India">India</option>
-                                            <option data-code="US" value="United States">United States</option>
-                                        </select>-->
-                                    </div>    
-                                </div> 
-                                <div class="field field--optional field--half" data-address-field="post_code">
-
-                                    <div class="form-row">
-                                        <input type="text" class="input-text" name="UserAddress[post_code]" id="input checkout_shipping_address_first_name" placeholder="Post Code" />
-                                        <label class="label-helper" for="input">Post Code</label>
-                                    </div>
-                                </div>
-                                <div class="field field--optional field--half" data-address-field="country_code">
-                                    <div class="date-dropdowns" style="">
+                        <div class="form-group col-md-4">
+                            <?= $form->field($model, 'post_code')->textInput() ?>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="pwd">Mobile Number</label>
+                            <div class="date-dropdowns" style="">
                                 <select class="day" style="position: absolute; border-right: 1px solid #d1d2d0" id="user-country_code" name="UserAddress[country_code]">
                                 <!--<select id="signupform-day" class="day" name="SignupForm[day]">-->
                                     <?php foreach ($country_codes as $country_code) { ?>
-                                        <option value="<?= $country_code ?>" ><?= $country_code ?></option>
+                                        <option value="<?= $country_code ?>" <?= $country_code == $model->country_code ? ' selected' : '' ?>><?= $country_code ?></option>
                                     <?php }
                                     ?>
                                 </select>
-                                <?= $form->field($model, 'mobile_number')->textInput([ 'style' => 'padding-left: 70px;'])->label(FALSE) ?>
+                                <?= $form->field($model, 'mobile_number')->textInput(['placeholder' => '555 555 5555', 'data-format' => '+1 (ddd) ddd-dddd', 'style' => 'padding-left: 70px;'])->label(FALSE) ?>
                                 <!--<input style="padding-left: 70px;" type="phone" id="user-mobile_number" class="form-control" name="UserAddress[mobile_number]" value="<?= $model->mobile_number ?>" maxlength="15" aria-invalid="false" data-format="+1 (ddd) ddd-dddd">-->
                             </div>
-                                </div>
-
-                            </div>
                         </div>
-
-
-                        
                         <?= Html::submitButton('Create', ['class' => 'green2']) ?>
                         <?php ActiveForm::end(); ?>
                     </div>
@@ -177,7 +134,7 @@ use yii\helpers\ArrayHelper;
                     if (data == 1) {
 //                            $("#useraddress-" + idd).remove();
 //                            location.reload();
-                    }
+                        }
                 }
             });
         });

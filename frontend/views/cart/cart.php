@@ -90,7 +90,7 @@ $this->title = 'Shopping Cart';
                                                 <input type="button" class="checkout-button btn btn-default alt wc-forward" data-toggle="modal" data-target="#fsModal" value="Login to Checkout">
                                             <?php } else {
                                                 ?>
-                                                <input type="submit" class="checkout-button btn btn-default alt wc-forward" name="proceed" value="Proceed to Checkout">
+                                                <!--<input type="submit" class="checkout-button btn btn-default alt wc-forward" name="proceed" value="Proceed to Checkout">-->
                                             <?php } ?>
 
                                             <input type="hidden" id="_wpnonce" name="_wpnonce" value="e5604b90fe"><input type="hidden" name="_wp_http_referer" value=""> </td>
@@ -168,7 +168,7 @@ $this->title = 'Shopping Cart';
                                     <?php if (empty(Yii::$app->user->identity)) { ?>
                                         <a href="javascript:void(0)" class="checkout-button button alt wc-forward" data-toggle="modal" data-target="#fsModal">Login to Checkout</a>
                                     <?php } else { ?>
-                                        <a href="payment-method.php" class="checkout-button button alt wc-forward">Proceed to Checkout</a>
+                                        <a href="<?= Yii::$app->homeUrl.'cart/proceed'?>" class="checkout-button button alt wc-forward">Proceed to Checkout</a>
                                     <?php } ?>
                                 </div>
 

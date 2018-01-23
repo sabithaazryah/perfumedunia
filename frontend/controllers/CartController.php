@@ -37,7 +37,7 @@ class CartController extends \yii\web\Controller {
             $canonical_name = Yii::$app->request->post()['product'];
             $qty = Yii::$app->request->post()['qty'];
             $product = Product::find()->where(['canonical_name' => $canonical_name, 'status' => '1'])->one();
-            if ($product) {
+            if ($product->stock > 0) {
                 $condition = Cart::usercheck();
                 $user_id = isset(Yii::$app->user->identity->id) ? Yii::$app->user->identity->id : '';
 
@@ -49,12 +49,11 @@ class CartController extends \yii\web\Controller {
                     $cart->quantity = $quantity;
                     if ($stock >= $quantity) {
                         $cart->save();
-                        Cart::cart_content();
                     }
                 } else {
                     Cart::add_to_cart($user_id, Yii::$app->session['temp_user'], $product->id, $qty);
-                    Cart::cart_content();
                 }
+                Cart::cart_content();
             } else {
                 echo '9';
                 exit;
@@ -70,39 +69,8 @@ class CartController extends \yii\web\Controller {
         }
         $condition = Cart::usercheck();
         $cart_items = Cart::find()->where($condition)->all();
-//        $model = new UserAddress();
-//        $order = new OrderMaster();
-//        if ($order->load(Yii::$app->request->post())) {
-//
-////            $this->check_product($cart_items);
-//            $payment_type = Yii::$app->request->post()['OrderMaster']['payment_type'];
-//            $ship_address = Yii::$app->request->post()['OrderMaster']['ship_address_id'];
-//            $bill_address = Yii::$app->request->post()['OrderMaster']['bill_address_id'];
-//            $check = Cart::CheckTempsession(Yii::$app->request->post());
-//            if ($check == 0)
-//                $order_id = Cart::checkout($ship_address, $bill_address, $payment_type);
-//            $total = Cart::total($cart_items);
-//            $net_amount = Cart::net_amount($total, $cart_items);
-//
-//            if ($payment_type == 3) {
-//
-//                $this->redirect(['myaccounts/wallet/money-from-wallet',
-//                    'net_amount' => $net_amount,
-//                    'ship_address' => $ship_address,
-//                    'bill_address' => $bill_address,
-//                    'order_id' => $order_id,
-//                ]);
-//            } elseif ($payment_type == 2) {
-//                $this->redirect(['checkout/payment', 'id' => $order_id]);
-//            } elseif ($payment_type == 1) {
-//                $this->redirect(['checkout/payment', 'id' => $order_id]);
-//            }
-//        }
         if (!empty($cart_items)) {
-//            if (isset(Yii::$app->user->identity->id)) {
-//                \common\models\TempSession::deleteAll(['user_id' => Yii::$app->user->identity->id]);
-//            }
-//            $this->check_product($cart_items);
+            Cart::check_product();
             $subtotal = Cart::total($cart_items);
             $shippinng_limit = Settings::findOne(1)->value;
             $ship_charge = Settings::findOne(2)->value;
@@ -110,15 +78,9 @@ class CartController extends \yii\web\Controller {
 //			$shipping = $shippinng_limit > $subtotal ? Cart::shipping_charge($cart_items) : '0';
             $grand_total = $shipping + $subtotal;
 //            $grand_total = $this->net_amount($subtotal, $cart_items);
-            return $this->render('cart', ['cart_items' => $cart_items, 'subtotal' => $subtotal, 'model' => $model, 'order' => $order, 'shipping' => $shipping, 'grand_total' => $grand_total, 'ship_charge' => $ship_charge]);
+            return $this->render('cart', ['cart_items' => $cart_items, 'subtotal' => $subtotal, 'shipping' => $shipping, 'grand_total' => $grand_total, 'ship_charge' => $ship_charge]);
         } else {
             return $this->render('emptycart');
-        }
-    }
-
-    public function actionGetcart() {
-        if (yii::$app->request->isAjax) {
-            Cart::cart_content();
         }
     }
 
@@ -216,6 +178,28 @@ class CartController extends \yii\web\Controller {
         }
     }
 
+    public function actionProceed() {
+        if (isset(Yii::$app->user->identity->id)) {
+            $cart = Cart::find()->where(['user_id' => Yii::$app->user->identity->id])->all();
+            if (!empty($cart)) {
+                $order_id = Cart::checkout();
+//                $orders = Cart::addOrder($cart);
+//                Cart::orderProducts($orders, $cart);
+                Yii::$app->session['orderid'] = $order_id;
+//                Cart::clearcart($cart);
+                $this->redirect(array('checkout/promotion'));
+            }
+        } else {
+            $this->redirect(array('site/login'));
+        }
+    }
+
+    public function actionGetcart() {
+        if (yii::$app->request->isAjax) {
+            Cart::cart_content();
+        }
+    }
+
     /*     * *********************End*********************************************** */
 
     public function actionCheckout() {
@@ -252,7 +236,7 @@ class CartController extends \yii\web\Controller {
         }
     }
 
-    public function actionProceed() {
+    public function actionProceed1() {
 //        Yii::$app->session['orderid']='';exit;
         if (isset(Yii::$app->user->identity->id)) {
             if (isset(Yii::$app->session['temp_user'])) {

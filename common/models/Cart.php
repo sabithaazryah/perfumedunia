@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use common\models\OrderMaster;
 
 /**
  * This is the model class for table "cart".
@@ -107,6 +108,7 @@ class Cart extends \yii\db\ActiveRecord {
     }
 
     public static function Content($cart_contents) {
+        $content = '';
         $i = 0;
         foreach ($cart_contents as $cart_content) {
             $i++;
@@ -186,6 +188,7 @@ class Cart extends \yii\db\ActiveRecord {
             unset(Yii::$app->session['temp_user']);
         }
     }
+
     public static function check_cart($condition) {
         $cart_items = Cart::find()->where($condition)->all();
         foreach ($cart_items as $cart) {
@@ -197,9 +200,154 @@ class Cart extends \yii\db\ActiveRecord {
             }
         }
     }
-    public static function ProductStock($product_id){
-        $product=Product::find()->where(['id' => $product_id, 'status' => '1'])->one();
+
+    public static function ProductStock($product_id) {
+        $product = Product::find()->where(['id' => $product_id, 'status' => '1'])->one();
         return $product->stock;
+    }
+
+    public static function check_product() {
+        $cart_items = Cart::find()->where(['user_id' => Yii::$app->user->identity->id])->all();
+        foreach ($cart_items as $cart) {
+            $check_product = Product::find()->where(['id' => $cart->product_id])->one();
+            if (empty($check_product)) {
+                $cart->delete();
+//                $this->redirect('mycart');
+            }
+        }
+    }
+
+    public static function Checkout() {
+        Cart::check_product();
+        $cart = Cart::find()->where(['user_id' => Yii::$app->user->identity->id])->all();
+        $orders = Cart::addOrder($cart);
+        if (Cart::orderProducts($orders, $cart)) {
+//            Cart::Addpromotions($orders);
+            Cart::clearcart($cart);
+            Cart::stock_clear($orders);
+//                Yii::$app->response->redirect(['checkout/payment', 'id' => $orders['order_id']])->send();
+            return $orders['order_id'];
+        } else {
+            Yii::$app->response->redirect(['cart/mycart'])->send();
+            return false;
+        }
+    }
+
+    public static function addOrder($cart) {
+        $model = new OrderMaster;
+        $serial_no = Settings::findOne(4)->value;
+        $prefix = Settings::findOne(4)->prefix;
+        $model->order_id = Cart::generateProductEan($prefix, $serial_no);
+        $model->user_id = Yii::$app->user->identity->id;
+        $total_amt = Cart::total($cart);
+        $model->total_amount = $total_amt;
+        $model->net_amount = Cart::net_amount($total_amt);
+        $model->status = 1;
+        $model->order_date = date('Y-m-d H:i:s');
+        $model->doc = date('Y-m-d');
+
+        if ($model->save()) {
+            return ['master_id' => $model->id, 'order_id' => $model->order_id];
+        }
+//            else {
+//                var_dump($model1->getErrors());
+//                exit;
+//            }
+    }
+
+    public static function orderProducts($orders, $carts) {
+        foreach ($carts as $cart) {
+            $prod_details = Product::findOne($cart->product_id);
+
+            $model_prod = new OrderDetails;
+            $model_prod->master_id = $orders['master_id'];
+            $model_prod->order_id = $orders['order_id'];
+            $model_prod->product_id = $cart->product_id;
+            $model_prod->quantity = $cart->quantity;
+            if ($prod_details->offer_price == '0' || $prod_details->offer_price == '') {
+                $price = $prod_details->price;
+            } else {
+                $price = $prod_details->offer_price;
+            }
+            $model_prod->item_type = $cart->item_type;
+            $model_prod->amount = $price;
+            $model_prod->rate = ($cart->quantity) * ($price);
+            $model_prod->status = '0';
+            if ($model_prod->save()) {
+//                    return TRUE;
+            }
+        }
+        return TRUE;
+    }
+
+    public static function generateProductEan($prefix, $serial_no) {
+        $orderid_exist = OrderMaster::find()->where(['order_id' => $prefix . $serial_no])->one();
+        if (!empty($orderid_exist)) {
+            return Cart::generateProductEan($prefix, $serial_no + 1);
+        } else {
+            Cart::Updateorderid($serial_no);
+            return $prefix . $serial_no;
+        }
+    }
+
+    public static function Updateorderid($id) {
+        echo $id;
+        $orderid = \common\models\Settings::findOne(4);
+        $orderid->value = $id;
+        $orderid->save();
+        return;
+    }
+
+    public static function net_amount($total_amt) {
+        $limit = Settings::findOne(1)->value;
+        $net_amnt = $total_amt;
+        if ($limit > $total_amt) {
+            $extra = Settings::findOne(2)->value;
+            $net_amnt = $extra + $total_amt;
+        }
+        return $net_amnt;
+    }
+
+    public static function orderbilling($bill_address) {
+        $model1 = OrderMaster::find()->where(['order_id' => Yii::$app->session['orderid']])->one();
+        $model1->bill_address_id = $bill_address;
+        $model1->status = 2;
+        $model1->save();
+        if (isset(Yii::$app->request->post()['UserAddress']['check'])) {
+            $model1->ship_address_id = $bill_address;
+            $model1->status = 3;
+            $model1->save();
+            Yii::$app->response->redirect(['checkout/confirm-order'])->send();
+        } else {
+            Yii::$app->response->redirect(['checkout/shipping'])->send();
+        }
+    }
+
+    public static function ordershipping($bill_address) {
+        $model1 = OrderMaster::find()->where(['order_id' => Yii::$app->session['orderid']])->one();
+        $model1->ship_address_id = $bill_address;
+        $model1->status = 3;
+        if ($model1->save()) {
+
+            Yii::$app->response->redirect(['checkout/confirm-order'])->send();
+        }
+    }
+
+    public static function clearcart($models) {
+        foreach ($models as $model) {
+            $model->delete();
+        }
+    }
+
+    public static function stock_clear() {
+        $order_details = OrderDetails::find()->where(['order_id' => $orders['order_id']])->all();
+        foreach ($order_details as $order) {
+            $product = Product::findOne($order->product_id);
+//            $old_qty = $product->stock;
+            $product->stock = $product->stock - $order->quantity;
+            $product->save();
+//            StockHistory::stockhistory($product->qty, '3', $product->id, '3', $old_qty);
+        }
     }
 
     public static function date() {

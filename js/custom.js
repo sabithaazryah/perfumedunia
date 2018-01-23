@@ -1,6 +1,6 @@
 $(document).ready(function () {
     jQuery(".add-cart").click(function () {
-
+        showLoader();
         jQuery('.alert-success').addClass('hide');
         var canname = $(this).attr('id');
         var qty = '1';
@@ -21,7 +21,7 @@ $(document).ready(function () {
 //                $(".shopping-cart").fadeToggle("fast");
 //                $(".shopping-cart-items").html(data);
             }
-//            hideLoader();
+            hideLoader();
         });
     });
     jQuery('.close-alert').click(function () {
@@ -31,7 +31,7 @@ $(document).ready(function () {
         var answer = confirm("Are you sure want to remove?");
         if (answer)
         {
-//            showLoader();
+            showLoader();
             var $id = $(this).attr('data-product_id');
             var $count = $('#cart_count').val();
             jQuery('.error_' + $id).html('');
@@ -48,7 +48,7 @@ $(document).ready(function () {
                         $('.cart_subtotal').html('Â£' + $data.subtotal);
                         $('.shipping-cost').html('Â£' + $data.shipping);
                         $('.grand_total').html('Â£' + $data.grandtotal);
-//                        hideLoader();
+                        hideLoader();
                     }
                 }, error: function () {
                     jQuery('.error_' + $id).html('Cannot Find');
@@ -57,7 +57,7 @@ $(document).ready(function () {
         }
     });
     jQuery('.cart_quantity').on('change keyup', function () {
-//        showLoader();
+        showLoader();
         var quantity = this.value
         var $ids = $(this).attr('id');
         var ids = $ids.split('_');
@@ -69,6 +69,13 @@ $(document).ready(function () {
         } else if (quantity != '') {
             $('#quantity_' + id).val('1');
         }
+    });
+    jQuery(".add_to_wish_list").click(function () {
+        var canname = $(this).attr('id');
+        var div_id = $(this).parent().closest('div').attr('class').split(' ');
+        //$(this).closest(".gp_products_inner").prepend($('<div> new div </div>'));
+
+        addwishlist($(this), canname, $(this).closest(".gp_products_inner"));
     });
 });
 
@@ -119,17 +126,60 @@ function updatecart(id, quantity, count) {
                 $('.cart_subtotal').html('£' + $data.subtotal);
                 if ($data.shipping === '0.00') {
 //                    console.log('ivde');
-                   $('.free_shipping').removeClass('hide');
-                   $('.shipping_').addClass('hide');
+                    $('.free_shipping').removeClass('hide');
+                    $('.shipping_').addClass('hide');
                 } else {
 //                    console.log('engane');
-                   $('.free_shipping').addClass('hide');
-                   $('.shipping_').removeClass('hide');
+                    $('.free_shipping').addClass('hide');
+                    $('.shipping_').removeClass('hide');
                 }
                 $('.grand_total').html('£' + $data.grandtotal);
-//                hideLoader();
+                hideLoader();
             }
         }
     });
+}
+function addwishlist(button, id, closest_div) {
+
+    jQuery.ajax({
+        type: "POST",
+        cache: 'false',
+        async: false,
+        url: homeUrl + 'ajax/savewishlist',
+        data: {product_id: id}
+    }).done(function (data) {
+        if (data == 0) {
+            window.location.href = homeUrl + "site/login-signup";
+        } else {
+            ShowWishlistPopup(button, id, data, closest_div);
+        }
+        hideLoader();
+    });
+}
+
+function ShowWishlistPopup(button, id, flag, closest_div) {
+    var offset = button.offset();
+
+    if (flag == 2) {
+        closest_div.prepend('<div class="wish-list-popup"><i class="fa fa-check" aria-hidden="true"></i>Already Added to Wishlist</div>');
+
+//		$('#wish-list-popup-' + id).html('<i class="fa fa-check" aria-hidden="true"></i>Already Added to Wishlist');
+    } else {
+        console.log('adad');
+        closest_div.prepend('<div class="wish-list-popup"><i class="fa fa-check" aria-hidden="true"></i>Added to Your Wishlist</div>').delay(500).remove(".wish-list-popup");
+//		$('#wish-list-popup-' + id).html('<i class="fa fa-check" aria-hidden="true"></i>Added to Your Wishlist');
+
+    }
+    setTimeout(function () {
+        $('.wish-list-popup').remove();
+    }, 2000);
+    jQuery('#wish-list-popup-' + id).fadeIn('fast').delay(1500).fadeOut('slow');
+}
+
+function showLoader() {
+    $('.page-loading-overlay').removeClass('loaded');
+}
+function hideLoader() {
+    $('.page-loading-overlay').addClass('loaded');
 }
 

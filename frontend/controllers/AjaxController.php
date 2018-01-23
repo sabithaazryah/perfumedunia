@@ -14,6 +14,11 @@ use yii\web\UploadedFile;
 
 class AjaxController extends \yii\web\Controller {
 
+    public function beforeAction($action) {
+        $this->enableCsrfValidation = false;
+        return parent::beforeAction($action);
+    }
+
     public function actionIndex() {
         return $this->render('index');
     }
@@ -378,7 +383,9 @@ class AjaxController extends \yii\web\Controller {
     public function actionSavewishlist() {
         if (Yii::$app->request->isAjax) {
             $flag = 0;
-            $product_id = $_POST['product_id'];
+            $canonical = $_POST['product_id'];
+            $product = \common\models\Product::find()->where(['canonical_name' => $canonical, 'status' => '1'])->one();
+            $product_id = $product->id;
             if ($product_id != '') {
                 $user_id = '';
                 $sessonid = '';
@@ -396,7 +403,12 @@ class AjaxController extends \yii\web\Controller {
                         $model->date = date('Y-m-d');
                         $flag = 2;
                     }
-                    $model->save();
+                    if ($model->save()) {
+                        
+                    } else {
+                        var_dump($model->getErrors());
+                        exit;
+                    }
                 } else {
                     yii::$app->session['wishlist-login'] = '<i class="fa fa-exclamation" aria-hidden="true"></i> Please login for wishlisting a product';
                 }

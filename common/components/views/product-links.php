@@ -12,7 +12,7 @@ else
 ?>
 <div class="shopcol col-lg-3 col-md-4 col-sm-4 col-xs-12 post-111 product type-product status-publish has-post-thumbnail product_cat-men product_cat-shirt product_cat-top featured shipping-taxable product-type-external product-cat-men product-cat-shirt product-cat-top instock <?= $class ?>">
         <div class="product-block product product-grid">
-                <div class="product-inner">
+                <div class="product-inner gp_products_inner" id="<?= $div_id ?>">
                         <div class="image">
                                 <a href="<?= Yii::$app->homeUrl . 'product-detail/' . $model->canonical_name ?>">
 
@@ -31,10 +31,10 @@ else
                                         <div class="add-to-cart">
 <!--                                                <a href="" rel="nofollow" data-product_id="112" data-product_sku="" data-quantity="1" class="btn-cart button add_to_cart_button product_type_simple">
                                                     <i class="fa-fw fa fa-shopping-cart"></i>Add to cart</a>-->
-                                                <?= Html::a('<i class="fa-fw fa fa-shopping-cart"></i>Add to cart', '', ['class' => 'btn-cart button add_to_cart_button product_type_simple add-cart', 'id' => $model->canonical_name]) ?>
+                                                <?= Html::a('<i class="fa-fw fa fa-shopping-cart"></i>Add to cart', 'javascript:void(0)', ['class' => 'btn-cart button add_to_cart_button product_type_simple add-cart', 'id' => $model->canonical_name]) ?>
                                         </div>
                                         <div class="wishlist-compare">
-                                                <a class="wishlist fa fa-heart" title="Add to Wish List"><span>Add to Wish List</span></a>
+                                                <a class="wishlist fa fa-heart add_to_wish_list" id='<?= $model->canonical_name?>' title="Add to Wish List"><span>Add to Wish List</span></a>
 
                                         </div>
                                 </div>

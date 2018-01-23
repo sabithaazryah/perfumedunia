@@ -25,6 +25,7 @@ class ProductLinksWidget extends Widget {
 
         public $id;
         public $first;
+        public $div_id;
 
         public function init() {
                 parent::init();
@@ -36,7 +37,7 @@ class ProductLinksWidget extends Widget {
         public function run() {
 
                 $model = Product::findOne($this->id);
-                return $this->render('product-links', ['model' => $model, 'class' => $this->first]);
+                return $this->render('product-links', ['model' => $model, 'class' => $this->first, 'div_id' => $this->div_id]);
         }
 
 }

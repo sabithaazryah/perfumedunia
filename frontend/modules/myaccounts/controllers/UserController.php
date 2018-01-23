@@ -215,7 +215,11 @@ class UserController extends Controller {
                 $model->status = 1;
             }
             $model->user_id = Yii::$app->user->identity->id;
-            $model->save();
+            if($model->save()){
+                
+            }else{
+                var_dump($model->getErrors());exit;
+            }
             $model = new UserAddress();
             return $this->redirect(Yii::$app->request->referrer);
         }
