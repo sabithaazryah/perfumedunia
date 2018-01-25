@@ -207,7 +207,8 @@ class Cart extends \yii\db\ActiveRecord {
     }
 
     public static function check_product() {
-        $cart_items = Cart::find()->where(['user_id' => Yii::$app->user->identity->id])->all();
+        $condition = Cart::usercheck();
+        $cart_items = Cart::find()->where($condition)->all();
         foreach ($cart_items as $cart) {
             $check_product = Product::find()->where(['id' => $cart->product_id])->one();
             if (empty($check_product)) {
@@ -339,7 +340,7 @@ class Cart extends \yii\db\ActiveRecord {
         }
     }
 
-    public static function stock_clear() {
+    public static function stock_clear($orders) {
         $order_details = OrderDetails::find()->where(['order_id' => $orders['order_id']])->all();
         foreach ($order_details as $order) {
             $product = Product::findOne($order->product_id);

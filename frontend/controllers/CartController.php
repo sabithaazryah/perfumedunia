@@ -109,11 +109,14 @@ class CartController extends \yii\web\Controller {
                     $grandtotal = $shipping + $subtotal;
 //                    $content = Cart::cart_content();
 //                    $grandtotal = $this->net_amount($subtotal, $contents);
-                    echo json_encode(array('msg' => 'success', 'subtotal' => sprintf('%0.2f', $subtotal), 'grandtotal' => sprintf('%0.2f', $grandtotal), 'shipping' => sprintf('%0.2f', $shipping), 'content' => $content));
+                    echo json_encode(array('msg' => 'success', 'subtotal' => sprintf('%0.2f', $subtotal), 'grandtotal' => sprintf('%0.2f', $grandtotal), 'shipping' => sprintf('%0.2f', $shipping)));
                     exit;
                 }
             } else {
-                return $this->redirect('mycart');
+                echo json_encode(array('msg' => 'failed', 'content'=>'empty'));
+                exit;
+//                $this->redirect(array('cart/mycart'));
+//                return $this->redirect('mycart');
             }
         }
     }
@@ -187,10 +190,12 @@ class CartController extends \yii\web\Controller {
 //                Cart::orderProducts($orders, $cart);
                 Yii::$app->session['orderid'] = $order_id;
 //                Cart::clearcart($cart);
-                $this->redirect(array('checkout/promotion'));
+               return $this->redirect(array('checkout/promotion'));
+            }else{
+              return $this->redirect(array('cart/mycart'));
             }
         } else {
-            $this->redirect(array('site/login'));
+            return $this->redirect(array('site/login'));
         }
     }
 

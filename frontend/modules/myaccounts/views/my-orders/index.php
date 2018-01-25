@@ -26,38 +26,44 @@ use common\components\EmptyDataWidget;
 
 <div id="our-product" class="my-account">
     <div class="container">
-        <?= Yii::$app->controller->renderPartial('_leftside_menu'); ?>
-        <div class="my-account-cntnt">
-            <?php
-            if ($dataProvider->totalCount > 0) {
-                ?>
-                <?=
-                ListView::widget([
-                    'dataProvider' => $dataProvider,
-                    'itemView' => 'my-orders',
-                    'pager' => [
-                        'firstPageLabel' => 'first',
-                        'lastPageLabel' => 'last',
-                        'prevPageLabel' => '<',
-                        'nextPageLabel' => '>',
-                        'maxButtonCount' => 3,
-                    ],
-                ]);
-                ?>
-                <?php
-            } else {
-                ?>
-                <div class="settings">
-                    <div class="col-lg-8 col-md-8 col-sm-12 hidden-xs my-account-cntnt empty-data right-box" style="width: 98%;">
-                        <?= EmptyDataWidget::widget(['path' => Yii::$app->homeUrl . 'images/empty-cart.png', 'msg' => 'Your Orders is Empty']) ?>
-                    </div>
-                    <div class="hidden-lg hidden-md hidden-sm col-xs-12 my-account-cntnt empty-data right-box" style="width: 98%;">
-                        <?= EmptyDataWidget::widget(['path' => Yii::$app->homeUrl . 'images/empty-cart.png', 'msg' => 'Your Orders is Empty']) ?>
-                    </div>
+        <div class="row">
+            <div class="col-md-3">
+                <?= Yii::$app->controller->renderPartial('_leftside_menu'); ?>
+            </div>
+            <div class="col-md-9">
+                <div class="my-account-cntnt">
+                    <?php
+                    if ($dataProvider->totalCount > 0) {
+                        ?>
+                        <?=
+                        ListView::widget([
+                            'dataProvider' => $dataProvider,
+                            'itemView' => 'my-orders',
+                            'pager' => [
+                                'firstPageLabel' => 'first',
+                                'lastPageLabel' => 'last',
+                                'prevPageLabel' => '<',
+                                'nextPageLabel' => '>',
+                                'maxButtonCount' => 3,
+                            ],
+                        ]);
+                        ?>
+                        <?php
+                    } else {
+                        ?>
+                        <div class="settings">
+                            <div class="col-lg-8 col-md-8 col-sm-12 hidden-xs my-account-cntnt empty-data right-box" style="width: 98%;">
+                                <?= EmptyDataWidget::widget(['path' => Yii::$app->homeUrl . 'images/empty-cart.png', 'msg' => 'Your Orders is Empty']) ?>
+                            </div>
+                            <div class="hidden-lg hidden-md hidden-sm col-xs-12 my-account-cntnt empty-data right-box" style="width: 98%;">
+                                <?= EmptyDataWidget::widget(['path' => Yii::$app->homeUrl . 'images/empty-cart.png', 'msg' => 'Your Orders is Empty']) ?>
+                            </div>
+                        </div>
+                        <?php
+                    }
+                    ?>
                 </div>
-                <?php
-            }
-            ?>
+            </div>
         </div>
     </div>
 </div>

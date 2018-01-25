@@ -9,7 +9,7 @@ $action = Yii::$app->controller->id . '/' . Yii::$app->controller->action->id;
 //exit;
 ?>
 
-<aside class="col-md-3 col-sm-4 prod-sidebar">
+<aside class="col-md-12 col-sm-4 prod-sidebar">
     <div class="widget-wrap">
         <h2 class="widget-title"> My Account </h2>
 
@@ -21,7 +21,7 @@ $action = Yii::$app->controller->id . '/' . Yii::$app->controller->action->id;
                 <!--<li><a href=""> Change Password</a></li>-->
                 <!--adresses-->
                 <li><?= Html::a('Address Books', ['/myaccounts/user/user-address'], ['class' => '' . $action == 'user/user-address' ? 'list-group-item active' : '']) ?></li>
-                <li><a href=""> Order History</a></li>
+                <li><?= Html::a('Order History', ['/myaccounts/my-orders/index'], ['class' => '' . $action == 'my-orders/index' ? 'list-group-item active' : '']) ?></li>
                 <li><a href=""> Reviews and Ratings</a></li>
                 <li><a href=""> Returns Requests</a></li>
                 <li><a href=""> Newsletter</a></li>

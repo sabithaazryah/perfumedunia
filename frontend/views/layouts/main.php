@@ -163,18 +163,13 @@ and open the template in the editor.
                         <i class="fa fa-times"></i>
                     </button>
                 </div>
-                <?php
-                $catag = Category::find()->where(['status' => 1, 'main_category' => 1, 'category_code' => 'coral-perfumes'])->one();
-                $catag_2 = Category::find()->where(['status' => 1, 'main_category' => 2])->one();
-                if (isset($params['id']))
-                    $prod_main_catag = Category::find()->where(['status' => 1, 'category_code' => $params['id']])->one();
-                ?>
+                
                 <nav  class="navbar navbar-offcanvas navbar-static" role="navigation">
                     <div class="navbar-collapse">
                         <ul id="main-menu-offcanvas" class="wpo-menu-top nav navbar-nav">
                             <li id="menu-item-384" class="dropdown menu-item-384 level-0"><a href="javascript:void(0)">Fragrances <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
-                                    <li id="menu-item-385" class="menu-item-385 level-1"><?= Html::a("Men's", ['/product/index', 'id' => $catag->category_code], ['class' => '']) ?></li>
+                                    <li id="menu-item-385" class="menu-item-385 level-1"><?= Html::a("Men's", ['/product/index'], ['class' => '']) ?></li>
                                     <li id="menu-item-385" class="menu-item-385 level-1"><?= Html::a("Women's", ['/product/index'], ['class' => '']) ?></li>
                                     <li id="menu-item-385" class="menu-item-385 level-1"><?= Html::a("Oriental", ['/product/index'], ['class' => '']) ?></li>
                                     <li id="menu-item-385" class="menu-item-385 level-1"><?= Html::a("Gift sets", ['/product/index'], ['class' => '']) ?></li>
@@ -326,7 +321,7 @@ and open the template in the editor.
                                                                             <!--<h3 class="widget-title">Categories</h3>-->
                                                                             <div class="menu-shortcode-container">
                                                                                 <ul id="menu-shortcode" class="megamenu-items">
-                                                                                    <li id="menu-item-366" class="menu-item-366" data-id="366"    data-alignsub="left" data-level="2"><?= Html::a("Men's", ['/product/index', 'id' => $catag->category_code], ['class' => '']) ?></li>
+                                                                                    <li id="menu-item-366" class="menu-item-366" data-id="366"    data-alignsub="left" data-level="2"><?= Html::a("Men's", ['/product/index'], ['class' => '']) ?></li>
                                                                                     <li id="menu-item-362" class="menu-item-362" data-id="362"    data-alignsub="left" data-level="2"><?= Html::a("Women's", ['/product/index'], ['class' => '']) ?></li>
                                                                                     <li id="menu-item-361" class="menu-item-361" data-id="361"    data-alignsub="left" data-level="2"><?= Html::a("Oriental", ['/product/index'], ['class' => '']) ?></li>
                                                                                     <li id="menu-item-361" class="menu-item-361" data-id="361"    data-alignsub="left" data-level="2"><?= Html::a("Gift sets", ['/product/index'], ['class' => '']) ?></li>

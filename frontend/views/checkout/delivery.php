@@ -61,7 +61,7 @@ $this->title = 'Checkout';
 
                                                         <div class="section__content">
                                                             <div class="fieldset" data-address-fields="">
-                                                                <?php $form = ActiveForm::begin(); ?>
+                                                                <?php $form = ActiveForm::begin(['enableClientValidation' => TRUE]); ?>
 
                                                                 <div class="field field--required field--show-floating-label field--three-eights ptop10" data-address-field="country" data-google-places="true">
 
@@ -71,7 +71,7 @@ $this->title = 'Checkout';
                                                                             <option value=''>Select</option>
                                                                             <?php
                                                                             foreach ($addresses as $address) {
-                                                                                $status = $address->status == 1 ? "selected='selected'" : "";
+                                                                                $status = $address->status == 1 ? "" : "";
                                                                                 ?>
                                                                                 <option value="<?= $address->id ?>" <?= $status ?>><?= $address->address . ', ' . $address->landmark . ', ' . $address->location ?></option>
                                                                             <?php } ?>
@@ -91,22 +91,22 @@ $this->title = 'Checkout';
                                                                     <h2 class="section__title">Address</h2>
                                                                     <!--<form>-->
                                                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padlft0 first-name">
-                                                                        <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'class' => 'field__input input-width billing', 'placeholder' => 'First Name', 'disabled' => 'disabled', 'value' => $address->name])->label(FALSE) ?>
+                                                                        <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'class' => 'field__input input-width billing', 'placeholder' => 'First Name'])->label(FALSE) ?>
                                                                     </div>
 
                                                                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 padlft0 address">
-                                                                        <?= $form->field($model, 'address')->textInput(['maxlength' => true, 'class' => 'field__input input-width billing', 'placeholder' => 'Address', 'disabled' => 'disabled', 'value' => $address->address])->label(FALSE) ?>
+                                                                        <?= $form->field($model, 'address')->textInput(['maxlength' => true, 'class' => 'field__input input-width billing', 'placeholder' => 'Address'])->label(FALSE) ?>
                                                                     </div>
                                                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 padlft0 padright0 apt">
-                                                                        <?= $form->field($model, 'landmark')->textInput(['maxlength' => true, 'class' => 'field__input input-width billing', 'placeholder' => 'Apt, suite, etc. (optional)', 'disabled' => 'disabled', 'value' => $address->landmark])->label(FALSE) ?>
+                                                                        <?= $form->field($model, 'landmark')->textInput(['maxlength' => true, 'class' => 'field__input input-width billing', 'placeholder' => 'Apt, suite, etc. (optional)'])->label(FALSE) ?>
                                                                     </div>
                                                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 padlft0 padright0 apt">
-                                                                        <?= $form->field($model, 'location')->textInput(['maxlength' => true, 'class' => 'field__input input-width billing', 'placeholder' => 'Apt, suite, etc. (optional)', 'disabled' => 'disabled', 'value' => $address->landmark])->label(FALSE) ?>
+                                                                        <?= $form->field($model, 'location')->textInput(['maxlength' => true, 'class' => 'field__input input-width billing', 'placeholder' => 'Apt, suite, etc. (optional)'])->label(FALSE) ?>
                                                                     </div>
                                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padlft0 padright0 city">
                                                                         <div class="field__input-wrapper field__input-wrapper--select">
                                                                             <label class="field__label field__label--visible label-helper" for="checkout_shipping_address_country">Country</label>
-                                                                            <?= $form->field($model, 'emirate')->dropDownList(ArrayHelper::map(Emirates::find()->all(), 'id', 'name'), ['options' => [$address->emirate => ['Selected' => 'selected']], 'prompt' => 'select'])->label(FALSE); ?>
+                                                                            <?= $form->field($model, 'emirate')->dropDownList(ArrayHelper::map(Emirates::find()->all(), 'id', 'name'), ['prompt' => 'select'])->label(FALSE); ?>
 
 
                                                                         </div>
@@ -114,16 +114,16 @@ $this->title = 'Checkout';
 
 
                                                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padlft0 padright0">
-                                                                        <?= $form->field($model, 'post_code')->textInput(['maxlength' => true, 'class' => 'field__input field__input--zip input-width billing', 'placeholder' => 'Pincode', 'disabled' => 'disabled', 'value' => $address->post_code])->label(FALSE) ?>
+                                                                        <?= $form->field($model, 'post_code')->textInput(['maxlength' => true, 'class' => 'field__input field__input--zip input-width billing', 'placeholder' => 'Pincode'])->label(FALSE) ?>
                                                                     </div>
                                                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padlft0 padright0">
                                                                         <select class="day" style="position: absolute; border-right: 1px solid #d1d2d0;height: 45px;" id="useraddress-country_code" name="UserAddress[country_code]">
                                                                             <?php foreach ($country_codes as $country_code) { ?>
-                                                                                <option value="<?= $country_code ?>" <?= $country_code == $address->country_code ? ' selected' : '' ?>><?= $country_code ?></option>
+                                                                                <option value="<?= $country_code ?>" ><?= $country_code ?></option>
                                                                             <?php }
                                                                             ?>
                                                                         </select>
-                                                                        <?= $form->field($model, 'mobile_number')->textInput(['class' => 'input-text billing', 'style' => 'padding-left: 70px', 'disabled' => 'disabled', 'value' => $address->mobile_number])->label(FALSE) ?>
+                                                                        <?= $form->field($model, 'mobile_number')->textInput(['class' => 'input-text billing', 'style' => 'padding-left: 70px'])->label(FALSE) ?>
                                                                     </div>
                                                                     <!--                                    <div class="clearfix"></div>
                                                                                                         <input class="input-checkbox" data-backup="" type="checkbox" value="1" name="" id="save-info"><label class="checkbox__label" for="save-info">Save this information for next time</label>-->

@@ -45,10 +45,12 @@ $(document).ready(function () {
                         $('.tr_' + $id).remove();
                         getcart();
 //                    }
-                        $('.cart_subtotal').html('Â£' + $data.subtotal);
-                        $('.shipping-cost').html('Â£' + $data.shipping);
-                        $('.grand_total').html('Â£' + $data.grandtotal);
+                        $('.cart_subtotal').html('£' + $data.subtotal);
+                        $('.shipping-cost').html('£' + $data.shipping);
+                        $('.grand_total').html('£' + $data.grandtotal);
                         hideLoader();
+                    }else{
+                        window.location.href = homeUrl + "cart/mycart";
                     }
                 }, error: function () {
                     jQuery('.error_' + $id).html('Cannot Find');

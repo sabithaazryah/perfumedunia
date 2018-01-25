@@ -63,7 +63,7 @@ class CheckoutController extends \yii\web\Controller {
 //                exit;
                     if ($model->save()) {
                         Cart::orderbilling($model->id);
-                    } 
+                    }
 //                    else {
 //                        var_dump($model->getErrors());
 //                    }
@@ -83,7 +83,7 @@ class CheckoutController extends \yii\web\Controller {
                 $address = UserAddress::find()->where(['user_id' => Yii::$app->user->identity->id])->all();
                 $model = new UserAddress();
                 $country_codes = ArrayHelper::map(\common\models\CountryCode::find()->where(['status' => 1])->orderBy(['id' => SORT_ASC])->all(), 'id', 'country_code');
-                 if ($model->load(Yii::$app->request->post())) {
+                if ($model->load(Yii::$app->request->post())) {
                     if (isset(Yii::$app->request->post()['UserAddress']['billing']) && Yii::$app->request->post()['UserAddress']['billing'] != '') {
                         $bill_address = Yii::$app->request->post()['UserAddress']['billing'];
                         Cart::ordershipping($bill_address);
@@ -117,8 +117,9 @@ class CheckoutController extends \yii\web\Controller {
                 $model = OrderMaster::find()->where(['order_id' => Yii::$app->session['orderid']])->one();
 
                 $model->status = 4;
+                $model->payment_status = 1;
                 if ($model->save()) {
-                    Cart::stock_clear();
+                    Cart::stock_clear($model);
                     $this->redirect(array('site/index'));
 //                    return $this->redirect(['payment', 'id' => $model->order_id]);
 //                    $this->sendMail(Yii::$app->session['orderid']);

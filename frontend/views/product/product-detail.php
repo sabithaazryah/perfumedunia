@@ -327,30 +327,33 @@ use yii\helpers\Html;
                     <div class="box-heading"><span>SPECIALS</span></div>
                     <ul class="product_list_widget">
                         <?php
-                        $related_products = explode(',', $product_details->related_product);
-                        foreach ($related_products as $val) {
-                            $related_product = Product::findOne($val);
-                            $product_images = Yii::$app->basePath . '/../uploads/product/' . $related_product->id . '/profile/' . $related_product->canonical_name . '_thumb.' . $related_product->profile;
-                            ?>
-                            <div class="item-product-widget clearfix">
-                                <div class="images pull-left">
-                                    <?php if (file_exists($product_images)) { ?>
-                                        <img src="<?= Yii::$app->homeUrl . 'uploads/product/' . $related_product->id . '/profile/' . $related_product->canonical_name . '_thumb.' . $related_product->profile ?>" class="attachment-shop_thumbnail wp-post-image" alt="product-3">
-                                    <?php } else { ?>
-                                        <img src="<?= Yii::$app->homeUrl . 'uploads/product/gallery_dummy.png' ?>" class="attachment-shop_catalog image-hover" alt="product18" />
-                                    <?php } ?>
-                                </div>
-                                <div class="product-meta">
-                                    <div class="title">
-                                        <a href="" title="">
-                                            <?= $related_product->product_name ?>           </a>
+                        if (!empty($related_products = explode(',', $product_details->related_product))) {
+                            foreach ($related_products as $val) {
+                                $related_product = Product::findOne($val);
+                                $product_images = Yii::$app->basePath . '/../uploads/product/' . $related_product->id . '/profile/' . $related_product->canonical_name . '_thumb.' . $related_product->profile;
+                                ?>
+                                <div class="item-product-widget clearfix">
+                                    <div class="images pull-left">
+                                        <?php if (file_exists($product_images)) { ?>
+                                            <img src="<?= Yii::$app->homeUrl . 'uploads/product/' . $related_product->id . '/profile/' . $related_product->canonical_name . '_thumb.' . $related_product->profile ?>" class="attachment-shop_thumbnail wp-post-image" alt="product-3">
+                                        <?php } else { ?>
+                                            <img src="<?= Yii::$app->homeUrl . 'uploads/product/gallery_dummy.png' ?>" class="attachment-shop_catalog image-hover" alt="product18" />
+                                        <?php } ?>
                                     </div>
+                                    <div class="product-meta">
+                                        <div class="title">
+                                            <a href="" title="">
+                                                <?= $related_product->product_name ?>           </a>
+                                        </div>
 
-                                    <span class="price"><span class="amount">£<?= $related_product->offer_price ?></span></span>
+                                        <span class="price"><span class="amount">£<?= $related_product->offer_price ?></span></span>
 
+                                    </div>
                                 </div>
-                            </div>
-                        <?php } ?>
+                                <?php
+                            }
+                        }
+                        ?>
 
                     </ul>
                 </aside>

@@ -33,9 +33,12 @@ use yii\helpers\ArrayHelper;
 
 <div id="our-product" class="my-account">
     <div class="container">
+        <div class="col-md-3">
         <?= Yii::$app->controller->renderPartial('_leftside_menu'); ?>
+        </div>
+        <div class="col-md-9">
         <div class="settings">
-            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 right-box" style="padding: 50px 15px;">
+            <div class="col-lg-12 col-md-8 col-sm-12 col-xs-12 right-box" style="padding: 50px 15px;">
                 <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 my-account-cntnt margin-auto align-center">
                     <div class="form-feild-box">
                         <?php
@@ -157,6 +160,7 @@ use yii\helpers\ArrayHelper;
                 ?>
 
             </div>
+        </div>
         </div>
     </div>
 
