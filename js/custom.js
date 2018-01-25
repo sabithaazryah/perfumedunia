@@ -49,7 +49,7 @@ $(document).ready(function () {
                         $('.shipping-cost').html('£' + $data.shipping);
                         $('.grand_total').html('£' + $data.grandtotal);
                         hideLoader();
-                    }else{
+                    } else {
                         window.location.href = homeUrl + "cart/mycart";
                     }
                 }, error: function () {
@@ -80,6 +80,57 @@ $(document).ready(function () {
         addwishlist($(this), canname, $(this).closest(".gp_products_inner"));
     });
 });
+///////////     my order continue order  starts-> ////////////
+
+jQuery('body').on('click', '.remove_order', function () {
+    var answer = confirm("Are you sure want to remove?");
+    if (answer)
+    {
+        showLoader();
+        var $id = $(this).attr('data-product_id');
+        var $count = $('#cart_count').val();
+        jQuery('.error_' + $id).html('');
+        jQuery.ajax({
+            url: homeUrl + 'checkout/remove-order',
+            type: "post",
+            data: {id: $id, count: $count},
+            success: function (data) {
+                var $data = JSON.parse(data);
+                if ($data.msg === "success") {
+                    $('.tr_' + $id).remove();
+                    getcart();
+//                    }
+                    $('.cart_subtotal').html('£' + $data.subtotal);
+                    $('.shipping-cost').html('£' + $data.shipping);
+                    $('.grand_total').html('£' + $data.grandtotal);
+                    hideLoader();
+                } else {
+                    window.location.href = homeUrl + "checkout/continue?id=" + $data.order_id;
+                }
+            }, error: function () {
+                jQuery('.error_' + $id).html('Cannot Find');
+            }
+        });
+    }
+});
+
+jQuery('.ordqnty').on('change keyup', function () {
+        showLoader();
+        var quantity = this.value
+        var $ids = $(this).attr('id');
+        var ids = $ids.split('_');
+        var id = ids['1'];
+        var $count = $('#cart_count').val();
+        if (quantity != '' && parseInt(quantity) > '0') {
+            findorderstock(id, quantity);
+            updatedetail(id, quantity, $count);
+        } else if (quantity != '') {
+            $('#quantity_' + id).val('1');
+        }
+    });
+
+
+//////////////////////  my order continue order  ends!  ///////////////
 
 
 
@@ -116,10 +167,54 @@ function findstock(id, quantity) {
         }
     });
 }
+function findorderstock(id, quantity) {
+    jQuery.ajax({
+        type: "POST",
+        url: homeUrl + 'checkout/findstock',
+        data: {cartid: id, quantity: quantity},
+        success: function (data) {
+            var $data = JSON.parse(data);
+            if ($data.msg === "success") {
+                $('#total_' + id).html('£' + $data.total);
+                $('#quantity_' + id).val($data.quantity);
+//                hideLoader();
+            } else {
+                location.reload();
+//                hideLoader();
+            }
+//
+        }
+    });
+}
 function updatecart(id, quantity, count) {
     jQuery.ajax({
         type: "POST",
         url: homeUrl + 'cart/updatecart',
+        data: {cartid: id, quantity: quantity, count: count},
+        success: function (data) {
+            var $data = JSON.parse(data);
+            if ($data.msg === "success") {
+                $("#cart_count").val($data.cart_count);
+                $('.cart_subtotal').html('£' + $data.subtotal);
+                if ($data.shipping === '0.00') {
+//                    console.log('ivde');
+                    $('.free_shipping').removeClass('hide');
+                    $('.shipping_').addClass('hide');
+                } else {
+//                    console.log('engane');
+                    $('.free_shipping').addClass('hide');
+                    $('.shipping_').removeClass('hide');
+                }
+                $('.grand_total').html('£' + $data.grandtotal);
+                hideLoader();
+            }
+        }
+    });
+}
+function updatedetail(id, quantity, count) {
+    jQuery.ajax({
+        type: "POST",
+        url: homeUrl + 'checkout/updatecart',
         data: {cartid: id, quantity: quantity, count: count},
         success: function (data) {
             var $data = JSON.parse(data);

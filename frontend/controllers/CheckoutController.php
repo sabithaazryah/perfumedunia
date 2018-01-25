@@ -45,7 +45,7 @@ class CheckoutController extends \yii\web\Controller {
     public function actionCheckout() {
 
         if (isset(Yii::$app->user->identity->id)) {
-            if (Yii::$app->session['orderid']) {
+            if (Yii::$app->session['orderid'] && count(Cart::orderdetails()) > 0) {
                 $address = UserAddress::find()->where(['user_id' => Yii::$app->user->identity->id])->all();
                 $country_codes = ArrayHelper::map(\common\models\CountryCode::find()->where(['status' => 1])->orderBy(['id' => SORT_ASC])->all(), 'id', 'country_code');
 //			if (empty($model)) {
@@ -87,12 +87,6 @@ class CheckoutController extends \yii\web\Controller {
                     if (isset(Yii::$app->request->post()['UserAddress']['billing']) && Yii::$app->request->post()['UserAddress']['billing'] != '') {
                         $bill_address = Yii::$app->request->post()['UserAddress']['billing'];
                         Cart::ordershipping($bill_address);
-//                        $model1 = OrderMaster::find()->where(['order_id' => Yii::$app->session['orderid']])->one();
-//                        $model1->ship_address_id = $bill_address;
-//                        $model1->status = 3;
-//                        if ($model1->save()) {
-//                            $this->redirect(array('checkout/confirm'));
-//                        }
                     } else {
                         Yii::$app->SetValues->Attributes($model);
                         $model->user_id = Yii::$app->user->identity->id;
@@ -117,10 +111,12 @@ class CheckoutController extends \yii\web\Controller {
                 $model = OrderMaster::find()->where(['order_id' => Yii::$app->session['orderid']])->one();
 
                 $model->status = 4;
+                Cart::stock_clear($model);
                 $model->payment_status = 1;
                 if ($model->save()) {
-                    Cart::stock_clear($model);
-                    $this->redirect(array('site/index'));
+                    
+                $this->redirect(array('site/index'));
+
 //                    return $this->redirect(['payment', 'id' => $model->order_id]);
 //                    $this->sendMail(Yii::$app->session['orderid']);
 //                    Yii::$app->session['orderid'] = '';
@@ -148,6 +144,129 @@ class CheckoutController extends \yii\web\Controller {
                 }
             } else {
                 echo json_encode(['rslt' => 'error', 'msg' => 'address cannot be set']);
+            }
+        }
+    }
+
+    public function actionContinue($id) {
+        Yii::$app->session['orderid'] = $id;
+        $cart_items = OrderDetails::find()->where(['order_id' => Yii::$app->session['orderid']])->all();
+        $subtotal = Cart::total($cart_items);
+        $shippinng_limit = Settings::findOne(1)->value;
+        $ship_charge = Settings::findOne(2)->value;
+        $shipping = $shippinng_limit > $subtotal ? $ship_charge : '0';
+//			$shipping = $shippinng_limit > $subtotal ? Cart::shipping_charge($cart_items) : '0';
+        $grand_total = $shipping + $subtotal;
+//            $grand_total = $this->net_amount($subtotal, $cart_items);
+        return $this->render('continue', ['cart_items' => $cart_items, 'subtotal' => $subtotal, 'shipping' => $shipping, 'grand_total' => $grand_total, 'ship_charge' => $ship_charge]);
+//        return $this->render('continue', ['order_id' => Yii::$app->session['orderid'], 'items' => $items, 'subtotal' => $subtotal]);
+//        $this->redirect(array('checkout/checkout'));
+    }
+
+    public function actionRemoveOrder() {
+        if (yii::$app->request->isAjax) {
+            $id = Yii::$app->request->post()['id'];
+            $cart = OrderDetails::findone(yii::$app->EncryptDecrypt->Encrypt('decrypt', $id));
+            $order_id = $cart->order_id;
+            $cart_items = OrderDetails::find()->where(['order_id' => $order_id])->all();
+            if ($cart->delete()) {
+                $contents = OrderDetails::find()->where(['order_id' => $order_id])->all();
+                if (!empty($contents)) {
+                    if (count($cart_items) != Yii::$app->request->post()['count']) {
+                        echo json_encode(array('msg' => 'failed', 'content' => 'orderhistory', 'order_id' => $order_id));
+                        exit;
+                    } else {
+                        $subtotal = Cart::total($contents);
+                        Cart::updatemaster($order_id, $subtotal);
+                        $shippinng_limit = Settings::findOne(2)->value;
+                        $ship_charge = Settings::findOne(3)->value;
+                        $shipping = $shippinng_limit > $subtotal ? $ship_charge : 0;
+                        $grandtotal = $shipping + $subtotal;
+                        echo json_encode(array('msg' => 'success', 'subtotal' => sprintf('%0.2f', $subtotal), 'grandtotal' => sprintf('%0.2f', $grandtotal), 'shipping' => sprintf('%0.2f', $shipping)));
+                        exit;
+                    }
+                } else {
+                    echo json_encode(array('msg' => 'failed', 'content' => 'orderhistory', 'order_id' => $order_id));
+                    exit;
+//                $this->redirect(array('cart/mycart'));
+//                return $this->redirect('mycart');
+                }
+            } else {
+                echo json_encode(array('msg' => 'failed', 'content' => 'orderhistory', 'order_id' => $order_id));
+                exit;
+            }
+        }
+    }
+
+    public function actionProceed() {
+        $orderdetails = OrderDetails::find()->where(['order_id' => Yii::$app->session['orderid']])->all();
+        foreach ($orderdetails as $details) {
+            Cart::updatedetails($details);
+        }
+        $subtotal = Cart::total($orderdetails);
+        Cart::updatemaster(Yii::$app->session['orderid'], $subtotal);
+//        $this->continuepromotion();
+        $this->redirect(array('checkout/promotion'));
+    }
+    
+    public function actionUpdatecart() {
+        if (yii::$app->request->isAjax) {
+            $cart_id = Yii::$app->request->post()['cartid'];
+            $qty = Yii::$app->request->post()['quantity'];
+            if (isset($cart_id)) {
+                $cart = OrderDetails::findone(yii::$app->EncryptDecrypt->Encrypt('decrypt', $cart_id));
+               
+                    $product = Product::findOne($cart->product_id);
+                    if ($qty == 0 || $qty == "") {
+                        $qty = 1;
+                    }
+                    $cart->quantity = $qty > $product->stock ? $product->stock : $qty;
+                    ///
+                    if ($product->offer_price == '0' || $product->offer_price == '') {
+                        $price = $product->price;
+                    } else {
+                        $price = $product->offer_price;
+                    }
+                    $total = $price * $cart->quantity;
+                $cart->amount = $price;
+                $cart->rate = $total;
+                if ($cart->save()) {
+                    $cart_items = OrderDetails::find()->where(['order_id' => $cart->order_id])->all();
+                    if (!empty($cart_items)) {
+                        $subtotal = Cart::total($cart_items);
+                    }
+                    Cart::updatemaster($cart->order_id, $subtotal);
+                    echo json_encode(array('msg' => 'success', 'quantity' => $cart->quantity, 'total' => sprintf('%0.2f', $total), 'subtotal' => sprintf('%0.2f', $subtotal)));
+                } else {
+                    echo json_encode(array('msg' => 'error', 'content' => 'Cannot be Changed'));
+                }
+            } else {
+                echo json_encode(array('msg' => 'error', 'content' => 'Id cannot be set'));
+            }
+        }
+    }
+    public function actionFindstock() {
+        if (yii::$app->request->isAjax) {
+            $cart_id = Yii::$app->request->post()['cartid'];
+            $qty = Yii::$app->request->post()['quantity'];
+            if (isset($cart_id)) {
+                $cart = OrderDetails::findOne(yii::$app->EncryptDecrypt->Encrypt('decrypt', $cart_id));
+                if ($qty == 0 || $qty == "") {
+                    $qty = 1;
+                }
+                $product = Product::find()->where(['id' => $cart->product_id, 'status' => '1'])->one();
+                if (!empty($product)) {
+                    $quantity = $qty > $product->stock ? $product->stock : $qty;
+                    if ($product->offer_price == '0' || $product->offer_price == '') {
+                        $price = $product->price;
+                    } else {
+                        $price = $product->offer_price;
+                    }
+                    $total = $price * $quantity;
+                    echo json_encode(array('msg' => 'success', 'quantity' => $quantity, 'total' => sprintf('%0.2f', $total)));
+                } else {
+                    echo json_encode(array('msg' => 'error', 'quantity' => '', 'total' => sprintf('%0.2f', '0')));
+                }
             }
         }
     }
@@ -377,30 +496,30 @@ class CheckoutController extends \yii\web\Controller {
         return $subtotal;
     }
 
-    public function total_continue($cart) {
-        $subtotal = '0';
-        foreach ($cart as $cart_item) {
-            if ($cart_item->item_type == 1) {
-                $subtotal += ($cart_item->amount * $cart_item->quantity);
-            } else {
-                $product = Product::findOne($cart_item->product_id);
-                if ($product->stock > 0 && $product->stock_availability == '1') {
-                    if ($product->offer_price == '0' || $product->offer_price == '') {
-                        $price = $product->price;
-                    } else {
-                        $price = $product->offer_price;
-                    }
-                    if ($product->stock >= $cart_item->quantity) {
-                        $quantity = $cart_item->quantity;
-                    } else {
-                        $quantity = $product->stock;
-                    }
-                }
-                $subtotal += ($price * $quantity);
-            }
-        }
-        return $subtotal;
-    }
+//    public function total_continue($cart) {
+//        $subtotal = '0';
+//        foreach ($cart as $cart_item) {
+//            if ($cart_item->item_type == 1) {
+//                $subtotal += ($cart_item->amount * $cart_item->quantity);
+//            } else {
+//                $product = Product::findOne($cart_item->product_id);
+//                if ($product->stock > 0 && $product->stock_availability == '1') {
+//                    if ($product->offer_price == '0' || $product->offer_price == '') {
+//                        $price = $product->price;
+//                    } else {
+//                        $price = $product->offer_price;
+//                    }
+//                    if ($product->stock >= $cart_item->quantity) {
+//                        $quantity = $cart_item->quantity;
+//                    } else {
+//                        $quantity = $product->stock;
+//                    }
+//                }
+//                $subtotal += ($price * $quantity);
+//            }
+//        }
+//        return $subtotal;
+//    }
 
     public function actionPromotionCheck() {
         if (Yii::$app->request->isAjax) {
@@ -494,90 +613,20 @@ class CheckoutController extends \yii\web\Controller {
         }
     }
 
-    public function actionContinue($id) {
-        Yii::$app->session['orderid'] = $id;
-        $items = OrderDetails::find()->where(['order_id' => Yii::$app->session['orderid']])->all();
-        $subtotal = $this->total_continue($items);
-        return $this->render('continue', ['order_id' => Yii::$app->session['orderid'], 'items' => $items, 'subtotal' => $subtotal]);
-//        $this->redirect(array('checkout/checkout'));
-    }
+    
 
-    public function actionRemoveOrder($id) {
-        $cart = OrderDetails::findone($id);
-        $order_id = $cart->order_id;
-        if ($cart->delete()) {
-            return $this->redirect(['continue', 'id' => $order_id]);
-        } else {
-            return $this->redirect(['continue', 'id' => $order_id]);
-        }
-    }
-
-    public function actionUpdatecart() {
-        if (yii::$app->request->isAjax) {
-            $cart_id = Yii::$app->request->post()['cartid'];
-            $qty = Yii::$app->request->post()['quantity'];
-            if (isset($cart_id)) {
-                $cart = OrderDetails::findone($cart_id);
-                if ($cart->item_type == '1') {
-                    $prdct = CreateYourOwn::findOne($cart->product_id);
-                    $cart->quantity = $qty > 100 ? 100 : $qty;
-                    $price = $prdct->tot_amount;
-                    $total = $cart->quantity * $prdct->tot_amount;
-                } else {
-                    $product = Product::findOne($cart->product_id);
-                    if ($qty == 0 || $qty == "") {
-                        $qty = 1;
-                    }
-                    $cart->quantity = $qty > $product->stock ? $product->stock : $qty;
-                    ///
-                    if ($product->offer_price == '0' || $product->offer_price == '') {
-                        $price = $product->price;
-                    } else {
-                        $price = $product->offer_price;
-                    }
-                    $total = $price * $cart->quantity;
-                }
-                $cart->amount = $price;
-                $cart->rate = $total;
-                if ($cart->save()) {
-                    $cart_items = OrderDetails::find()->where(['order_id' => $cart->order_id])->all();
-                    if (!empty($cart_items)) {
-                        $subtotal = $this->total_continue($cart_items);
-                    }
-                    $this->updatemaster($cart->order_id, $subtotal);
-                    echo json_encode(array('msg' => 'success', 'quantity' => $cart->quantity, 'total' => sprintf('%0.2f', $total), 'subtotal' => sprintf('%0.2f', $subtotal)));
-                } else {
-                    echo json_encode(array('msg' => 'error', 'content' => 'Cannot be Changed'));
-                }
-            } else {
-                echo json_encode(array('msg' => 'error', 'content' => 'Id cannot be set'));
-            }
-        }
-    }
-
-    function updatemaster($order_id, $subtotal) {
-        $ordermaster = OrderMaster::find()->where(['order_id' => $order_id])->one();
-        $limit = Settings::findOne(1)->value;
-        $net_amnt = $subtotal;
-        if ($limit > $subtotal) {
-            $extra = Settings::findOne(2)->value;
-            $net_amnt = $extra + $subtotal;
-        }
-        $ordermaster->total_amount = $subtotal;
-        $ordermaster->net_amount = $net_amnt;
-        $ordermaster->save();
-    }
-
-    public function actionProceed() {
-        $orderdetails = OrderDetails::find()->where(['order_id' => Yii::$app->session['orderid']])->all();
-        foreach ($orderdetails as $details) {
-            $this->updatedetails($details);
-        }
-        $subtotal = $this->total_continue($orderdetails);
-        $this->updatemaster(Yii::$app->session['orderid'], $subtotal);
-        $this->continuepromotion();
-        $this->redirect(array('checkout/promotion'));
-    }
+//    function updatemaster($order_id, $subtotal) {
+//        $ordermaster = OrderMaster::find()->where(['order_id' => $order_id])->one();
+//        $limit = Settings::findOne(1)->value;
+//        $net_amnt = $subtotal;
+//        if ($limit > $subtotal) {
+//            $extra = Settings::findOne(2)->value;
+//            $net_amnt = $extra + $subtotal;
+//        }
+//        $ordermaster->total_amount = $subtotal;
+//        $ordermaster->net_amount = $net_amnt;
+//        $ordermaster->save();
+//    }
 
     function continuepromotion() {
         $order = OrderMaster::find()->where(['order_id' => Yii::$app->session['orderid']])->one();
@@ -594,32 +643,6 @@ class CheckoutController extends \yii\web\Controller {
             $promotion->save();
             $ordrpromo->delete();
         }
-    }
-
-    function updatedetails($details) {
-        $product = Product::findOne($details->product_id);
-        if ($details->item_type != 1) {
-            if ($product->stock == '0' || $product->stock_availability == '0') {
-                $details->delete();
-            } elseif ($product->stock > '0' && $product->stock < $details->quantity) {
-                $quantity = $product->stock;
-            } elseif ($product->stock >= $details->quantity) {
-                $quantity = $details->quantity;
-            }
-            if ($product->offer_price == '0' || $product->offer_price == '') {
-                $price = $product->price;
-            } else {
-                $price = $product->offer_price;
-            }
-        }
-        if ($details->item_type == 1) {
-            $details->rate = $details->amount * $details->quantity;
-        } else {
-            $details->quantity = $quantity;
-            $details->amount = $price;
-            $details->rate = ($price * $quantity);
-        }
-        $details->save();
     }
 
 }

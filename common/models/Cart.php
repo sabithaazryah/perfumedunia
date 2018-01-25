@@ -345,11 +345,57 @@ class Cart extends \yii\db\ActiveRecord {
         foreach ($order_details as $order) {
             $product = Product::findOne($order->product_id);
 //            $old_qty = $product->stock;
-            $product->stock = $product->stock - $order->quantity;
+            $stock = $product->stock - $order->quantity;
+            $product->stock = $stock > 0 ? $stock : 0;
             $product->save();
 //            StockHistory::stockhistory($product->qty, '3', $product->id, '3', $old_qty);
         }
     }
+
+    public static function orderdetails() {
+        $order_details = OrderDetails::find()->where(['order_id' => Yii::$app->session['orderid']])->all();
+        return $order_details;
+    }
+
+    /*     * *******Checkout***************** */
+
+    public static function updatedetails($details) {
+        $product = Product::findOne($details->product_id);
+
+        if ($product->stock == '0' || $product->stock_availability == '0') {
+            $details->delete();
+        } elseif ($product->stock > '0' && $product->stock < $details->quantity) {
+            $quantity = $product->stock;
+        } elseif ($product->stock >= $details->quantity) {
+            $quantity = $details->quantity;
+        }
+        if ($product->offer_price == '0' || $product->offer_price == '') {
+            $price = $product->price;
+        } else {
+            $price = $product->offer_price;
+        }
+        $details->quantity = $quantity;
+        $details->amount = $price;
+        $details->rate = ($price * $quantity);
+        if ($details->save()) {
+            return TRUE;
+        }
+    }
+
+    public static function updatemaster($order_id, $subtotal) {
+        $ordermaster = OrderMaster::find()->where(['order_id' => $order_id])->one();
+        $limit = Settings::findOne(1)->value;
+        $net_amnt = $subtotal;
+        if ($limit > $subtotal) {
+            $extra = Settings::findOne(2)->value;
+            $net_amnt = $extra + $subtotal;
+        }
+        $ordermaster->total_amount = $subtotal;
+        $ordermaster->net_amount = $net_amnt;
+        $ordermaster->save();
+    }
+
+    /*     * ******************* */
 
     public static function date() {
         $date = date('Y-m-d H:i:s', strtotime(date('Y-m-d H:i:s') . ' - 8 days'));
