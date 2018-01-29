@@ -134,6 +134,14 @@
         padding-bottom: 2em;
     }
 }
+@media (min-width:768px) and (max-width:992px){
+    .firstname {
+        width: 49%;
+    }
+    .lastname {
+        width: 49%;
+    } 
+}
 @media (min-width:992px){
     #wpo-mainnav.menu_fixed {
         height: 65px;;
@@ -183,5 +191,14 @@
     }
     .floating-labels .field--quarter {
         width: 25%;
+    }
+}
+@media (max-width:468px){
+    .firstname {
+        width: 100%;
+        margin-right: 0px;
+    }
+    .lastname {
+        width: 100%;
     }
 }

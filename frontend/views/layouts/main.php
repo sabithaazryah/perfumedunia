@@ -163,7 +163,7 @@ and open the template in the editor.
                         <i class="fa fa-times"></i>
                     </button>
                 </div>
-                
+
                 <nav  class="navbar navbar-offcanvas navbar-static" role="navigation">
                     <div class="navbar-collapse">
                         <ul id="main-menu-offcanvas" class="wpo-menu-top nav navbar-nav">
@@ -476,9 +476,9 @@ and open the template in the editor.
                                             <div class="wpb_widgetised_column wpb_content_element">
                                                 <div class="wpb_wrapper">
                                                     <aside id="nav_menu-9" class="widget clearfix widget_nav_menu"><div class="box-heading"><span>Information</span></div><div class="menu-information-container"><ul id="menu-information-1" class="menu"><li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1520"><a href="#">About Us</a></li>
-                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1521"><a href="#">Delivery Information</a></li>
-                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1522"><a href="#">Privacy Policy</a></li>
-                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1523"><a href="#">Terms &#038; Conditions</a></li>
+                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1521"><a href="<?= yii::$app->homeUrl . 'delivery-information' ?>">Delivery Information</a></li>
+                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1522"><a href="<?= yii::$app->homeUrl . 'privacy-policy' ?>">Privacy Policy</a></li>
+                                                                <li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1523"><a href="<?= yii::$app->homeUrl . 'terms-condition' ?>">Terms &#038; Conditions</a></li>
                                                             </ul></div></aside>
                                                 </div>
                                             </div>
@@ -749,9 +749,9 @@ and open the template in the editor.
             <div class="login-register-popup">
                 <div class="login-form">
                     <h3><img style="margin: 0 auto;" class="img-responsive" src="<?= Yii::$app->homeUrl ?>images/logo.png"/></h3>
-                    <span>LOGIN YOUR ACCOUNT</span>
-                    <a href="#" title=""><i class="fa fa-facebook"></i> Login With Facebook</a>
-                    <div class="signup"><i>Or Sign up</i></div>
+<!--                    <span>LOGIN YOUR ACCOUNT</span>
+                    <a href="#" title=""><i class="fa fa-facebook"></i> Login With Facebook</a>-->
+                    <div class="signup"><i>Login</i></div>
                     <?php
                     $modellogin = new LoginForm();
                     ?>
@@ -762,8 +762,8 @@ and open the template in the editor.
                     <?= Html::submitButton('LOGIN', ['class' => 'btn btn-warning', 'name' => 'login-button']) ?>
                     <!--</form>-->
                     <?php ActiveForm::end(); ?>
-                    <p class="note">* Denotes mandatory field.</p>
-                    <p class="note">** At least one telephone number is required.</p>
+
+                    <a class="forget" href="<?= yii::$app->homeUrl; ?>forgot-password">Forgot your password?</a>
                 </div><!-- Login Form -->
                 <div class="register-form">
                     <h3>Don't have account?	Register Now</h3>
@@ -772,14 +772,28 @@ and open the template in the editor.
                     ?>
                     <?php $form_signin = ActiveForm::begin(['action' => Yii::$app->homeUrl . 'site/signup', 'id' => 'signup-form', 'options' => ['class' => 'popup-form']]); ?>
                     <!--<form class="popup-form">-->
-                    <input type="text" name="User[username]" placeholder="Username" required="">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pad0 firstname">
+                        <input type="text" name="User[first_name]" placeholder="Firstname" required="">
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pad0 lastname">
+                        <input type="text" name="User[last_name]" placeholder="Lastname" required="">
+                    </div>
                     <input type="email" name="User[email]" placeholder="Email" required=''>
+                    <input type="text" name="User[mobile]" placeholder="Mobile" required="">
+                    <!--<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pad0 firstname">-->
+                        <input type="text" name="User[gender]" placeholder="Gender" required="">
+                    <!--</div>-->
+                    <!--<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pad0 lastname">-->
+                        <input type="date" name="User[dob]" placeholder="DOB" required="">
+                    <!--</div>-->
                     <input type="password" name="User[password]" placeholder="Password" required="" id='password'>
                     <input type="password" name="User[re-password]" placeholder="Re-Password" required="" id='repassword'>
                     <?= Html::submitButton('SIGN UP', ['class' => 'btn btn-warning']) ?>
                     <!--<button type="submit">SIGN UP</button>-->
                     <!--</form>-->
                     <?php ActiveForm::end(); ?>
+                    <p class="note">* Denotes mandatory field.</p>
+                    <p class="note">** At least one telephone number is required.</p>
                 </div>
             </div>
             <!-- dialog -->

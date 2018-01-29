@@ -1016,15 +1016,15 @@ a.close-btn {
     letter-spacing: 0.4px;
 }
 .login-form > a {
-    background: none repeat scroll 0 0 #00a9e9;
+    /*background: none repeat scroll 0 0 #00a9e9;*/
     color: #fff;
-    display: inline-block;
-    font-family: lato;
-    font-size: 16px;
-    font-weight: 700;
-    margin-top: 40px;
-    padding: 8px 20px 8px 60px;
-    position: relative;
+    /*    display: inline-block;
+        font-family: lato;
+        font-size: 16px;
+        font-weight: 700;
+        margin-top: 40px;
+        padding: 8px 20px 8px 60px;
+        position: relative;*/
 }
 .login-form > a i {
     background: none repeat scroll 0 0 rgba(0, 0, 0, 0.1);
@@ -1168,6 +1168,52 @@ a.close-btn {
 .modal::-webkit-scrollbar { 
     display: none; 
 }
+.firstname{
+    width: 48%;
+    margin-right: 10px;
+}
+.firstname input{
+    background: none repeat scroll 0 0 #dfc5b5;
+    color: #f3ded0 !important;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px 30px;
+    border: 0 none !important;
+
+}
+.firstname input:focus{
+    background: none repeat scroll 0 0 #444444;
+    border: 0 none !important;
+    box-shadow: none !important;
+    color: #777777;
+    float: left;
+    font-style: italic;
+    margin-bottom: 10px;
+    padding: 10px 30px;
+    width: 100%;
+}
+.lastname{
+    width: 48%;
+}
+.lastname input{
+    background: none repeat scroll 0 0 #dfc5b5;
+    color: #f3ded0 !important;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px 30px;
+    border: 0 none !important;
+}
+.lastname input:focus{
+    background: none repeat scroll 0 0 #444444;
+    c
+    box-shadow: none !important;
+    color: #777777;
+    float: left;
+    font-style: italic;
+    margin-bottom: 10px;
+    padding: 10px 30px;
+    width: 100%;
+} 
 
 /***************************************Payment-method*******************************/
 .anyflexbox body, .anyflexbox .content, .anyflexbox .content .wrap, .anyflexbox .main {

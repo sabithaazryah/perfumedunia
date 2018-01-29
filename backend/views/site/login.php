@@ -25,7 +25,7 @@ $form = ActiveForm::begin(
 ?>
 <div class="login-header">
     <a href="#" class="logo">
-        <img src="<?= yii::$app->homeUrl; ?>images/logo_2.png" alt="" width="80" />
+        <!--<img src="<? yii::$app->homeUrl; ?>images/logo_2.png" alt="" width="80" />-->
     </a>
 
     <p>Dear user, log in to access the admin area!</p>

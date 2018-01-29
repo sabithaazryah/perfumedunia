@@ -157,14 +157,17 @@ use dosamigos\ckeditor\CKEditor;
                                         ?>
                                 </div>
 
-                                <div class='col-md-12 col-sm-6 col-xs-12 '>
+                                <div class='col-md-4 col-sm-6 col-xs-12 '>
                                         <?= $form->field($model, 'featured_product')->dropDownList(['0' => 'No', '1' => 'Yes']) ?>
                                 </div>
-                                <div class='col-md-12 col-sm-6 col-xs-12 '>
+                                <div class='col-md-4 col-sm-6 col-xs-12 '>
                                         <?= $form->field($model, 'status')->dropDownList(['1' => 'Enable', '0' => 'Disable']) ?>
                                 </div>
-                                <!--Meta--->
                                 <div class='col-md-4 col-sm-6 col-xs-12 '>
+                                        <?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
+                                </div>
+                                <!--Meta--->
+                                <div class='col-md-12 col-sm-6 col-xs-12 '>
                                         <?php
                                         if (!$model->isNewRecord) {
                                                 if (isset($model->search_tag)) {
@@ -175,9 +178,7 @@ use dosamigos\ckeditor\CKEditor;
                                         <?= $form->field($model, 'search_tag')->dropDownList(ArrayHelper::map(MasterSearchTag::find()->where(['status' => '1'])->all(), 'id', 'tag_name'), ['class' => 'form-control', 'id' => 'product-search_tag', 'multiple' => 'multiple']) ?>
                                         <label onclick="jQuery('#modal-4').modal('show', {backdrop: 'fade'});" class="btn btn-icon btn-white extra_btn add_tag">Add Search Tag</label>
                                 </div>
-                                <div class='col-md-4 col-sm-6 col-xs-12 '>
-                                        <?= $form->field($model, 'meta_title')->textInput(['maxlength' => true]) ?>
-                                </div>
+                                
                                 <div class='col-md-12 col-sm-6 col-xs-12 '>
                                         <?= $form->field($model, 'meta_description')->textArea(['rows' => '6'], ['maxlength' => true]) ?>
                                 </div>
