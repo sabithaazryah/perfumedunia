@@ -29,6 +29,7 @@ and open the template in the editor.
     <!--<![endif]-->
 
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<link rel="shortcut icon" href="<?= yii::$app->homeUrl; ?>../images/favicon.ico"  />
     <head>
         <title>Perfume Dunia</title>
         <script type="text/javascript">document.documentElement.className = document.documentElement.className + ' yes-js js_active js'</script>

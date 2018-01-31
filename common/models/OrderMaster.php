@@ -11,6 +11,7 @@ use Yii;
  * @property string $order_id
  * @property integer $user_id
  * @property string $total_amount
+ * @property string $tax
  * @property string $discount_amount
  * @property string $net_amount
  * @property string $order_date
@@ -58,6 +59,7 @@ class OrderMaster extends \yii\db\ActiveRecord {
             'order_id' => 'Order ID',
             'user_id' => 'User Name',
             'total_amount' => 'Total Amount',
+            'tax' => 'Tax',
             'discount_amount' => 'Discount Amount',
             'net_amount' => 'Net Amount',
             'order_date' => 'Order Date',

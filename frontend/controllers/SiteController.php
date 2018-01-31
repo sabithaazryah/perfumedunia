@@ -97,7 +97,12 @@ class SiteController extends Controller {
         $about = About::find()->where(['id' => 1])->one();
         $featured_products = Product::find()->where(['status' => 1, 'featured_product' => 1])->limit(10)->all();
         $international_products = Product::find()->where(['status' => 1, 'main_category' => 2])->all();
-        $latest = Product::find()->where(['status' => 1])->orderBy(['id' => SORT_DESC])->limit(10)->all();
+        $latest_products= \common\models\HomeManagement::find()->where(['type'=>0])->one();
+        $todays_product= \common\models\HomeManagement::find()->where(['type'=>1])->one();
+        $latestproduct= explode(',', $latest_products->product_id);
+        $todaysproduct= explode(',', $todays_product->product_id);
+        $latest = Product::find()->where(['status' => 1])->andWhere(['in','id',$latestproduct])->orderBy(['id' => SORT_DESC])->limit(10)->all();
+        $todays_exclusive = Product::find()->where(['status' => 1])->andWhere(['in','id',$todaysproduct])->orderBy(['id' => SORT_DESC])->limit(10)->all();
         $catag = \common\models\Category::find()->one();
         $meta_tags = CmsMetaTags::find()->where(['id' => 1])->one();
 
@@ -118,6 +123,7 @@ class SiteController extends Controller {
                     'catag' => $catag,
                     'private_label' => $private_label,
                     'latest' => $latest,
+                    'todays_exclusive' => $todays_exclusive,
         ]);
     }
 
@@ -221,8 +227,8 @@ class SiteController extends Controller {
         }
         $modellogin = new LoginForm();
         if ($modellogin->load(Yii::$app->request->post()) && $modellogin->login()) {
-            $user = User::findOne(Yii::$app->user->identity->id);
-            $user->update();
+                       $user = User::findOne(Yii::$app->user->identity->id);
+//            $user->update();
             return $this->redirect($go);
         } else {
             Yii::$app->session['log-return'] = 1;

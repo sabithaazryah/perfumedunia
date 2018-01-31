@@ -29,7 +29,7 @@ use common\models\Settings;
                                 </tr>
                             </thead>
                             <tbody data-order-summary-section="line-items">
-                                
+
                                 <?php foreach ($cart_items as $cart) { ?>
                                     <?php
                                     $product = Product::findOne($cart->product_id);
@@ -52,12 +52,12 @@ use common\models\Settings;
                                                 <div class="product-thumbnail__wrapper">
                                                     <img alt="<?= $product->product_name ?>" class="product-thumbnail__image" src="<?= $image ?>">
                                                 </div>
-                                                <span class="product-thumbnail__quantity" aria-hidden="true"><?= $cart->quantity?></span>
+                                                <span class="product-thumbnail__quantity" aria-hidden="true"><?= $cart->quantity ?></span>
                                             </div>
 
                                         </td>
                                         <td class="product__description">
-                                            <span class="product__description__name order-summary__emphasis"><?= substr($product->product_name, 0, 23)?></span>
+                                            <span class="product__description__name order-summary__emphasis"><?= substr($product->product_name, 0, 23) ?></span>
                                             <span class="product__description__variant order-summary__small-text"></span>
 
                                         </td>
@@ -65,10 +65,10 @@ use common\models\Settings;
                                             1
                                         </td>
                                         <td class="product__price">
-                                            <span class="order-summary__emphasis">£<?= sprintf("%0.2f", $cart->rate) ?></span>
+                                            <span class="order-summary__emphasis">AED <?= sprintf("%0.2f", $cart->rate) ?></span>
                                         </td>
                                     </tr>
-<?php } ?>
+                                <?php } ?>
                             </tbody>
                         </table>
 
@@ -89,7 +89,7 @@ use common\models\Settings;
                                 <th class="total-line__name" scope="row">Subtotal</th>
                                 <td class="total-line__price">
                                     <span class="order-summary__emphasis" data-checkout-subtotal-price-target="20000">
-                                       £<?= sprintf("%0.2f", $subtotal) ?>
+                                        AED <?= sprintf("%0.2f", $subtotal) ?>
                                     </span>
                                 </td>
                             </tr>
@@ -98,17 +98,26 @@ use common\models\Settings;
                                 <th class="total-line__name" scope="row">Shipping</th>
                                 <td class="total-line__price">
                                     <span class="order-summary__emphasis" data-checkout-total-shipping-target="0">
-                                       £<?= sprintf("%0.2f", $shipping) ?>
+                                        AED <?= sprintf("%0.2f", $shipping) ?>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr class="total-line total-line--tax">
+                                <th class="total-line__name" scope="row">Tax</th>
+                                <td class="total-line__price">
+                                    <span class="order-summary__emphasis" data-checkout-total-shipping-target="0">
+                                        <?php $tax = common\models\Cart::tax($cart_items); ?>
+                                        AED <?= sprintf("%0.2f", $tax) ?>
                                     </span>
                                 </td>
                             </tr>
 
-                            <tr class="total-line total-line--taxes hidden" data-checkout-taxes="">
+<!--                            <tr class="total-line total-line--taxes hidden" data-checkout-taxes="">
                                 <th class="total-line__name" scope="row">Taxes</th>
                                 <td class="total-line__price">
                                     <span class="order-summary__emphasis" data-checkout-total-taxes-target="0">$0.00</span>
                                 </td>
-                            </tr>
+                            </tr>-->
 
                         </tbody>
                         <tfoot class="total-line-table__footer">
@@ -119,7 +128,8 @@ use common\models\Settings;
                                 <td class="total-line__price payment-due">
                                     <!--<span class="payment-due__currency">USD</span>-->
                                     <span class="payment-due__price" data-checkout-payment-due-target="20000">
-                                         £<?= sprintf("%0.2f", $grand_total) ?>
+                                        <?php $grand_total = $grand_total + $tax ?>
+                                        AED <?= sprintf("%0.2f", $grand_total) ?>
                                     </span>
                                 </td>
                             </tr>
@@ -129,7 +139,7 @@ use common\models\Settings;
                     <div class="visually-hidden" aria-live="polite" aria-atomic="true" role="status">
                         Updated total price:
                         <span data-checkout-payment-due-target="20000">
-                            $200.00
+                            AED 200.00
                         </span>
                     </div>
 

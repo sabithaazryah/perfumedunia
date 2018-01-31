@@ -13,7 +13,7 @@ $(document).ready(function () {
 
                 $('.option_errors').html('<p>Invalid Product.Please try again</p>').show();
             } else {
-                jQuery('.alert-success').removeClass('hide');
+                jQuery('.alert_' + canname).removeClass('hide');
                 jQuery('.shop-cart').html('').html(data);
 //                removewishlist(list_id, canname);
 //                getcartcount();
@@ -115,19 +115,19 @@ jQuery('body').on('click', '.remove_order', function () {
 });
 
 jQuery('.ordqnty').on('change keyup', function () {
-        showLoader();
-        var quantity = this.value
-        var $ids = $(this).attr('id');
-        var ids = $ids.split('_');
-        var id = ids['1'];
-        var $count = $('#cart_count').val();
-        if (quantity != '' && parseInt(quantity) > '0') {
-            findorderstock(id, quantity);
-            updatedetail(id, quantity, $count);
-        } else if (quantity != '') {
-            $('#quantity_' + id).val('1');
-        }
-    });
+    showLoader();
+    var quantity = this.value
+    var $ids = $(this).attr('id');
+    var ids = $ids.split('_');
+    var id = ids['1'];
+    var $count = $('#cart_count').val();
+    if (quantity != '' && parseInt(quantity) > '0') {
+        findorderstock(id, quantity);
+        updatedetail(id, quantity, $count);
+    } else if (quantity != '') {
+        $('#quantity_' + id).val('1');
+    }
+});
 
 
 //////////////////////  my order continue order  ends!  ///////////////

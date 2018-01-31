@@ -382,8 +382,8 @@ if (isset($meta_title) && $meta_title != '')
                                                         <!-- Product Item -->
                                                         <?php
                                                         $l = 0;
-                                                        $count = count($latest);
-                                                        foreach ($latest as $todays) {
+                                                        $count = count($todays_exclusive);
+                                                        foreach ($todays_exclusive as $todays) {
 
                                                             $l++;
                                                             if ($l % 5 == 1) {

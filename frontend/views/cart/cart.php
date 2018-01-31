@@ -59,7 +59,7 @@ $this->title = 'Shopping Cart';
                                                 <a href=""><?= $prod_details->product_name ?></a> </td>
 
                                             <td class="product-price">
-                                                <span class="amount">£<?= sprintf("%0.2f", $price) ?></span> </td>
+                                                <span class="amount">AED <?= sprintf("%0.2f", $price) ?></span> </td>
 
                                             <td class="product-quantity">
                                                 <div class="quantity-adder">
@@ -71,7 +71,7 @@ $this->title = 'Shopping Cart';
 
                                             <td class="product-subtotal">
                                                 <?php $total = $price * $cart_item->quantity; ?>
-                                                <span class="amount" id="total_<?= yii::$app->EncryptDecrypt->Encrypt('encrypt', $cart_item->id) ?>">£<?= sprintf("%0.2f", $total) ?></span> </td>
+                                                <span class="amount" id="total_<?= yii::$app->EncryptDecrypt->Encrypt('encrypt', $cart_item->id) ?>">AED <?= sprintf("%0.2f", $total) ?></span> </td>
                                         </tr>
                                     <?php } ?>
                                     <tr>
@@ -113,7 +113,7 @@ $this->title = 'Shopping Cart';
                                     <tbody>
                                         <tr class="cart-subtotal">
                                             <th>Subtotal</th>
-                                            <td><span class="amount cart_subtotal">£<?= sprintf("%0.2f", $subtotal) ?></span></td>
+                                            <td><span class="amount cart_subtotal">AED <?= sprintf("%0.2f", $subtotal) ?></span></td>
                                         </tr>
 
 
@@ -141,13 +141,14 @@ $this->title = 'Shopping Cart';
                                                     <?php // } else {   ?>
                                                     <li class="shipping_ <?= $charge ?>">
                                                         <input type="radio" name="shipping_method_[0]" data-index="0" id="shipping_method_0_international_delivery" value="international_delivery" class="shipping_method" checked="checked" disabled="disabled">
-                                                        <label for="shipping_method_0_international_delivery">International Delivery: <span class="amount shipping-cost">£<?= sprintf("%0.2f", $ship_charge) ?></span></label>
+                                                        <label for="shipping_method_0_international_delivery">International Delivery: <span class="amount shipping-cost">AED <?= sprintf("%0.2f", $ship_charge) ?></span></label>
                                                     </li>
                                                     <?php // }   ?>
                                                 </ul>
 
                                             </td>
                                         </tr>
+                                        
 
 
 
@@ -156,7 +157,7 @@ $this->title = 'Shopping Cart';
 
                                         <tr class="order-total">
                                             <th>Total</th>
-                                            <td><strong><span class="amount grand_total">£<?= sprintf("%0.2f", $grand_total) ?></span></strong> </td>
+                                            <td><strong><span class="amount grand_total">AED <?= sprintf("%0.2f", $grand_total) ?></span></strong> </td>
                                         </tr>
 
 
@@ -168,7 +169,7 @@ $this->title = 'Shopping Cart';
                                     <?php if (empty(Yii::$app->user->identity)) { ?>
                                         <a href="javascript:void(0)" class="checkout-button button alt wc-forward" data-toggle="modal" data-target="#fsModal">Login to Checkout</a>
                                     <?php } else { ?>
-                                        <a href="<?= Yii::$app->homeUrl.'cart/proceed'?>" class="checkout-button button alt wc-forward">Proceed to Checkout</a>
+                                        <a href="<?= Yii::$app->homeUrl . 'cart/proceed' ?>" class="checkout-button button alt wc-forward">Proceed to Checkout</a>
                                     <?php } ?>
                                 </div>
 

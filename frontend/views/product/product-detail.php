@@ -14,8 +14,8 @@ use yii\helpers\Html;
 
 
 
-            <div class="alert alert-success hide">
-                <a href="<?= Yii::$app->homeUrl . 'cart/mycart' ?>" class="button wc-forward">View Cart</a> â€œ<?= $product_details->product_name ?>â€œ has been added to your cart.
+            <div class="alert alert-success alert_<?= $product_details->canonical_name?> hide">
+                <a href="<?= Yii::$app->homeUrl . 'cart/mycart' ?>" class="button wc-forward">View Cart</a> <?= $product_details->product_name ?> has been added to your cart.
                 <a class="close-alert"><i class="fa fa-close"></i></a>
             </div>
 
@@ -119,7 +119,7 @@ use yii\helpers\Html;
                             <div class="woocommerce-product-rating" itemprop="aggregateRating" itemscope="" itemtype="">
                                 <div class="star-rating" title="Rated 4.00 out of 5">
                                     <span style="width:80%">
-                                        <strong itemprop="ratingValue" class="rating">4.00</strong> out of 5			</span>
+                                        <strong itemprop="ratingValue" class="rating"><?= $product_details->stock > 0 ? $product_details->stock : 'No Stock' ?></strong> Available			</span>
                                 </div>
                                 <?php if (!empty($product_reveiws)) { ?>
                                     <a href="#reviews" class="woocommerce-review-link" rel="nofollow">(<span itemprop="ratingCount" class="count"><?= count($product_reveiws) ?></span> customer reviews)</a>
@@ -128,7 +128,7 @@ use yii\helpers\Html;
 
                             <div>
 
-                                <p class="price"><span class="amount">£<?= $product_details->offer_price ?></span></p>
+                                <p class="price"><span class="amount">AED <?= $product_details->offer_price ?></span></p>
 
                                 <meta itemprop="price" content="35">
                                 <meta itemprop="priceCurrency" content="GBP">
@@ -138,8 +138,13 @@ use yii\helpers\Html;
 
                             <div class="yith-wcwl-add-to-wishlist add-to-wishlist-113 gp_products_inner">
                                 <div class="yith-wcwl-add-button show" style="display:block">
-
-                                    <?= Html::a('Add To Wishlist', 'javascript:void(0)', ['class' => 'add_to_wish_list', 'id' => $product_details->canonical_name]) ?>
+                                    <?php if (empty(Yii::$app->user->identity)) { ?>
+                                        <a class=" call-popup popup1" data-toggle="modal" data-target="#fsModal" title="Add to Wish List"><span>Add to Wish List</span></a>
+                                    <?php } else {
+                                        ?>
+                                        <?= Html::a('Add To Wishlist', 'javascript:void(0)', ['class' => 'add_to_wish_list', 'id' => $product_details->canonical_name]) ?>
+                                    <?php } ?>
+                                    
 
                                     <img src="<?= Yii::$app->homeUrl ?>wp-content/plugins/yith-woocommerce-wishlist/assets/images/wpspin_light.gif" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden">
                                 </div>
@@ -162,7 +167,10 @@ use yii\helpers\Html;
                             </div>
 
                             <div class="clear"></div>
-                            <?= Html::a('Add To Cart', '', ['class' => 'compare button add-cart', 'id' => $product_details->canonical_name]) ?>
+                            <?php if ($product_details->stock > 0) { ?>
+                                <?= Html::a('Add To Cart', '', ['class' => 'compare button add-cart', 'id' => $product_details->canonical_name])
+                                ?>
+                            <?php } ?>
                             <!--<a href="" class="compare button add-cart" data-product_id="113">Add To Cart</a>-->
                             <div itemprop="description" class="description">
                                 <p><?= $product_details->main_description ?></p>
@@ -291,8 +299,8 @@ use yii\helpers\Html;
                     </div>
                 </div>
 
-                <?= RecentlyViewedWidget::widget(['id' => $user_id]) ?>
-            </div>
+                
+            </div><?= RecentlyViewedWidget::widget(['id' => $user_id]) ?>
         </section>
         <div class="wpo-sidebar wpo-sidebar-1 col-xs-12 col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9">
             <div class="sidebar-inner">
@@ -346,7 +354,7 @@ use yii\helpers\Html;
                                                 <?= $related_product->product_name ?>           </a>
                                         </div>
 
-                                        <span class="price"><span class="amount">£<?= $related_product->offer_price ?></span></span>
+                                        <span class="price"><span class="amount">AED <?= $related_product->offer_price ?></span></span>
 
                                     </div>
                                 </div>

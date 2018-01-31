@@ -76,6 +76,7 @@ class OrderMasterSearch extends OrderMaster {
             'id' => $this->id,
             'user_id' => $this->user_id,
             'total_amount' => $this->total_amount,
+            'tax' => $this->tax,
             'net_amount' => $this->net_amount,
             'order_date' => $this->order_date,
             'ship_address_id' => $this->ship_address_id,

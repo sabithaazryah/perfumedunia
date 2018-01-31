@@ -106,7 +106,8 @@ use dosamigos\ckeditor\CKEditor;
                                         <?= $form->field($model, 'stock_availability')->dropDownList(['1' => 'Available', '0' => 'Not Available']) ?>
                                 </div>
                                 <div class='col-md-4 col-sm-6 col-xs-12 '>
-                                        <?= $form->field($model, 'tax')->textInput(['autocomplete' => 'off']) ?>
+                                    <?= $form->field($model, 'tax')->dropDownList(ArrayHelper::map(\common\models\Tax::find()->all(), 'id', 'name')) ?>
+                                        <!--<? $form->field($model, 'tax')->textInput(['autocomplete' => 'off']) ?>-->
                                 </div>
                                 <div class='col-md-4 col-sm-6 col-xs-12 '>
                                         <?= $form->field($model, 'free_shipping')->dropDownList(['1' => 'Yes', '0' => 'No'], ['prompt' => 'Select']) ?>

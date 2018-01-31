@@ -156,6 +156,29 @@ class Cart extends \yii\db\ActiveRecord {
         return $subtotal;
     }
 
+    public static function tax($cart) {
+        $subtotal = '0';
+        foreach ($cart as $cart_item) {
+            $product = Product::find()->where(['id' => $cart_item->product_id, 'status' => '1'])->one();
+            $tax = Tax::find()->where(['id' => $product->tax])->one();
+            if ($product->offer_price == '0' || $product->offer_price == '') {
+                $price = $product->price;
+            } else {
+                $price = $product->offer_price;
+            }
+//            echo 'price-'.$price.'/qnty/'.$cart_item->quantity.'<br>';
+            if ($tax->type == 1) {
+                $total = $price * $cart_item->quantity;
+                $subtotal += (($total * $tax->value) / 100);
+//                echo 'tax1--'.$subtotal.'<br>';
+            }else{
+                $subtotal +=($tax->value * $cart_item->quantity);
+//                echo 'tax2--'.$subtotal2.'<br>';
+            }
+        }
+         return $subtotal;
+    }
+
     public static function cart_count() {
         $condition = Cart::usercheck();
         $cart_items = Cart::find()->where($condition)->all();
@@ -242,6 +265,7 @@ class Cart extends \yii\db\ActiveRecord {
         $model->user_id = Yii::$app->user->identity->id;
         $total_amt = Cart::total($cart);
         $model->total_amount = $total_amt;
+        $model->tax = Cart::tax($cart);
         $model->net_amount = Cart::net_amount($total_amt);
         $model->status = 1;
         $model->order_date = date('Y-m-d H:i:s');
@@ -292,7 +316,7 @@ class Cart extends \yii\db\ActiveRecord {
     }
 
     public static function Updateorderid($id) {
-        echo $id;
+//        echo $id;
         $orderid = \common\models\Settings::findOne(4);
         $orderid->value = $id;
         $orderid->save();

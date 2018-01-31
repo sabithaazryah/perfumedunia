@@ -9,7 +9,7 @@ if (!empty($recently_viewed)) {
         ?>
         <div class="woocommrece products box-element">
 
-                <div class="box-heading"><span>You may also like…</span></div>
+                <div class="box-heading"><span>Recently Viewed</span></div>
 
                 <div class="box-content">
                         <div class="box-products slide" id="productcarouse-9fMZN">
