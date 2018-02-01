@@ -10,6 +10,16 @@ class m170808_075909_category extends Migration {
             // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
+        //main category
+        $this->createTable('{{%main_category}}', [
+            'id' => $this->primaryKey(),
+            'main_category' => $this->string()->notNull()->unique(),
+            'CB' => $this->integer(),
+            'UB' => $this->integer(),
+            'DOC' => $this->dateTime(),
+            'DOU' => $this->timestamp(),
+            'status' => $this->integer()->notNull()->defaultValue(1),
+                ], $tableOptions);
         //tbl_category
         $this->createTable('{{%category}}', [
             'id' => $this->primaryKey(),

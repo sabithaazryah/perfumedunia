@@ -357,54 +357,70 @@ and open the template in the editor.
 
                                             </div>
                                             <ul id="main-menu" class="nav navbar-nav megamenu">
-                                                <li class="menu-item-1619 dropdown parent mega depth-0 " data-id="1619"    data-alignsub="fullwidth" data-level="1"><a href="#" class="dropdown-toggle" >Fragrances <b class="caret"></b></a>
-                                                    <!--<div class="dropdown-menu mega-dropdown-menu dropdown_bg">-->
-                                                    <div class="dropdown-menu dropdown_bg">
-                                                        <div class="dropdown-menu-inner">
-                                                            <div class="row">
-                                                                <div class="mega-col col-md-12 " >
-                                                                    <div class="mega-col-inner">
-                                                                        <div id="wid-22" class="wpo-widget">
-                                                                            <!--<h3 class="widget-title">Categories</h3>-->
-                                                                            <div class="menu-shortcode-container">
-                                                                                <ul id="menu-shortcode" class="megamenu-items">
-                                                                                    <li id="menu-item-366" class="menu-item-366" data-id="366"    data-alignsub="left" data-level="2"><?= Html::a("Men's", ['/product/index'], ['class' => '']) ?></li>
-                                                                                    <li id="menu-item-362" class="menu-item-362" data-id="362"    data-alignsub="left" data-level="2"><?= Html::a("Women's", ['/product/index'], ['class' => '']) ?></li>
-                                                                                    <li id="menu-item-361" class="menu-item-361" data-id="361"    data-alignsub="left" data-level="2"><?= Html::a("Oriental", ['/product/index'], ['class' => '']) ?></li>
-                                                                                    <li id="menu-item-361" class="menu-item-361" data-id="361"    data-alignsub="left" data-level="2"><?= Html::a("Gift sets", ['/product/index'], ['class' => '']) ?></li>
-                                                                                    <li id="menu-item-361" class="menu-item-361" data-id="361"    data-alignsub="left" data-level="2"><?= Html::a("Bakhour", ['/product/index'], ['class' => '']) ?></li>
-                                                                                    <li id="menu-item-361" class="menu-item-361" data-id="361"    data-alignsub="left" data-level="2"><?= Html::a("Brands", ['/product/index'], ['class' => '']) ?></li>
-                                                                                </ul>
+                                                <?php
+                                                $main_menu = \common\models\MenuManagement::find()->where(['type' => 1])->all();
+                                                foreach ($main_menu as $main) {
+                                                    ?>
+                                                    <li class="menu-item-1619 dropdown parent mega depth-0 " data-id="1619"    data-alignsub="fullwidth" data-level="1"><a href="#" class="dropdown-toggle" ><?= $main->main_menu ?> <b class="caret"></b></a>
+                                                        <!--<div class="dropdown-menu mega-dropdown-menu dropdown_bg">-->
+                                                        <?php
+                                                        $sub_menu = \common\models\MenuManagement::find()->where(['type' => 2, 'main_menu_id' => $main->id])->all();
+                                                        if ($sub_menu) {
+                                                            ?>
+                                                            <div class="dropdown-menu dropdown_bg">
+                                                                <div class="dropdown-menu-inner">
+                                                                    <div class="row">
+                                                                        <div class="mega-col col-md-12 " >
+                                                                            <div class="mega-col-inner">
+                                                                                <div id="wid-22" class="wpo-widget">
+                                                                                    <!--<h3 class="widget-title">Categories</h3>-->
+                                                                                    <div class="menu-shortcode-container">
+                                                                                        <ul id="menu-shortcode" class="megamenu-items">
+
+                                                                                            <?php
+                                                                                            foreach ($sub_menu as $sub) {
+                                                                                                $sub_name = Category::findOne($sub->sub_menu_id)->category;
+                                                                                                ?>
+                                                                                                <li id="menu-item-366" class="menu-item-366" data-id="366"    data-alignsub="left" data-level="2"><?= Html::a($sub_name, $sub->sub_menu_link, ['class' => '']) ?></li>
+
+                                                                                                <?php
+                                                                                            }
+                                                                                            ?>
+                                                                                        </ul>
+                                                                                    </div>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="menu-item-370 depth-0 aligned-left " data-id="370"    data-alignsub="left" data-level="1"><?= Html::a("Watches", ['/product/index'], ['class' => '']) ?></li>
-                                                <li class="menu-item-1620 depth-0 aligned-left " data-id="1620"    data-alignsub="left" data-level="1"><?= Html::a("Jewellery", ['/product/index'], ['class' => '']) ?></li>
-                                                <li class="menu-item-384 depth-0 aligned-left " data-id="384"    data-alignsub="left" data-level="1"><?= Html::a("Eyewear", ['/product/index'], ['class' => '']) ?></li>
-                                                <li class="menu-item-388 depth-0 aligned-left " data-id="388"    data-alignsub="left" data-level="1"><?= Html::a("Bags", ['/product/index'], ['class' => '']) ?></li>
-                                                <li class="menu-item-378 dropdown parent mega depth-0 aligned-left " data-id="378"    data-alignsub="left" data-level="1"><a href="#" class="dropdown-toggle" >Accessories <b class="caret"></b></a>
-                                                    <div class="dropdown-menu"  >
-                                                        <div class="dropdown-menu-inner">
-                                                            <div class="row">
-                                                                <div class="mega-col col-md-12 "  data-type="menu">
-                                                                    <div class="mega-col-inner">
-                                                                        <ul class="megamenu-items">
-                                                                            <li class="menu-item-379 " data-id="379"    data-alignsub="left" data-level="2"><?= Html::a("Belts", ['/product/index'], ['class' => '']) ?></li>
-                                                                            <li class="menu-item-380 " data-id="380"    data-alignsub="left" data-level="2"><?= Html::a("Wallets", ['/product/index'], ['class' => '']) ?></li>
-                                                                            <li class="menu-item-381 " data-id="381"    data-alignsub="left" data-level="2"><?= Html::a("Card Holder", ['/product/index'], ['class' => '']) ?></li>
-                                                                            <li class="menu-item-382 " data-id="382"    data-alignsub="left" data-level="2"><?= Html::a("Novelties", ['/product/index'], ['class' => '']) ?></li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </li>
+                                                <?php } ?>
+<!--                                                <li class="menu-item-370 depth-0 aligned-left " data-id="370"    data-alignsub="left" data-level="1"><?= Html::a("Watches", ['/product/index'], ['class' => '']) ?></li>
+        <li class="menu-item-1620 depth-0 aligned-left " data-id="1620"    data-alignsub="left" data-level="1"><?= Html::a("Jewellery", ['/product/index'], ['class' => '']) ?></li>
+        <li class="menu-item-384 depth-0 aligned-left " data-id="384"    data-alignsub="left" data-level="1"><?= Html::a("Eyewear", ['/product/index'], ['class' => '']) ?></li>
+        <li class="menu-item-388 depth-0 aligned-left " data-id="388"    data-alignsub="left" data-level="1"><?= Html::a("Bags", ['/product/index'], ['class' => '']) ?></li>
+        <li class="menu-item-378 dropdown parent mega depth-0 aligned-left " data-id="378"    data-alignsub="left" data-level="1"><a href="#" class="dropdown-toggle" >Accessories <b class="caret"></b></a>
+            <div class="dropdown-menu"  >
+                <div class="dropdown-menu-inner">
+                    <div class="row">
+                        <div class="mega-col col-md-12 "  data-type="menu">
+                            <div class="mega-col-inner">
+                                <ul class="megamenu-items">
+                                    <li class="menu-item-379 " data-id="379"    data-alignsub="left" data-level="2"><?= Html::a("Belts", ['/product/index'], ['class' => '']) ?></li>
+                                    <li class="menu-item-380 " data-id="380"    data-alignsub="left" data-level="2"><?= Html::a("Wallets", ['/product/index'], ['class' => '']) ?></li>
+                                    <li class="menu-item-381 " data-id="381"    data-alignsub="left" data-level="2"><?= Html::a("Card Holder", ['/product/index'], ['class' => '']) ?></li>
+                                    <li class="menu-item-382 " data-id="382"    data-alignsub="left" data-level="2"><?= Html::a("Novelties", ['/product/index'], ['class' => '']) ?></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>-->
                                                 <li class="menu-item-1948 depth-0 aligned-left " data-id="1948"    data-alignsub="left" data-level="1"><a href="#" class="dropdown-toggle" >Offers</a></li>
                                                 <!--<li class="menu-item-402 " data-id="402"    data-alignsub="left" data-level="1"><a href="index3829.html?page_id=400">Contact</a></li>-->
                                             </ul>

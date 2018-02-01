@@ -49,6 +49,9 @@ return [
         'promotions' => [
             'class' => 'backend\modules\promotions\Module',
         ],
+        'menumanagement' => [
+            'class' => 'backend\modules\menumanagement\Module',
+        ],
     ],
     'components' => [
         'request' => [

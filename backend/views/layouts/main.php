@@ -270,6 +270,9 @@ AppAsset::register($this);
                                 </li>
                             </ul>
                         </li>
+                        <li>
+                            <?= Html::a('<i class="fa fa-plus-square-o"></i><span class="title">Menu Management</span>', ['/menumanagement/menu-management/index'], ['class' => 'title']) ?>
+                        </li>
                     </ul>
 
                 </div>
@@ -381,6 +384,9 @@ AppAsset::register($this);
 
                 <?= Alert::widget() ?>
                 <?= $content ?>
+                <div class="page-loading-overlay loaded">
+                    <div class="loader-2"></div>
+                </div>
 
                 <!-- Main Footer -->
                 <!-- Choose between footer styles: "footer-type-1" or "footer-type-2" -->

@@ -3,6 +3,8 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
+use common\models\MainCategory;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\DemoSearch */
@@ -13,130 +15,120 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="demo-index">
 
-        <div class="row">
-                <div class="col-md-12">
-                        <div class="page-title">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-title">
 
-                                <div class="title-env">
-                                        <h1 class="title"><?= Html::encode($this->title) ?></h1>
-                                </div>
-                        </div>
-
+                <div class="title-env">
+                    <h1 class="title"><?= Html::encode($this->title) ?></h1>
                 </div>
+            </div>
+
         </div>
-        <div class="row">
-                <div class="col-md-4">
-                        <div class="panel panel-default">
-                                <div class="panel-body"><div class="demo-create">
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-body"><div class="demo-create">
 
-                                                <?=
-                                                $this->render('_form', [
-                                                    'model' => $model,
-                                                ])
-                                                ?>
-                                        </div>
-                                </div>
-                        </div>
-
+                        <?=
+                        $this->render('_form', [
+                            'model' => $model,
+                        ])
+                        ?>
+                    </div>
                 </div>
-                <div class="col-md-8">
-                        <div class="panel panel-default">
-                                <div class="panel-body table-responsive">
-                                        <button class="btn btn-white" id="search-option" style="float: right;">
-                                                <i class="linecons-search"></i>
-                                                <span>Search</span>
-                                        </button>
+            </div>
 
-                                        <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
+        </div>
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-body table-responsive">
+                    <button class="btn btn-white" id="search-option" style="float: right;">
+                        <i class="linecons-search"></i>
+                        <span>Search</span>
+                    </button>
 
-                                        <?=
-                                        GridView::widget([
-                                            'dataProvider' => $dataProvider,
-                                            'filterModel' => $searchModel,
-                                            'columns' => [
-                                                    ['class' => 'yii\grid\SerialColumn'],
+                    <?php // echo $this->render('_search', ['model' => $searchModel]);  ?>
+
+                    <?=
+                    GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'filterModel' => $searchModel,
+                        'columns' => [
+                            ['class' => 'yii\grid\SerialColumn'],
 //                            'id',
-                                                [
-                                                    'attribute' => 'main_category',
-                                                    'filter' => ['1' => 'Womens', '2' => 'Mens', '3' => 'Oriental', '4' => 'Gift Sets', '5' => 'Brand'],
-                                                    'value' => function($data) {
-                                                            if ($data->main_category == 1) {
-                                                                    $val = 'Fragrances';
-                                                            } elseif ($data->main_category == 2) {
-                                                                    $val = 'Watches';
-                                                            } elseif ($data->main_category == 3) {
-                                                                    $val = 'Jewellery';
-                                                            } elseif ($data->main_category == 4) {
-                                                                    $val = 'Eyewear';
-                                                            } elseif ($data->main_category == 5) {
-                                                                    $val = 'Accessories';
-                                                            }
-                                                            return $val;
-                                                    }
-                                                ],
-                                                'category',
-                                                'category_code',
+                            
+                            [
+                                'attribute' => 'main_category',
+                                'filter' => ArrayHelper::map(MainCategory::find()->all(), 'id', 'main_category'),
+                                'value' => function($data) {
+                                    return MainCategory::findOne($data->main_category)->main_category;
+                                }
+                            ],
+                            'category',
+                            'category_code',
 //                            'CB',
 //                            'UB',
 //                            'DOC',
-                                                // 'DOU',
-                                                [
-                                                    'attribute' => 'status',
-                                                    'filter' => ['1' => 'Enable', '0' => 'Disable'],
-                                                    'value' => function($data) {
-                                                            return $data->status == 1 ? 'Enable' : 'Disable';
-                                                    }
-                                                ],
+                            // 'DOU',
+                            [
+                                'attribute' => 'status',
+                                'filter' => ['1' => 'Enable', '0' => 'Disable'],
+                                'value' => function($data) {
+                                    return $data->status == 1 ? 'Enable' : 'Disable';
+                                }
+                            ],
 //                                ['class' => 'yii\grid\ActionColumn',
 //                                    'template' => '{update}{delete}'],
-                                                [
-                                                    'class' => 'yii\grid\ActionColumn',
+                            [
+                                'class' => 'yii\grid\ActionColumn',
 //                                    'contentOptions' => ['style' => 'width:100px;'],
-                                                    'header' => 'Actions',
-                                                    'template' => '{update}{delete}',
-                                                    'buttons' => [
-                                                        'update' => function ($url, $model) {
-                                                                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
-                                                                            'title' => Yii::t('app', 'update'),
-                                                                            'class' => '',
-                                                                ]);
-                                                        },
-                                                        'delete' => function ($url, $model) {
-                                                                return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-                                                                            'title' => Yii::t('app', 'delete'),
-                                                                            'class' => '',
-                                                                            'data' => [
-                                                                                'confirm' => 'Are you sure you want to delete this item?',
-                                                                            ],
-                                                                ]);
-                                                        },
-                                                    ],
-                                                    'urlCreator' => function ($action, $model) {
-                                                            if ($action === 'update') {
-                                                                    $url = Url::to(['index', 'id' => $model->id]);
-                                                                    return $url;
-                                                            }
-                                                            if ($action === 'delete') {
-                                                                    $url = Url::to(['del', 'id' => $model->id]);
-                                                                    return $url;
-                                                            }
-                                                    }
-                                                ],
-                                            ],
+                                'header' => 'Actions',
+                                'template' => '{update}{delete}',
+                                'buttons' => [
+                                    'update' => function ($url, $model) {
+                                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                                    'title' => Yii::t('app', 'update'),
+                                                    'class' => '',
                                         ]);
-                                        ?>
-                                </div>
-                        </div>
+                                    },
+                                    'delete' => function ($url, $model) {
+                                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                                    'title' => Yii::t('app', 'delete'),
+                                                    'class' => '',
+                                                    'data' => [
+                                                        'confirm' => 'Are you sure you want to delete this item?',
+                                                    ],
+                                        ]);
+                                    },
+                                ],
+                                'urlCreator' => function ($action, $model) {
+                                    if ($action === 'update') {
+                                        $url = Url::to(['index', 'id' => $model->id]);
+                                        return $url;
+                                    }
+                                    if ($action === 'delete') {
+                                        $url = Url::to(['del', 'id' => $model->id]);
+                                        return $url;
+                                    }
+                                }
+                            ],
+                        ],
+                    ]);
+                    ?>
                 </div>
+            </div>
         </div>
+    </div>
 </div>
 <script>
-        $(document).ready(function () {
-                $(".filters").slideToggle();
-                $("#search-option").click(function () {
-                        $(".filters").slideToggle();
-                });
+    $(document).ready(function () {
+        $(".filters").slideToggle();
+        $("#search-option").click(function () {
+            $(".filters").slideToggle();
         });
+    });
 </script>
 
 

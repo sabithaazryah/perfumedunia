@@ -271,3 +271,9 @@ function main_category_(main_category, ids) {
 	}
 	);
 }
+function showLoader() {
+    $('.page-loading-overlay').removeClass('loaded');
+}
+function hideLoader() {
+    $('.page-loading-overlay').addClass('loaded');
+}
