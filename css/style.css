@@ -1143,6 +1143,12 @@ a.close-btn {
     background: none repeat scroll 0 0 #dfc5b5;
     color: #f3ded0 !important;
 }
+.register-form .popup-form > select {
+    background: none repeat scroll 0 0 #dfc5b5;
+    color: #f3ded0 !important;
+    padding-top: 10px;
+    width: 100%;
+}
 .popup-form > input, .popup-form > input:focus {
     background: none repeat scroll 0 0 #444444;
     border: 0 none !important;
@@ -2209,29 +2215,68 @@ h1.page-heading {
 }
 
 .search-dropdown{
-        list-style: none;
-        padding: 0px;
-        position: absolute;
-        width: 100%;
-        height: auto;
-        margin: 0 auto;
-        background: white;
-        top: 35px;
-        z-index: 10;
-        border: 1px solid #dfdfdf;
-        border-top: 0px;
-        max-height: 250px;
-        overflow-y: auto;
+    list-style: none;
+    padding: 0px;
+    position: absolute;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    background: white;
+    top: 35px;
+    z-index: 10;
+    border: 1px solid #dfdfdf;
+    border-top: 0px;
+    max-height: 250px;
+    overflow-y: auto;
 }
 .search-dropdown li{
-        font-size: 14px;
-        padding: 5px 15px;
-        text-transform: capitalize;
+    font-size: 14px;
+    padding: 5px 15px;
+    text-transform: capitalize;
 }
 .search-dropdown li:hover{
-        background-color: rgba(193, 193, 193, 0.5);
-        cursor: pointer;
+    background-color: rgba(193, 193, 193, 0.5);
+    cursor: pointer;
 }
 .search-dropdown .search-selected{
-        background-color:  rgba(193, 193, 193, 0.5);
+    background-color:  rgba(193, 193, 193, 0.5);
 }
+/*****************forget password********************/
+.align-center{
+    float: none;
+    margin: 0 auto !important;
+}
+.boxshadow {
+    border: 1px solid #ddd;
+    -webkit-box-shadow: 0 1px 1px #ddd;
+    box-shadow: 0 1px 1px #ddd;
+}
+button.green2 {
+    width: 100%;
+    border: 2px solid #61b346;
+    color: #676767;
+    font-size: 14px;
+    letter-spacing: 2.6px;
+    text-transform: uppercase;
+    font-weight: 500;
+    background: transparent;
+    padding: 10px 25px;
+    text-align: center;
+    line-height: initial;
+    margin-bottom: 5px;
+    -webkit-transition: .5s all;
+}
+.form-group .form-control {
+    height: 40px;
+    border: 1px solid #d1d2d0;
+    border-radius: 0px;
+    margin-bottom: 5px;
+    background: transparent;
+}
+/**********login/signup************/
+.log-popup-err{
+    color:#dc8383;
+    padding-left: 5px;
+    font-size: 15px;
+}
+

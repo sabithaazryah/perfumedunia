@@ -58,7 +58,7 @@ class User extends ActiveRecord implements IdentityInterface {
      */
     public function rules() {
         return [
-            [['gender', 'first_name', 'last_name', 'email', 'canonical_name', 'item_ean', 'price', 'currency', 'stock', 'stock_unit', 'product_detail'], 'required'],
+            [['gender', 'first_name', 'last_name', 'email'], 'required'],
             [['country', 'gender', 'status', 'created_at', 'updated_at', 'email_verification'], 'integer'],
             [['dob'], 'safe'],
             [['first_name', 'last_name', 'username', 'password'], 'string', 'max' => 50],
@@ -221,11 +221,19 @@ class User extends ActiveRecord implements IdentityInterface {
         }
 
         $user = new User();
-        $user->username = $this->username;
+//        $user->username = $this->username;
+        $user->first_name = $this->first_name;
+        $user->last_name = $this->last_name;
+        $user->gender = $this->gender;
+        $user->dob = $this->dob;
         $user->email = $this->email;
         $user->setPassword($this->password);
         $user->generateAuthKey();
-
+//if($user->save()){
+//    
+//}else{
+//    var_dump($user->getErrors());exit;
+//}
         return $user->save() ? $user : null;
     }
 

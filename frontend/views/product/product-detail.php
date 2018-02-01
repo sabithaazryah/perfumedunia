@@ -335,7 +335,9 @@ use yii\helpers\Html;
                     <div class="box-heading"><span>SPECIALS</span></div>
                     <ul class="product_list_widget">
                         <?php
-                        if (!empty($related_products = explode(',', $product_details->related_product))) {
+                        if (!empty($product_details->related_product)) {
+//                        if (!empty($related_products = explode(',', $product_details->related_product))) {
+                            $related_products = explode(',', $product_details->related_product);
                             foreach ($related_products as $val) {
                                 $related_product = Product::findOne($val);
                                 $product_images = Yii::$app->basePath . '/../uploads/product/' . $related_product->id . '/profile/' . $related_product->canonical_name . '_thumb.' . $related_product->profile;

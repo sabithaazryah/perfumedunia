@@ -43,7 +43,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ['class' => 'yii\grid\SerialColumn'],
                                 'id',
                                 'name',
-                                'type',
                                 [
                                     'attribute' => 'type',
                                     'filter' => ['1' => 'Percentage', '2' => 'Flat'],

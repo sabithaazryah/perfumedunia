@@ -17,13 +17,6 @@ use common\models\User;
 $cart_count = common\components\Cartcount::Count();
 AppAsset::register($this);
 $params = $parameters = \yii::$app->getRequest()->getQueryParams();
-if (isset(Yii::$app->session['log-return']) && Yii::$app->session['log-return'] != '') {
-    $log_error = Yii::$app->session['log-return'];
-//    $email = Yii::$app->session['log-return']['email'];
-//    $pass = Yii::$app->session['log-return']['password'];
-} else {
-    $log_error = '';
-}
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -36,7 +29,7 @@ and open the template in the editor.
     <!--<![endif]-->
 
     <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-    <link rel="shortcut icon" href="<?= yii::$app->homeUrl; ?>../images/favicon.ico"  />
+<link rel="shortcut icon" href="<?= yii::$app->homeUrl; ?>../images/favicon.ico"  />
     <head>
         <title>Perfume Dunia</title>
         <script type="text/javascript">document.documentElement.className = document.documentElement.className + ' yes-js js_active js'</script>
@@ -91,43 +84,6 @@ and open the template in the editor.
                 vertical-align: -0.1em !important;
                 background: none !important;
                 padding: 0 !important;
-            }
-            /**********/
-            .modal {
-                display: none; /* Hidden by default */
-                position: fixed; /* Stay in place */
-                z-index: 1; /* Sit on top */
-                left: 0;
-                top: 0;
-                width: 100%; /* Full width */
-                height: 100%; /* Full height */
-                overflow: auto; /* Enable scroll if needed */
-                background-color: rgb(0,0,0); /* Fallback color */
-                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-            }
-
-            /* Modal Content/Box */
-            .modal-content {
-                background-color: #fefefe;
-                margin: 15% auto; /* 15% from the top and centered */
-                padding: 20px;
-                border: 1px solid #888;
-                width: 80%; /* Could be more or less, depending on screen size */
-            }
-
-            /* The Close Button */
-            .close {
-                color: #aaa;
-                float: right;
-                font-size: 28px;
-                font-weight: bold;
-            }
-
-            .close:hover,
-            .close:focus {
-                color: black;
-                text-decoration: none;
-                cursor: pointer;
             }
         </style>
         <link rel='stylesheet' id='WCTZ_customize_css-css'  href='<?= Yii::$app->homeUrl ?>wp-content/plugins/wpo-customize/assets/css/customizeb41e.css?ver=4.3.14' type='text/css' media='all' />
@@ -325,9 +281,7 @@ and open the template in the editor.
                                                                         <?php } ?>
                                                                         <li><a href="">My wishlist</a></li>
                                                                         <?php if (empty(Yii::$app->user->identity)) { ?>
-                                                                            <!--<li class="call-popup popup1" data-toggle="modal" data-target="#fsModal"><a href="">Log in</a></li>-->
-                                                                            <li class="call-popup" id="myBtn"><a href="#">Log in</a></li>
-                                                                            <!--<button id="myBtn">Open Modal</button>-->
+                                                                            <li class="call-popup popup1" data-toggle="modal" data-target="#fsModal"><a href="">Log in</a></li>
                                                                             <?php
                                                                         } else {
                                                                             echo '<li class="last">'
@@ -785,227 +739,71 @@ and open the template in the editor.
 
         </script>
 
+        <div id="fsModal"
+             class="modal animated bounceIn"
+             tabindex="-1"
+             role="dialog"
+             aria-labelledby="myModalLabel"
+             aria-hidden="true">
 
-        <!-- dialog -->
-
-    </div>
-    <!-- modal -->
-
-    <div id="myModal" class="modal">
-
-        <!-- Modal content -->
-        <div class="login-register-popup">
-            <div class="login-form">
-                <h3><img style="margin: 0 auto;" class="img-responsive" src="<?= Yii::$app->homeUrl ?>images/logo.png"/></h3>
+            <!-- dialog -->
+            <div class="login-register-popup">
+                <div class="login-form">
+                    <h3><img style="margin: 0 auto;" class="img-responsive" src="<?= Yii::$app->homeUrl ?>images/logo.png"/></h3>
 <!--                    <span>LOGIN YOUR ACCOUNT</span>
-                <a href="#" title=""><i class="fa fa-facebook"></i> Login With Facebook</a>-->
-                <div class="signup"><i>Login</i></div>
-                <?php
-                $modellogin = new LoginForm();
-                ?>
-                <?php $form_login = ActiveForm::begin(['action' => Yii::$app->homeUrl . 'site/login?go=' . Yii::$app->request->hostInfo . Yii::$app->request->url, 'id' => 'login-form', 'options' => ['class' => 'popup-form', 'autocomplete' => 'off']]); ?>
-                <!--<form class="popup-form">-->
-                <input id="user-email" type="text" name="LoginForm[email]" placeholder="Email" autocomplete="off" >
-                <div class='email-validation hide' style='color:#e2c4c4;margin-left: 4px;font-size: 11px;'></div>
-                <input id="user-password" type="password" name="LoginForm[password]" placeholder="Password" autocomplete="off" >
-                <div class='password-validation hide' style='color:#e2c4c4;margin-left: 4px;font-size: 11px;'>Password cannot be blank.</div>
-                <div class="log-popup-err">Invalid Username or Password</div>
-                <?= Html::submitButton('LOGIN', ['class' => 'btn btn-warning', 'name' => 'login-button']) ?>
-                <!--</form>-->
-                <?php ActiveForm::end(); ?>
+                    <a href="#" title=""><i class="fa fa-facebook"></i> Login With Facebook</a>-->
+                    <div class="signup"><i>Login</i></div>
+                    <?php
+                    $modellogin = new LoginForm();
+                    ?>
+                    <?php $form_login = ActiveForm::begin(['action' => Yii::$app->homeUrl . 'site/login?go=' . Yii::$app->request->hostInfo . Yii::$app->request->url, 'id' => 'login-form', 'options' => ['class' => 'popup-form']]); ?>
+                    <!--<form class="popup-form">-->
+                    <input type="email" name="LoginForm[email]" placeholder="Email" required="required">
+                    <input type="password" name="LoginForm[password]" placeholder="Password" required="required">
+                    <?= Html::submitButton('LOGIN', ['class' => 'btn btn-warning', 'name' => 'login-button']) ?>
+                    <!--</form>-->
+                    <?php ActiveForm::end(); ?>
 
-                <a class="forget" href="<?= yii::$app->homeUrl; ?>forgot-password">Forgot your password?</a>
-            </div><!-- Login Form -->
-            <div class="register-form">
-                <h3>Don't have account?	Register Now</h3>
-                <?php
-                $modelregister = new User();
-                ?>
-                <?php $form_signin = ActiveForm::begin(['action' => Yii::$app->homeUrl . 'site/signup?go=' . Yii::$app->request->hostInfo . Yii::$app->request->url, 'id' => 'signup-form', 'options' => ['class' => 'popup-form']]); ?>
-                <!--<form class="popup-form">-->
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pad0 firstname">
-                    <input id="signup-first_name" type="text" name="User[first_name]" placeholder="Firstname*" required="">
-                    <div class='first_name-validations hide' style='color:red;margin-left: 4px;font-size: 11px;'>Required Filed</div>
+                    <a class="forget" href="<?= yii::$app->homeUrl; ?>forgot-password">Forgot your password?</a>
+                </div><!-- Login Form -->
+                <div class="register-form">
+                    <h3>Don't have account?	Register Now</h3>
+                    <?php
+                    $modelregister = new User();
+                    ?>
+                    <?php $form_signin = ActiveForm::begin(['action' => Yii::$app->homeUrl . 'site/signup', 'id' => 'signup-form', 'options' => ['class' => 'popup-form']]); ?>
+                    <!--<form class="popup-form">-->
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pad0 firstname">
+                        <input type="text" name="User[first_name]" placeholder="Firstname" required="">
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pad0 lastname">
+                        <input type="text" name="User[last_name]" placeholder="Lastname" required="">
+                    </div>
+                    <input type="email" name="User[email]" placeholder="Email" required=''>
+                    <input type="text" name="User[mobile]" placeholder="Mobile" required="">
+                    <!--<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pad0 firstname">-->
+                        <input type="text" name="User[gender]" placeholder="Gender" required="">
+                    <!--</div>-->
+                    <!--<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pad0 lastname">-->
+                        <input type="date" name="User[dob]" placeholder="DOB" required="">
+                    <!--</div>-->
+                    <input type="password" name="User[password]" placeholder="Password" required="" id='password'>
+                    <input type="password" name="User[re-password]" placeholder="Re-Password" required="" id='repassword'>
+                    <?= Html::submitButton('SIGN UP', ['class' => 'btn btn-warning']) ?>
+                    <!--<button type="submit">SIGN UP</button>-->
+                    <!--</form>-->
+                    <?php ActiveForm::end(); ?>
+                    <p class="note">* Denotes mandatory field.</p>
+                    <p class="note">** At least one telephone number is required.</p>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pad0 lastname">
-                    <input id="signup-last_name" type="text" name="User[last_name]" placeholder="Lastname*" required="">
-                    <div class='last_name-validations hide' style='color:red;margin-left: 4px;font-size: 11px;'>Required Filed</div>
-                </div>
-                <input id="signup-email" type="text" name="User[email]" placeholder="Email*" required=''>
-                <div class='email-validations hide' style='color:red;margin-left: 4px;font-size: 11px;'></div>
-                <input id="signup-mobile" type="text" name="User[mobile]" placeholder="Mobile*" required="">
-                <div class='mobile-validations hide' style='color:red;margin-left: 4px;font-size: 11px;'>Required Filed</div>
-                <!--<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pad0 firstname">-->
-                <select name="User[gender]">
-                    <option value="1">Male</option>
-                    <option value="2">Female</option>
-                </select>
-                <!--<input type="text" name="User[gender]" placeholder="Gender" required="">-->
-                <!--</div>-->
-                <!--<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pad0 lastname">-->
-                <input type="date" name="User[dob]" placeholder="DOB" required="">
-                <!--</div>-->
-                <input type="password" name="User[password]" placeholder="Password" required="" id='password'>
-                <input type="password" name="User[re-password]" placeholder="Re-Password" required="" id='repassword'>
-                <div class='password-validations hide' style='color:red;margin-left: 4px;font-size: 11px;'></div>
-                <?= Html::submitButton('SIGN UP', ['class' => 'btn btn-warning']) ?>
-                <!--<button type="submit">SIGN UP</button>-->
-                <!--</form>-->
-                <?php ActiveForm::end(); ?>
-                <p class="note">* Denotes mandatory field.</p>
-                <!--<p class="note">** At least one telephone number is required.</p>-->
             </div>
+            <!-- dialog -->
+
         </div>
+        <!-- modal -->
 
-    </div>
-    <?php
-    unset(Yii::$app->session['log-return']);
-    ?>
-
-</body>
+    </body>
 
 </html>
-<script>
-    $(document).ready(function () {
-        var log_error = '<?php echo $log_error ?>';
-        var modal = document.getElementById('myModal');
-        if (log_error === '1') {
-            modal.style.display = "block";
-            $('.log-popup-err').css('display', 'block');
-        } else {
-            modal.style.display = "none";
-            $('.log-popup-err').css('display', 'none');
-        }
 
-        $('#login-form').on('submit', function (e) {
-            if (validateLogin() === 0) {
-                return true;
-            } else {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-            }
-        });
-        $('#signup-form').on('submit', function (e) {
-            if (validateSignup() === 0) {
-                return true;
-            } else {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-            }
-        });
-
-        /********************************/
-        function validateLogin() {
-            var valid = 0;
-            if (!$('#user-email').val()) {
-//                       email-validation
-                $('.email-validation').removeClass('hide');
-                $('.email-validation').html('Email cannot be blank');
-                var valid = 1;
-            } else {
-                if (validateEmail($('#user-email').val())) {
-                    $('.email-validation').addClass('hide');
-                } else {
-                    $('.email-validation').removeClass('hide');
-                    $('.email-validation').html('Enter Valid Email');
-                    var valid = 1;
-                }
-            }
-            if (!$('#user-password').val()) {
-                $('.password-validation').removeClass('hide');
-                var valid = 1;
-            } else {
-                $('.password-validation').addClass('hide');
-            }
-            return valid;
-        }
-        function validateSignup() {
-            var valid = 0;
-            if (!$('#signup-first_name').val()) {
-                $('.first_name-validations').removeClass('hide');
-                var valid = 1;
-            } else {
-                $('.first_name-validations').addClass('hide');
-            }
-            if (!$('#signup-last_name').val()) {
-                $('.last_name-validations').removeClass('hide');
-                var valid = 1;
-            } else {
-                $('.last_name-validations').addClass('hide');
-            }
-            if (!$('#signup-email').val()) {
-                console.log('asdsadd');
-//                       email-validation
-                $('.email-validations').removeClass('hide');
-                $('.email-validations').html('Email cannot be blank');
-                var valid = 1;
-            } else {
-                if (validateEmail($('#signup-email').val())) {
-                    $('.email-validations').addClass('hide');
-                } else {
-                    $('.email-validations').removeClass('hide');
-                    $('.email-validations').html('Enter Valid Email');
-                    var valid = 1;
-                }
-            }
-            if (!$('#signup-mobile').val()) {
-                $('.mobile-validations').removeClass('hide');
-                var valid = 1;
-            } else {
-                $('.mobile-validations').addClass('hide');
-            }
-            if ($('#password').val() !== $('#repassword').val()) {
-//                console.log('ivde');
-                $('.password-validations').removeClass('hide');
-                $('.password-validations').html('Password doesnot Match');
-                var valid = 1;
-            } else {
-//                console.log('engane');
-                $('.password-validations').addClass('hide');
-            }
-            return valid;
-        }
-        function validateEmail(sEmail) {
-
-            var filter = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-
-            if (filter.test(sEmail)) {
-
-                return true;
-
-            } else {
-
-                return false;
-
-            }
-
-        }
-    });
-</script>
-<script>
-    var modal = document.getElementById('myModal');
-
-// Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on the button, open the modal 
-    btn.onclick = function () {
-        modal.style.display = "block";
-    }
-
-// When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-        modal.style.display = "none";
-    }
-
-// When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
-</script>
 

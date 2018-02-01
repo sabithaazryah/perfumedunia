@@ -36,7 +36,7 @@ class RecentlyViewedWidget extends Widget {
                 if (isset(Yii::$app->user->identity->id)) {
                         $recently_viewed = RecentlyViewed::find()->where(['user_id' => $this->id])->orderBy(['id' => SORT_DESC])->limit(3)->offset(1)->all();
                 } else if (isset(Yii::$app->session['temp_user_product']) || Yii::$app->session['temp_user_product'] != '') {
-                        $recently_viewed = RecentlyViewed::find()->where(['session_id' => Yii::$app->session['temp_user_product']])->all();
+                        $recently_viewed = RecentlyViewed::find()->where(['session_id' => Yii::$app->session['temp_user_product']])->orderBy(['id' => SORT_DESC])->limit(3)->offset(1)->all();
                 }
 
 
