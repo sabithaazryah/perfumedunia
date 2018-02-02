@@ -400,27 +400,27 @@ and open the template in the editor.
                                                     </li>
                                                 <?php } ?>
 <!--                                                <li class="menu-item-370 depth-0 aligned-left " data-id="370"    data-alignsub="left" data-level="1"><?= Html::a("Watches", ['/product/index'], ['class' => '']) ?></li>
-        <li class="menu-item-1620 depth-0 aligned-left " data-id="1620"    data-alignsub="left" data-level="1"><?= Html::a("Jewellery", ['/product/index'], ['class' => '']) ?></li>
-        <li class="menu-item-384 depth-0 aligned-left " data-id="384"    data-alignsub="left" data-level="1"><?= Html::a("Eyewear", ['/product/index'], ['class' => '']) ?></li>
-        <li class="menu-item-388 depth-0 aligned-left " data-id="388"    data-alignsub="left" data-level="1"><?= Html::a("Bags", ['/product/index'], ['class' => '']) ?></li>
-        <li class="menu-item-378 dropdown parent mega depth-0 aligned-left " data-id="378"    data-alignsub="left" data-level="1"><a href="#" class="dropdown-toggle" >Accessories <b class="caret"></b></a>
-            <div class="dropdown-menu"  >
-                <div class="dropdown-menu-inner">
-                    <div class="row">
-                        <div class="mega-col col-md-12 "  data-type="menu">
-                            <div class="mega-col-inner">
-                                <ul class="megamenu-items">
-                                    <li class="menu-item-379 " data-id="379"    data-alignsub="left" data-level="2"><?= Html::a("Belts", ['/product/index'], ['class' => '']) ?></li>
-                                    <li class="menu-item-380 " data-id="380"    data-alignsub="left" data-level="2"><?= Html::a("Wallets", ['/product/index'], ['class' => '']) ?></li>
-                                    <li class="menu-item-381 " data-id="381"    data-alignsub="left" data-level="2"><?= Html::a("Card Holder", ['/product/index'], ['class' => '']) ?></li>
-                                    <li class="menu-item-382 " data-id="382"    data-alignsub="left" data-level="2"><?= Html::a("Novelties", ['/product/index'], ['class' => '']) ?></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </li>-->
+<li class="menu-item-1620 depth-0 aligned-left " data-id="1620"    data-alignsub="left" data-level="1"><?= Html::a("Jewellery", ['/product/index'], ['class' => '']) ?></li>
+<li class="menu-item-384 depth-0 aligned-left " data-id="384"    data-alignsub="left" data-level="1"><?= Html::a("Eyewear", ['/product/index'], ['class' => '']) ?></li>
+<li class="menu-item-388 depth-0 aligned-left " data-id="388"    data-alignsub="left" data-level="1"><?= Html::a("Bags", ['/product/index'], ['class' => '']) ?></li>
+<li class="menu-item-378 dropdown parent mega depth-0 aligned-left " data-id="378"    data-alignsub="left" data-level="1"><a href="#" class="dropdown-toggle" >Accessories <b class="caret"></b></a>
+<div class="dropdown-menu"  >
+<div class="dropdown-menu-inner">
+<div class="row">
+<div class="mega-col col-md-12 "  data-type="menu">
+    <div class="mega-col-inner">
+        <ul class="megamenu-items">
+            <li class="menu-item-379 " data-id="379"    data-alignsub="left" data-level="2"><?= Html::a("Belts", ['/product/index'], ['class' => '']) ?></li>
+            <li class="menu-item-380 " data-id="380"    data-alignsub="left" data-level="2"><?= Html::a("Wallets", ['/product/index'], ['class' => '']) ?></li>
+            <li class="menu-item-381 " data-id="381"    data-alignsub="left" data-level="2"><?= Html::a("Card Holder", ['/product/index'], ['class' => '']) ?></li>
+            <li class="menu-item-382 " data-id="382"    data-alignsub="left" data-level="2"><?= Html::a("Novelties", ['/product/index'], ['class' => '']) ?></li>
+        </ul>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</li>-->
                                                 <li class="menu-item-1948 depth-0 aligned-left " data-id="1948"    data-alignsub="left" data-level="1"><a href="#" class="dropdown-toggle" >Offers</a></li>
                                                 <!--<li class="menu-item-402 " data-id="402"    data-alignsub="left" data-level="1"><a href="index3829.html?page_id=400">Contact</a></li>-->
                                             </ul>
@@ -618,12 +618,20 @@ and open the template in the editor.
                                                         </div>
                                                         <p class="description">& get 10% off your next order</p>
                                                     </div>
+                                                    <?php
+                                                    $form = ActiveForm::begin(['action' => Yii::$app->homeUrl . 'site/newsletter','id'=>'newsletter']);
+                                                    $model = new \common\models\Subscribe();
+                                                    ?>
                                                     <div class="input-group">
-                                                        <input type="text" class="inputNew" placeholder="Your email ..." value="" size="18" name="email">
+                                                        <?= $form->field($model, 'email')->textInput(['placeholder' => 'Your email ...', 'class' => 'inputNew'])->label(FALSE) ?>
+                                                        <!--<input type="text" class="inputNew" placeholder="Your email ..." value="" size="18" name="email">-->
                                                         <span class="input-group-btn">
-                                                            <button type="submit" name="submitNewsletter" class="btn btn-custom">Subscribe<span class="fa-fw fa fa-long-arrow-right"></span></button>
+                                                            <?= Html::submitButton('Subscribe<span class="fa-fw fa fa-long-arrow-right"></span>', ['class' => 'btn btn-custom newsletter']) ?>
+                                                            <label class="newsletter_error" style="color:#a94442;"></label>
                                                         </span>
                                                     </div>
+
+                                                    <?php ActiveForm::end(); ?>
                                                 </div>
                                             </div>
                                         </div></div>
@@ -909,6 +917,15 @@ and open the template in the editor.
                 e.stopImmediatePropagation();
             }
         });
+        $('#newsletter').on('submit', function (e) {
+            if (!$('#subscribe-email').val() && validateEmail($('#subscribe-email').val()) {
+                $('.newsletter_error').html('');
+            } else {
+                $('.newsletter_error').html('Enter Valid Email');
+                e.preventDefault();
+                e.stopImmediatePropagation();
+            }
+        });
 
         /********************************/
         function validateLogin() {
@@ -1000,24 +1017,14 @@ and open the template in the editor.
 </script>
 <script>
     var modal = document.getElementById('myModal');
-
-// Get the button that opens the modal
     var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks on the button, open the modal 
     btn.onclick = function () {
         modal.style.display = "block";
     }
-
-// When the user clicks on <span> (x), close the modal
     span.onclick = function () {
         modal.style.display = "none";
     }
-
-// When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";

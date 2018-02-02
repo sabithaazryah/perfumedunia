@@ -210,8 +210,8 @@ class ProductController extends \yii\web\Controller {
             if (!isset(Yii::$app->session['temp_user_product']) || Yii::$app->session['temp_user_product'] == '') {
                 $milliseconds = round(microtime(true) * 1000);
                 Yii::$app->session['temp_user_product'] = $milliseconds;
-                $model = RecentlyViewed::find()->where(['product_id' => $product->id, 'session_id' => Yii::$app->session['temp_user_product']])->one();
             }
+            $model = RecentlyViewed::find()->where(['product_id' => $product->id, 'session_id' => Yii::$app->session['temp_user_product']])->one();
             $sessonid = Yii::$app->session['temp_user_product'];
         }
         if (empty($model)) {

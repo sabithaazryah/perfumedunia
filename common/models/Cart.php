@@ -131,7 +131,7 @@ class Cart extends \yii\db\ActiveRecord {
                 $str = $product_name;
             }
             $content .= '<div class="dd-product-group" id="pr_' . $i . '"><div class="dd-product-box pull-left">
-                  <a href="product-detail.php" title="' . $prod_details->canonical_name . '">' . $image . '</a></div>
+                  <a href="'.Yii::$app->homeUrl.'product-detail/'.$prod_details->canonical_name.'" title="' . $prod_details->canonical_name . '">' . $image . '</a></div>
                   <div class="dd-product-desc pull-left">
                   <a class="title">' . $prod_details->product_name . '</a>
                   <div class="qty">' . $cart_content->quantity . ' x <span class="active">$' . sprintf("%0.2f", $price) . '</span></div>

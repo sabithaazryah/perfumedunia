@@ -99,7 +99,7 @@ class TaxController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public function actionDel($id)
     {
         $this->findModel($id)->delete();
 

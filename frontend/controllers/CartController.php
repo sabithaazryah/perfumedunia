@@ -195,7 +195,7 @@ class CartController extends \yii\web\Controller {
               return $this->redirect(array('cart/mycart'));
             }
         } else {
-            return $this->redirect(array('site/login'));
+            return $this->redirect(array('cart/mycart'));
         }
     }
 

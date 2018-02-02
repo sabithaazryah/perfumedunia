@@ -41,7 +41,7 @@ else
                     </div>
                     <div class="wishlist-compare">
                         <?php if (empty(Yii::$app->user->identity)) { ?>
-                            <a class="wishlist fa fa-heart call-popup popup1" data-toggle="modal" data-target="#fsModal" title="Add to Wish List"><span>Add to Wish List</span></a>
+                            <a class="wishlist fa fa-heart call-popup popup1 loginCheckout" id="loginCheckout" title="Add to Wish List"><span>Add to Wish List</span></a>
                         <?php } else {
                             ?>
                             <a class="wishlist fa fa-heart add_to_wish_list" id='<?= $model->canonical_name ?>' title="Add to Wish List"><span>Add to Wish List</span></a>
@@ -59,9 +59,9 @@ else
                     <span class="price"><span class="amount">AED <?= $model->offer_price; ?></span></span>
 
                     <!--quickview-->
-                    <a href="<?= Yii::$app->homeUrl . 'product_detail/' . $model->canonical_name ?>" class="wpo-colorbox cboxElement quickview" data-productslug="ninja-silhouette-2" data-toggle="modal" data-target="#wpo_modal_quickview">
-                        <span class="fa fa-plus"></span>
-                        <span>Quick view</span>
+                    <a href="#" style="pointer-events: none;" class="wpo-colorbox cboxElement quickview" data-productslug="ninja-silhouette-2" data-toggle="modal" data-target="#wpo_modal_quickview">
+                        <span class="fa fa-plus" style="visibility: hidden"></span>
+                        <!--<span>Quick view</span>-->
                     </a>
 
                 </div>

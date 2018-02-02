@@ -85,13 +85,7 @@ $this->title = 'Shopping Cart';
 
                                             </div>
                                             <input type="submit" class="btn btn-default" name="update_cart" value="Update Cart">
-                                            <?php if (empty(Yii::$app->user->identity)) { ?>
-                                                <!--<li class="call-popup popup1" data-toggle="modal" data-target="#fsModal"><a href="">Log in</a></li>-->
-                                                <input type="button" class="checkout-button btn btn-default alt wc-forward" data-toggle="modal" data-target="#fsModal" value="Login to Checkout">
-                                            <?php } else {
-                                                ?>
-                                                <!--<input type="submit" class="checkout-button btn btn-default alt wc-forward" name="proceed" value="Proceed to Checkout">-->
-                                            <?php } ?>
+                                            
 
                                             <input type="hidden" id="_wpnonce" name="_wpnonce" value="e5604b90fe"><input type="hidden" name="_wp_http_referer" value=""> </td>
                                     </tr>
@@ -167,7 +161,7 @@ $this->title = 'Shopping Cart';
 
                                 <div class="wc-proceed-to-checkout">
                                     <?php if (empty(Yii::$app->user->identity)) { ?>
-                                        <a href="javascript:void(0)" class="checkout-button button alt wc-forward" data-toggle="modal" data-target="#fsModal">Login to Checkout</a>
+                                        <a href="javascript:void(0)" class="checkout-button button alt wc-forward loginCheckout" id="loginCheckout">Login to Checkout</a>
                                     <?php } else { ?>
                                         <a href="<?= Yii::$app->homeUrl . 'cart/proceed' ?>" class="checkout-button button alt wc-forward">Proceed to Checkout</a>
                                     <?php } ?>
@@ -188,34 +182,19 @@ $this->title = 'Shopping Cart';
     </div>
 </div>
 <script>
-//    jQuery('body').on('click', '.remove_cart', function () {
-//        var answer = confirm("Are you sure want to remove?");
-//        if (answer)
-//        {
-////            showLoader();
-//            var $id = $(this).attr('data-product_id');
-//            var $count = $('#cart_count').val();
-//            jQuery('.error_' + $id).html('');
-//            jQuery.ajax({
-//                url: homeUrl + 'cart/cart_remove',
-//                type: "post",
-//                data: {id: $id, count: $count},
-//                success: function (data) {
-//                    var $data = JSON.parse(data);
-//                    if ($data.msg === "success") {
-////                        getcartcount();
-//                        $('.tr_' + $id).remove();
-////                        getcartcount();
-////                    }
-//                        $('.cart_subtotal').html('£'+$data.subtotal);
-//                        $('.shipping-cost').html('£'+$data.shipping);
-//                        $('.grand_total').html('£'+$data.grandtotal);
-////                        hideLoader();
-//                    }
-//                }, error: function () {
-//                    jQuery('.error_' + $id).html('Cannot Find');
-//                }
-//            });
+//    var modal = document.getElementById('myModal');
+//    var btn = document.getElementById("loginCheckout");
+//    var span = document.getElementsByClassName("close")[0];
+//    btn.onclick = function () {
+//        console.log('adas');
+//        modal.style.display = "block";
+//    }
+//    span.onclick = function () {
+//        modal.style.display = "none";
+//    }
+//    window.onclick = function (event) {
+//        if (event.target == modal) {
+//            modal.style.display = "none";
 //        }
-//    });
+//    }
 </script>

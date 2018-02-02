@@ -33,7 +33,13 @@ use common\models\Category;
 
     </div>
     <div class='col-md-4 col-sm-6 col-xs-12 left_padd type-sub'>
-        <?= $form->field($model, 'sub_menu_id')->dropDownList(ArrayHelper::map([], 'id', 'category'), ['prompt' => 'select Sub menu', 'class' => 'form-control']) ?>
+        <?php
+        $submenu=[];
+        if (!$model->isNewRecord) {
+            $submenu= Category::find()->where(['main_category'=>$model->main_menu_arabic])->all();
+        }
+        ?>
+        <?= $form->field($model, 'sub_menu_id')->dropDownList(ArrayHelper::map($submenu, 'id', 'category'), ['prompt' => 'select Sub menu', 'class' => 'form-control']) ?>
 
     </div>
     <div class='col-md-6 col-sm-6 col-xs-12 left_padd type-sub'>

@@ -24,6 +24,13 @@ $(document).ready(function () {
             hideLoader();
         });
     });
+    jQuery('.loginCheckout').click(function () {
+        var modal = document.getElementById('myModal');
+//        var span = document.getElementsByClassName("close")[0];
+       
+            modal.style.display = "block";
+       
+    });
     jQuery('.close-alert').click(function () {
         jQuery('.alert-success').addClass('hide');
     });
@@ -45,9 +52,9 @@ $(document).ready(function () {
                         $('.tr_' + $id).remove();
                         getcart();
 //                    }
-                        $('.cart_subtotal').html('£' + $data.subtotal);
-                        $('.shipping-cost').html('£' + $data.shipping);
-                        $('.grand_total').html('£' + $data.grandtotal);
+                        $('.cart_subtotal').html('AED ' + $data.subtotal);
+                        $('.shipping-cost').html('AED ' + $data.shipping);
+                        $('.grand_total').html('AED ' + $data.grandtotal);
                         hideLoader();
                     } else {
                         window.location.href = homeUrl + "cart/mycart";
@@ -100,9 +107,9 @@ jQuery('body').on('click', '.remove_order', function () {
                     $('.tr_' + $id).remove();
                     getcart();
 //                    }
-                    $('.cart_subtotal').html('£' + $data.subtotal);
-                    $('.shipping-cost').html('£' + $data.shipping);
-                    $('.grand_total').html('£' + $data.grandtotal);
+                    $('.cart_subtotal').html('AED ' + $data.subtotal);
+                    $('.shipping-cost').html('AED ' + $data.shipping);
+                    $('.grand_total').html('AED ' + $data.grandtotal);
                     hideLoader();
                 } else {
                     window.location.href = homeUrl + "checkout/continue?id=" + $data.order_id;
@@ -156,7 +163,7 @@ function findstock(id, quantity) {
         success: function (data) {
             var $data = JSON.parse(data);
             if ($data.msg === "success") {
-                $('#total_' + id).html('£' + $data.total);
+                $('#total_' + id).html('AED ' + $data.total);
                 $('#quantity_' + id).val($data.quantity);
 //                hideLoader();
             } else {
@@ -175,7 +182,7 @@ function findorderstock(id, quantity) {
         success: function (data) {
             var $data = JSON.parse(data);
             if ($data.msg === "success") {
-                $('#total_' + id).html('£' + $data.total);
+                $('#total_' + id).html('AED ' + $data.total);
                 $('#quantity_' + id).val($data.quantity);
 //                hideLoader();
             } else {
@@ -195,7 +202,7 @@ function updatecart(id, quantity, count) {
             var $data = JSON.parse(data);
             if ($data.msg === "success") {
                 $("#cart_count").val($data.cart_count);
-                $('.cart_subtotal').html('£' + $data.subtotal);
+                $('.cart_subtotal').html('AED ' + $data.subtotal);
                 if ($data.shipping === '0.00') {
 //                    console.log('ivde');
                     $('.free_shipping').removeClass('hide');
@@ -205,7 +212,7 @@ function updatecart(id, quantity, count) {
                     $('.free_shipping').addClass('hide');
                     $('.shipping_').removeClass('hide');
                 }
-                $('.grand_total').html('£' + $data.grandtotal);
+                $('.grand_total').html('AED ' + $data.grandtotal);
                 hideLoader();
             }
         }
@@ -220,7 +227,7 @@ function updatedetail(id, quantity, count) {
             var $data = JSON.parse(data);
             if ($data.msg === "success") {
                 $("#cart_count").val($data.cart_count);
-                $('.cart_subtotal').html('£' + $data.subtotal);
+                $('.cart_subtotal').html('AED ' + $data.subtotal);
                 if ($data.shipping === '0.00') {
 //                    console.log('ivde');
                     $('.free_shipping').removeClass('hide');
@@ -230,7 +237,7 @@ function updatedetail(id, quantity, count) {
                     $('.free_shipping').addClass('hide');
                     $('.shipping_').removeClass('hide');
                 }
-                $('.grand_total').html('£' + $data.grandtotal);
+                $('.grand_total').html('AED ' + $data.grandtotal);
                 hideLoader();
             }
         }
@@ -279,4 +286,21 @@ function showLoader() {
 function hideLoader() {
     $('.page-loading-overlay').addClass('loaded');
 }
+/************************************************/
+//var modal = document.getElementById('myModal');
+//var btn = document.getElementsByClassName("loginCheckout");
+//var span = document.getElementsByClassName("close")[0];
+//btn.onclick = function () {
+//    console.log('adas');
+//    modal.style.display = "block";
+//}
+//span.onclick = function () {
+//    modal.style.display = "none";
+//}
+//window.onclick = function (event) {
+//    if (event.target == modal) {
+//        modal.style.display = "none";
+//    }
+//}
+/*********************************************/
 

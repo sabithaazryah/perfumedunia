@@ -182,6 +182,15 @@ class SiteController extends Controller {
                     'model' => $model,
         ]);
     }
+    
+    public function actionNewsletter(){
+         $model = new Subscribe();
+        if ($model->load(Yii::$app->request->post())) {
+            $model->date = date('Y-m-d');
+            $model->save();
+            return $this->redirect(Yii::$app->request->referrer);
+        }
+    }
 
     public function actionFaq() {
         $model = Principals::findOne(1);

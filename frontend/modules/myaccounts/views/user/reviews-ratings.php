@@ -18,14 +18,16 @@ use yii\widgets\ListView;
         <ol class="path">
             <li><?= Html::a('<span>Home</span>', ['/site/index'], ['class' => '']) ?></li>
             <li><?= Html::a('<span>My account</span>', ['/myaccounts/user/index'], ['class' => '']) ?></li>
-            <li class="active">My orders</li>
+            <li class="active">Reviews</li>
         </ol>
     </div>
 </div>
 
 <div id="our-product" class="my-account">
     <div class="container">
-        <?= Yii::$app->controller->renderPartial('_leftside_menu'); ?>
+        <div class="col-md-3">
+            <?= Yii::$app->controller->renderPartial('_leftside_menu'); ?>
+        </div>
 
         <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 my-account-cntnt">
             <div id="reviews-ratings">

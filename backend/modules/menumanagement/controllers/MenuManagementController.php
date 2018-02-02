@@ -62,6 +62,7 @@ class MenuManagementController extends Controller {
         $model = new MenuManagement();
 
         if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
+            $model->main_menu_arabic= Yii::$app->request->post()['MenuManagement']['main_menu_arabic'];
             if ($model->save()) {
                 $model = new MenuManagement();
                 Yii::$app->getSession()->setFlash('success', 'Data Saved Successfully');
@@ -86,7 +87,7 @@ class MenuManagementController extends Controller {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
-           
+           $model->main_menu_arabic= Yii::$app->request->post()['MenuManagement']['main_menu_arabic'];
             if ($model->save()) {
                 Yii::$app->getSession()->setFlash('success', 'Data Updated Successfully');
             }

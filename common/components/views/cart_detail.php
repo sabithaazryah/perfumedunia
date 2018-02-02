@@ -31,7 +31,7 @@ use common\models\Cart;
             <a href="<?= Yii::$app->homeUrl.'cart/mycart'?>" class="btn btn-md btn-third-col btn-w100">View Cart</a>
         </div>
         <div class="col-xs-6">
-            <a href="" class="btn btn-md btn-third-col btn-w100">Procced to Checkout</a>
+            <a href="<?= Yii::$app->homeUrl.'cart/proceed'?>" class="btn btn-md btn-third-col btn-w100">Procced to Checkout</a>
         </div>
     </div>
 </div>

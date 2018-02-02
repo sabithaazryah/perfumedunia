@@ -2181,6 +2181,7 @@ h1.page-heading {
 .my-account .ordered-pro-dtls{
     display: inline-table;
     padding: 10px 10px;
+    width: 100%;
 }
 .my-account .ordered-date{
     float: left;
@@ -2278,5 +2279,10 @@ button.green2 {
     color:#dc8383;
     padding-left: 5px;
     font-size: 15px;
+}
+/*********/
+#reviews-ratings .customer-reviews{
+    padding: 15px 5px;
+    border-bottom: 2px solid #ddd;
 }
 
