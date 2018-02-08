@@ -6,6 +6,7 @@ use common\components\CartSummaryWidget;
 use common\models\Emirates;
 use yii\helpers\ArrayHelper;
 use common\models\UserAddress;
+use yii\widgets\Pjax;
 
 $this->title = 'Checkout';
 ?>
@@ -61,7 +62,8 @@ $this->title = 'Checkout';
 
                                                         <div class="section__content">
                                                             <div class="fieldset" data-address-fields="">
-                                                                <?php $form = ActiveForm::begin(); ?>
+                                                                <?php Pjax::begin(); ?>
+                                                                <?php $form = ActiveForm::begin(['enableAjaxValidation' => true]); ?>
 
                                                                 <div class="field field--required field--show-floating-label field--three-eights ptop10" data-address-field="country" data-google-places="true">
 
@@ -91,7 +93,7 @@ $this->title = 'Checkout';
                                                                     <h2 class="section__title">Address</h2>
                                                                     <!--<form>-->
                                                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padlft0 first-name">
-                                                                        <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'class' => 'field__input input-width billing', 'placeholder' => 'First Name'])->label(FALSE) ?>
+                                                                        <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'class' => 'form-control field__input input-width billing', 'placeholder' => 'First Name'])->label(FALSE) ?>
                                                                     </div>
 
                                                                     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 padlft0 address">
@@ -167,8 +169,8 @@ $this->title = 'Checkout';
                                                                 </a>
                                                             </div>
                                                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                                <div class="wc-proceed-to-checkout" style="float: right;">
-                                                                    <?= Html::submitButton('Continue to shipping method', ['class' => 'btn btn-success checkout']) ?>
+                                                                <div class="wc-proceed-to-checkout">
+                                                                    <?= Html::submitButton('Continue to shipping method', ['class' => 'checkout-button button alt wc-forward checkout']) ?>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -176,7 +178,7 @@ $this->title = 'Checkout';
                                                     </div>
 
                                                     <?php ActiveForm::end(); ?>
-
+                                                    <?php Pjax::end(); ?>
                                                     <input type="hidden" name="checkout[client_details][browser_width]" value="1349">
                                                     <input type="hidden" name="checkout[client_details][browser_height]" value="662">
                                                     <input type="hidden" name="checkout[client_details][javascript_enabled]" value="1">

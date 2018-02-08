@@ -857,7 +857,7 @@ and open the template in the editor.
                 </div>
                 <input id="signup-email" type="text" name="User[email]" placeholder="Email*" required=''>
                 <div class='email-validations hide' style='color:red;margin-left: 4px;font-size: 11px;'></div>
-                <input id="signup-mobile" type="text" name="User[mobile]" placeholder="Mobile*" required="">
+                <input id="signup-mobile" type="text" class="mobile" name="User[mobile]" placeholder="Mobile*" required="">
                 <div class='mobile-validations hide' style='color:red;margin-left: 4px;font-size: 11px;'>Required Filed</div>
                 <!--<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pad0 firstname">-->
                 <select name="User[gender]">
@@ -868,6 +868,7 @@ and open the template in the editor.
                 <!--</div>-->
                 <!--<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pad0 lastname">-->
                 <input type="date" name="User[dob]" placeholder="DOB" required="">
+                <!--<input type="date" name="User[dob]" placeholder="DOB" required="">-->
                 <!--</div>-->
                 <input type="password" name="User[password]" placeholder="Password" required="" id='password'>
                 <input type="password" name="User[re-password]" placeholder="Re-Password" required="" id='repassword'>
@@ -917,15 +918,15 @@ and open the template in the editor.
                 e.stopImmediatePropagation();
             }
         });
-        $('#newsletter').on('submit', function (e) {
-            if (!$('#subscribe-email').val() && validateEmail($('#subscribe-email').val()) {
-                $('.newsletter_error').html('');
-            } else {
-                $('.newsletter_error').html('Enter Valid Email');
-                e.preventDefault();
-                e.stopImmediatePropagation();
-            }
-        });
+//        $('#newsletter').on('submit', function (e) {
+//            if (!$('#subscribe-email').val() && validateEmail($('#subscribe-email').val()) {
+//                $('.newsletter_error').html('');
+//            } else {
+//                $('.newsletter_error').html('Enter Valid Email');
+//                e.preventDefault();
+//                e.stopImmediatePropagation();
+//            }
+//        });
 
         /********************************/
         function validateLogin() {
@@ -967,7 +968,6 @@ and open the template in the editor.
                 $('.last_name-validations').addClass('hide');
             }
             if (!$('#signup-email').val()) {
-                console.log('asdsadd');
 //                       email-validation
                 $('.email-validations').removeClass('hide');
                 $('.email-validations').html('Email cannot be blank');

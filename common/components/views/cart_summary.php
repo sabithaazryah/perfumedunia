@@ -95,7 +95,7 @@ use common\models\Settings;
                                 <th class="total-line__name" scope="row">Subtotal</th>
                                 <td class="total-line__price">
                                     <span class="order-summary__emphasis" data-checkout-subtotal-price-target="20000">
-                                        AED <?= sprintf("%0.2f", $subtotal) ?>
+                                        AED <?= sprintf("%0.2f", $subtotal - $tax_amount) ?>
                                     </span>
                                 </td>
                             </tr>
@@ -134,7 +134,7 @@ use common\models\Settings;
                                 <td class="total-line__price payment-due">
                                     <!--<span class="payment-due__currency">USD</span>-->
                                     <span class="payment-due__price" data-checkout-payment-due-target="20000">
-                                        
+
                                         AED <?= sprintf("%0.2f", $grand_total) ?>
                                     </span>
                                 </td>

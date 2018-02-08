@@ -27,9 +27,9 @@ $(document).ready(function () {
     jQuery('.loginCheckout').click(function () {
         var modal = document.getElementById('myModal');
 //        var span = document.getElementsByClassName("close")[0];
-       
-            modal.style.display = "block";
-       
+
+        modal.style.display = "block";
+
     });
     jQuery('.close-alert').click(function () {
         jQuery('.alert-success').addClass('hide');
@@ -86,6 +86,17 @@ $(document).ready(function () {
 
         addwishlist($(this), canname, $(this).closest(".gp_products_inner"));
     });
+
+    $(".mobile").keypress(function (e) {
+        //if the letter is not digit then display error and don't type anything
+        var mobile = $(this).val();
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            return false;
+        } else if (mobile.length === 10) {
+            return false;
+        }
+    });
+
 });
 ///////////     my order continue order  starts-> ////////////
 

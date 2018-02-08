@@ -131,7 +131,7 @@ class Cart extends \yii\db\ActiveRecord {
                 $str = $product_name;
             }
             $content .= '<div class="dd-product-group" id="pr_' . $i . '"><div class="dd-product-box pull-left">
-                  <a href="'.Yii::$app->homeUrl.'product-detail/'.$prod_details->canonical_name.'" title="' . $prod_details->canonical_name . '">' . $image . '</a></div>
+                  <a href="' . Yii::$app->homeUrl . 'product-detail/' . $prod_details->canonical_name . '" title="' . $prod_details->canonical_name . '">' . $image . '</a></div>
                   <div class="dd-product-desc pull-left">
                   <a class="title">' . $prod_details->product_name . '</a>
                   <div class="qty">' . $cart_content->quantity . ' x <span class="active">$' . sprintf("%0.2f", $price) . '</span></div>
@@ -156,23 +156,41 @@ class Cart extends \yii\db\ActiveRecord {
         return $subtotal;
     }
 
-    public static function tax($cart,$product) {
+    public static function tax($cart, $product) {
         $subtotal = '0';
-            $tax = Tax::find()->where(['id' => $product->tax])->one();
-            if ($product->offer_price == '0' || $product->offer_price == '') {
-                $price = $product->price;
-            } else {
-                $price = $product->offer_price;
-            }
+        $tax = Tax::find()->where(['id' => $product->tax])->one();
+        if ($product->offer_price == '0' || $product->offer_price == '') {
+            $price = $product->price;
+        } else {
+            $price = $product->offer_price;
+        }
 //            echo 'price-'.$price.'/qnty/'.$cart_item->quantity.'<br>';
-            if ($tax->type == 1) {
-                $total = $price * $cart->quantity;
-                $subtotal = (($total * $tax->value) / 100);
-            }else{
-                $subtotal =($tax->value * $cart->quantity);
-            }
+        if ($tax->type == 1) {
+            $total = $price * $cart->quantity;
+            $subtotal += (($total * $tax->value) / 100);
+        } else {
+            $subtotal += ($tax->value * $cart->quantity);
+        }
 //        }
-         return $subtotal;
+        return $subtotal;
+    }
+
+    public static function productTax($product) {
+
+        $tax = Tax::find()->where(['id' => $product->tax])->one();
+        if ($product->offer_price == '0' || $product->offer_price == '') {
+            $price = $product->price;
+        } else {
+            $price = $product->offer_price;
+        }
+//            echo 'price-'.$price.'/qnty/'.$cart_item->quantity.'<br>';
+        if ($tax->type == 1) {
+            $subtotal = (($price * $tax->value) / 100);
+        } else {
+            $subtotal = ($tax->value);
+        }
+//        }
+        return $subtotal;
     }
 
     public static function cart_count() {
@@ -293,7 +311,7 @@ class Cart extends \yii\db\ActiveRecord {
             }
             $model_prod->item_type = $cart->item_type;
             $model_prod->amount = $price;
-            $model_prod->tax = Cart::tax($cart,$prod_details);
+            $model_prod->tax = Cart::tax($cart, $prod_details);
             $model_prod->rate = ($cart->quantity) * ($price);
             $model_prod->status = '0';
             if ($model_prod->save()) {
@@ -330,6 +348,7 @@ class Cart extends \yii\db\ActiveRecord {
         }
         return $net_amnt;
     }
+
     public static function shippingcharge($total_amt) {
         $limit = Settings::findOne(1)->value;
         $ship_amnt = 0;

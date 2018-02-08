@@ -238,6 +238,7 @@ class SiteController extends Controller {
         $modellogin = new LoginForm();
         if ($modellogin->load(Yii::$app->request->post()) && $modellogin->login()) {
             $user = User::findOne(Yii::$app->user->identity->id);
+            Yii::$app->session['log-return'] = '';
 //            $user->update();
             return $this->redirect($go);
         } else {
@@ -551,7 +552,7 @@ class SiteController extends Controller {
                 $token_model->token = $token_value;
                 $token_model->save();
                 $this->sendMail($val, $check_exists);
-                Yii::$app->getSession()->setFlash('success', 'A mail has been sent');
+                Yii::$app->getSession()->setFlash('success', 'A verification email has been sent to '.$check_exists->email.', please check the spam box if you cannot find the mail in your inbox ');
             } else {
                 Yii::$app->getSession()->setFlash('error', 'Invalid username');
             }

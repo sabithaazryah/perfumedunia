@@ -154,8 +154,8 @@ $this->title = 'Checkout';
                                                                 </a>
                                                             </div>
                                                             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                                                                <div class="wc-proceed-to-checkout">
-                                                                    <?= Html::submitButton('Confirm Order', ['class' => 'checkout-button button alt wc-forward checkout']) ?>
+                                                                <div class="wc-proceed-to-checkout" style="float: right;">
+                                                                    <?= Html::submitButton('Confirm Order', ['class' => 'btn btn-success checkout']) ?>
                                                                 </div>
                                                             </div>
                                                         </div>
