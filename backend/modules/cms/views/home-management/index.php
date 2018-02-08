@@ -26,11 +26,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="panel-body">
 
 
-                                        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
 
-
-                                        <?php // Html::a('<i class="fa-th-list"></i><span> Create Home Management</span>', ['create'], ['class' => 'btn btn-warning  btn-icon btn-icon-standalone']) ?>
                                         <div class="table-responsive" style="border: none">
                                                 <button class="btn btn-white" id="search-option" style="float: right;">
                                                         <i class="linecons-search"></i>
@@ -45,8 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     },
                                                     'columns' => [
                                                             ['class' => 'yii\grid\SerialColumn'],
-//                                        'id',
-                                                        [
+                                                            [
                                                             'attribute' => 'type',
                                                             'filter' => ['0' => 'Latest product', '1' => 'Todays Exclusive', '2' => 'Single banner', '3' => 'Double Banner', '4' => 'Tripple Banner'],
                                                             'value' => function($data) {
@@ -54,33 +50,19 @@ $this->params['breadcrumbs'][] = $this->title;
                                                             }
                                                         ],
                                                         'tittle',
-                                                            [
-                                                            'attribute' => 'product_id',
-                                                            'value' => function($model, $key, $index, $column) {
-                                                                    if (isset($model->product_id) && $model->product_id != '') {
-                                                                            return $model->getProducts($model->product_id);
-                                                                    }
-                                                            },
-                                                            'filter' => ArrayHelper::map(common\models\Product::find()->asArray()->all(), 'id', 'product_name'),
-                                                        ],
-                                                        'image_1',
-//                                'image_1_arabic',
-                                                        'link_1',
-                                                        // 'image_2',
-                                                        // 'image_2_arabic',
-                                                        // 'link_2',
-                                                        // 'image_3',
-                                                        // 'image_3_arabic',
-                                                        // 'link_3',
-                                                        // 'sort_order',
-                                                        // 'status',
-                                                        // 'CB',
-                                                        // 'UB',
-                                                        // 'DOC',
-                                                        // 'DOU',
+//                                                            [
+//                                                            'attribute' => 'product_id',
+//                                                            'value' => function($model, $key, $index, $column) {
+//                                                                    if (isset($model->product_id) && $model->product_id != '') {
+//                                                                            return $model->getProducts($model->product_id);
+//                                                                    }
+//                                                            },
+//                                                            'filter' => ArrayHelper::map(common\models\Product::find()->asArray()->all(), 'id', 'product_name'),
+//                                                        ],
+//                                                        'image_1',
+//                                                        'link_1',
                                                         [
                                                             'class' => 'yii\grid\ActionColumn',
-//                                    'contentOptions' => ['style' => 'width:100px;'],
                                                             'header' => 'Actions',
                                                             'template' => '{update}',
                                                             'buttons' => [
@@ -90,27 +72,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                                                                     'class' => '',
                                                                         ]);
                                                                 },
-//                                        'delete' => function ($url, $model) {
-//                                            if ($model->id != 1) {
-//                                                return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-//                                                            'title' => Yii::t('app', 'delete'),
-//                                                            'class' => '',
-//                                                            'data' => [
-//                                                                'confirm' => 'Are you sure you want to delete this item?',
-//                                                            ],
-//                                                ]);
-//                                            }
-//                                        },
                                                             ],
                                                             'urlCreator' => function ($action, $model) {
                                                                     if ($action === 'update') {
                                                                             $url = Url::to(['update', 'id' => $model->id]);
                                                                             return $url;
                                                                     }
-//                                        if ($action === 'delete') {
-//                                            $url = Url::to(['del', 'id' => $model->id]);
-//                                            return $url;
-//                                        }
                                                             }
                                                         ],
                                                     ],
