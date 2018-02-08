@@ -61,7 +61,7 @@ $this->title = 'Checkout';
 
                                                         <div class="section__content">
                                                             <div class="fieldset" data-address-fields="">
-                                                                <?php $form = ActiveForm::begin(['enableClientValidation' => TRUE]); ?>
+                                                                <?php $form = ActiveForm::begin(['enableAjaxValidation' => true]); ?>
 
                                                                 <div class="field field--required field--show-floating-label field--three-eights ptop10" data-address-field="country" data-google-places="true">
 
@@ -100,8 +100,8 @@ $this->title = 'Checkout';
                                                                     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 padlft0 padright0 apt">
                                                                         <?= $form->field($model, 'landmark')->textInput(['maxlength' => true, 'class' => 'field__input input-width billing', 'placeholder' => 'Apt, suite, etc. (optional)'])->label(FALSE) ?>
                                                                     </div>
-                                                                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 padlft0 padright0 apt">
-                                                                        <?= $form->field($model, 'location')->textInput(['maxlength' => true, 'class' => 'field__input input-width billing', 'placeholder' => 'Apt, suite, etc. (optional)'])->label(FALSE) ?>
+                                                                    <div class="col-lg-6 col-md-4 col-sm-4 col-xs-4 padlft0 padright0 apt">
+                                                                        <?= $form->field($model, 'location')->textInput(['maxlength' => true, 'class' => 'field__input input-width billing', 'placeholder' => 'Location'])->label(FALSE) ?>
                                                                     </div>
                                                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padlft0 padright0 city">
                                                                         <div class="field__input-wrapper field__input-wrapper--select">

@@ -15,7 +15,7 @@ use yii\widgets\ActiveForm;
     <div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'> 
-   <?= $form->field($model, 'type')->dropDownList(['1' => 'Percentage', '2' => 'Flat']) ?>
+   <?= $form->field($model, 'type')->dropDownList(['1' => 'Percentage']) ?> <!--, '2' => 'Flat'-->
 
     </div><div class='col-md-4 col-sm-6 col-xs-12 left_padd'>    <?= $form->field($model, 'value')->textInput(['maxlength' => true]) ?>
 

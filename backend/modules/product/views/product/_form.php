@@ -71,7 +71,7 @@ use dosamigos\ckeditor\CKEditor;
                                 if ($model->isNewRecord) {
                                         $serial_no = \common\models\Settings::findOne(3)->value;
                                         $prefix = \common\models\Settings::findOne(3)->prefix;
-                                        $model->item_ean = $this->context->generateProductEan($prefix . $serial_no);
+                                        $model->item_ean = $prefix . $this->context->generateProductEan($serial_no);
                                 }
                                 ?>
                                 <div class='col-md-4 col-sm-6 col-xs-12'>
@@ -210,7 +210,7 @@ use dosamigos\ckeditor\CKEditor;
                                         <?php } ?>
                                 </div>
                                 <div class='col-md-6 col-sm-6 col-xs-12 '>
-                                        <?= $form->field($model, 'other_image[]')->fileInput(['multiple' => true, 'accept' => 'image/*'])->label('Gallery Images<i> (455*315)</i>') ?>
+                                        <?= $form->field($model, 'other_image[]')->fileInput(['multiple' => true, 'accept' => 'image/*'])->label('Gallery Images<i> (455*315) [Min : Two Images]</i>') ?>
                                         <?php if (!$model->isNewRecord) { ?>
                                                                                                                                                                                                                 <!--<a href=''><img src="<?= yii::$app->homeUrl ?>/../../uploads/product/1/dasda_0.jpg" width="100" alt="Delete"></a>-->
                                                 <div class="row">

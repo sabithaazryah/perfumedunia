@@ -114,8 +114,17 @@ class CheckoutController extends \yii\web\Controller {
                 Cart::stock_clear($model);
                 $model->payment_status = 1;
                 if ($model->save()) {
-                    
-                $this->redirect(array('site/index'));
+                    $subject = 'Order Confirmation';
+                    $mail = \common\models\User::findOne(Yii::$app->user->identity->id)->email;
+                    $to = $mail;
+                    $message = $this->renderPartial('mail', ['orderid' => Yii::$app->session['orderid']]);
+                    $headers = 'MIME-Version: 1.0' . "\r\n";
+                    $headers .= "Content-type: text/html; charset=iso-8859-1" . "\r\n" .
+                            "From: no-replay@coralperfumes.com";
+//                    echo $message;
+                    mail($to, $subject, $message, $headers);
+                    Yii::$app->session['orderid'] = '';
+                    $this->redirect(array('site/index'));
 
 //                    return $this->redirect(['payment', 'id' => $model->order_id]);
 //                    $this->sendMail(Yii::$app->session['orderid']);
@@ -208,26 +217,26 @@ class CheckoutController extends \yii\web\Controller {
 //        $this->continuepromotion();
         $this->redirect(array('checkout/promotion'));
     }
-    
+
     public function actionUpdatecart() {
         if (yii::$app->request->isAjax) {
             $cart_id = Yii::$app->request->post()['cartid'];
             $qty = Yii::$app->request->post()['quantity'];
             if (isset($cart_id)) {
                 $cart = OrderDetails::findone(yii::$app->EncryptDecrypt->Encrypt('decrypt', $cart_id));
-               
-                    $product = Product::findOne($cart->product_id);
-                    if ($qty == 0 || $qty == "") {
-                        $qty = 1;
-                    }
-                    $cart->quantity = $qty > $product->stock ? $product->stock : $qty;
-                    ///
-                    if ($product->offer_price == '0' || $product->offer_price == '') {
-                        $price = $product->price;
-                    } else {
-                        $price = $product->offer_price;
-                    }
-                    $total = $price * $cart->quantity;
+
+                $product = Product::findOne($cart->product_id);
+                if ($qty == 0 || $qty == "") {
+                    $qty = 1;
+                }
+                $cart->quantity = $qty > $product->stock ? $product->stock : $qty;
+                ///
+                if ($product->offer_price == '0' || $product->offer_price == '') {
+                    $price = $product->price;
+                } else {
+                    $price = $product->offer_price;
+                }
+                $total = $price * $cart->quantity;
                 $cart->amount = $price;
                 $cart->rate = $total;
                 if ($cart->save()) {
@@ -245,6 +254,7 @@ class CheckoutController extends \yii\web\Controller {
             }
         }
     }
+
     public function actionFindstock() {
         if (yii::$app->request->isAjax) {
             $cart_id = Yii::$app->request->post()['cartid'];
@@ -612,8 +622,6 @@ class CheckoutController extends \yii\web\Controller {
             $order_promotion->delete();
         }
     }
-
-    
 
 //    function updatemaster($order_id, $subtotal) {
 //        $ordermaster = OrderMaster::find()->where(['order_id' => $order_id])->one();

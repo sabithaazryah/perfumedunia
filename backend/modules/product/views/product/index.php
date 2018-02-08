@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             },
                             'columns' => [
                                 ['class' => 'yii\grid\SerialColumn'],
-                                 [
+                                [
                                     'class' => 'yii\grid\ActionColumn',
                                     'header' => 'Action',
 //          'headerOptions' => ['style' => 'color:#337ab7'],
@@ -96,13 +96,14 @@ $this->params['breadcrumbs'][] = $this->title;
 //                                ],
 //            'subcategory',
                                 'product_name',
-//                                'canonical_name',
+                                //                                'canonical_name',
                                 // 'item_ean',
                                 // 'brand',
                                 // 'gender_type',
                                 // 'price',
                                 [
                                     'attribute' => 'price',
+                                    'label' => 'Product Price',
                                     'format' => 'raw',
                                     'value' => function ($data) {
                                         return \yii\helpers\Html::textInput('price', $data->price, ['class' => 'form-control product_form', 'id' => 'product_price_' . $data->id]);
@@ -119,6 +120,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 // 'currency',
                                 [
                                     'attribute' => 'stock',
+                                    'label' => 'Total Stock',
                                     'format' => 'raw',
                                     'value' => function ($data) {
                                         return \yii\helpers\Html::textInput('stock', $data->stock, ['class' => 'form-control product_form', 'id' => 'product_stock_' . $data->id]);
@@ -143,6 +145,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                                 [
                                     'attribute' => 'sort',
+                                    'label' => 'Sort Order',
                                     'format' => 'raw',
                                     'value' => function ($data) {
                                         return \yii\helpers\Html::textInput('sort', $data->sort, ['class' => 'form-control product_form', 'id' => 'product_sort_' . $data->id]);
@@ -228,7 +231,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </script>
 
 <style>
-td a{
-padding: 4px !important;
-}
+    td a{
+        padding: 4px !important;
+    }
 </style>

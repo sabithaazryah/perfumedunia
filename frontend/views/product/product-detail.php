@@ -14,7 +14,7 @@ use yii\helpers\Html;
 
 
 
-            <div class="alert alert-success alert_<?= $product_details->canonical_name?> hide">
+            <div class="alert alert-success alert_<?= $product_details->canonical_name ?> hide">
                 <a href="<?= Yii::$app->homeUrl . 'cart/mycart' ?>" class="button wc-forward">View Cart</a> <?= $product_details->product_name ?> has been added to your cart.
                 <a class="close-alert"><i class="fa fa-close"></i></a>
             </div>
@@ -58,7 +58,10 @@ use yii\helpers\Html;
                                                 }
                                             }
                                         }
-                                        ?>
+                                        if (count(glob("{$path}/*")) < 2) {
+                                            ?>
+                                            <li class="yith_magnifier_thumbnail first" style="width: 142px;"><a href="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/gallery/' . end($arry) ?>" class="yith_magnifier_thumbnail first" title="product1" data-small="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/gallery/' . end($arry) ?>"><img width="84" height="120" src="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/gallery/' . end($arry) ?>" class="attachment-shop_thumbnail" alt="product1"></a></li>
+                                        <?php } ?>
                                     </ul>
                                 </div>
 
@@ -144,7 +147,7 @@ use yii\helpers\Html;
                                         ?>
                                         <?= Html::a('Add To Wishlist', 'javascript:void(0)', ['class' => 'add_to_wish_list', 'id' => $product_details->canonical_name]) ?>
                                     <?php } ?>
-                                    
+
 
                                     <img src="<?= Yii::$app->homeUrl ?>wp-content/plugins/yith-woocommerce-wishlist/assets/images/wpspin_light.gif" class="ajax-loading" alt="loading" width="16" height="16" style="visibility:hidden">
                                 </div>
@@ -299,7 +302,7 @@ use yii\helpers\Html;
                     </div>
                 </div>
 
-                
+
             </div><?= RecentlyViewedWidget::widget(['id' => $user_id]) ?>
         </section>
         <div class="wpo-sidebar wpo-sidebar-1 col-xs-12 col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9">

@@ -113,7 +113,7 @@ class CartController extends \yii\web\Controller {
                     exit;
                 }
             } else {
-                echo json_encode(array('msg' => 'failed', 'content'=>'empty'));
+                echo json_encode(array('msg' => 'failed', 'content' => 'empty'));
                 exit;
 //                $this->redirect(array('cart/mycart'));
 //                return $this->redirect('mycart');
@@ -190,9 +190,9 @@ class CartController extends \yii\web\Controller {
 //                Cart::orderProducts($orders, $cart);
                 Yii::$app->session['orderid'] = $order_id;
 //                Cart::clearcart($cart);
-               return $this->redirect(array('checkout/promotion'));
-            }else{
-              return $this->redirect(array('cart/mycart'));
+                return $this->redirect(array('checkout/promotion'));
+            } else {
+                return $this->redirect(array('cart/mycart'));
             }
         } else {
             return $this->redirect(array('cart/mycart'));
@@ -213,6 +213,10 @@ class CartController extends \yii\web\Controller {
             yii::$app->session['after_login'] = 'cart/proceed';
             $model = new CartsignupForm();
             if ($model->load(Yii::$app->request->post())) {
+                if (Yii::$app->request->isAjax) {
+                    Yii::$app->response->format = Response::FORMAT_JSON;
+                    return ActiveForm::validate($model);
+                }
                 $user = new User();
                 $user->email = $model->email;
                 $user->first_name = $model->first_name;

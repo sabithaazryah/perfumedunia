@@ -16,6 +16,17 @@ use yii\helpers\FileHelper;
  */
 class HomeManagementController extends Controller {
 
+    public function beforeAction($action) {
+        if (!parent::beforeAction($action)) {
+            return false;
+        }
+        if (Yii::$app->user->isGuest) {
+            $this->redirect(['/site/index']);
+            return false;
+        }
+        return true;
+    }
+
     /**
      * @inheritdoc
      */
@@ -157,8 +168,7 @@ class HomeManagementController extends Controller {
                     $this->SaveUpload($model, $data);
                 }
             }
-           return $this->redirect(['index']);
-            
+            return $this->redirect(['index']);
         } else {
             return $this->render('update', [
                         'model' => $model,

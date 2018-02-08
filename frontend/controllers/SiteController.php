@@ -545,7 +545,7 @@ class SiteController extends Controller {
 
                 $token_value = $this->tokenGenerator();
                 $token = $check_exists->id . '_' . $token_value;
-                $val = base64_encode($token);
+               $val = yii::$app->EncryptDecrypt->Encrypt('encrypt', $token);
                 $token_model = new ForgotPasswordTokens();
                 $token_model->user_id = $check_exists->id;
                 $token_model->token = $token_value;
@@ -586,7 +586,7 @@ class SiteController extends Controller {
 
     public function actionNewPassword($token) {
 //        $this->layout = 'adminlogin';
-        $data = base64_decode($token);
+         $data = yii::$app->EncryptDecrypt->Encrypt('decrypt', $token);
         $values = explode('_', $data);
         $token_exist = ForgotPasswordTokens::find()->where("user_id = " . $values[0] . " AND token = " . $values[1])->one();
         if (!empty($token_exist)) {

@@ -111,7 +111,7 @@ AppAsset::register($this);
                                             <?= Html::a('Search Tag', ['/product/master-search-tag/index'], ['class' => 'title']) ?>
                                         </li>
                                         <li>
-                                            <?= Html::a('Tax', ['/product/tax/index'], ['class' => 'title']) ?>
+                                            <?= Html::a('Tax', ['/product/tax/index?id=1'], ['class' => 'title']) ?>
                                         </li>
                                         <!--										<li>
                                         <?= Html::a('Brand', ['/brand/index'], ['class' => 'title']) ?>

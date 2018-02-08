@@ -443,15 +443,12 @@ class ProductController extends Controller {
      * @param integer $id
      * @return mixed
      */
-    
     public function actionDelete($id) {
-        $orderdetails = \common\models\OrderDetails::find()->where(['product_id' => $id])->one();
-        if (empty($orderdetails)) {
-            $this->findModel($id)->delete();
-        }else{
-           Yii::$app->getSession()->setFlash('error', "Can't delete the Item"); 
+        if ($this->findModel($id)->delete()) {
+            Yii::$app->getSession()->setFlash('success', 'succuessfully deleted');
+        } else {
+           Yii::$app->getSession()->setFlash('error', "Can't delete the Item");
         }
-
         return $this->redirect(['index']);
     }
 
@@ -568,7 +565,8 @@ class ProductController extends Controller {
      */
     public function generateProductEan($id) {
         $serial_no = $id;
-        $file_exist = Product::find()->where(['item_ean' => $serial_no])->one();
+        $prefix = \common\models\Settings::findOne(3)->prefix;
+        $file_exist = Product::find()->where(['item_ean' => $prefix.$serial_no])->one();
         if (!empty($file_exist)) {
             return $this->generateProductEan($serial_no + 1);
         } else {

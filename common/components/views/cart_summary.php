@@ -30,7 +30,11 @@ use common\models\Settings;
                             </thead>
                             <tbody data-order-summary-section="line-items">
 
-                                <?php foreach ($cart_items as $cart) { ?>
+                                <?php
+                                $tax_amount = 0;
+                                foreach ($cart_items as $cart) {
+                                    $tax = 0;
+                                    ?>
                                     <?php
                                     $product = Product::findOne($cart->product_id);
                                     $product_image = Yii::$app->basePath . '/../uploads/product/' . $product->id . '/profile/' . $product->canonical_name . '.' . $product->profile;
@@ -45,6 +49,8 @@ use common\models\Settings;
                                         $price = $product->offer_price;
                                     }
                                     $total = $price * $cart->quantity;
+                                    $tax = $cart->tax;
+                                    $tax_amount += $tax;
                                     ?>
                                     <tr class="product " data-product-id="8542667909" data-variant-id="35547606917" data-product-type="Sport" data-customer-ready-visible="">
                                         <td class="product__image">
@@ -65,7 +71,7 @@ use common\models\Settings;
                                             1
                                         </td>
                                         <td class="product__price">
-                                            <span class="order-summary__emphasis">AED <?= sprintf("%0.2f", $cart->rate) ?></span>
+                                            <span class="order-summary__emphasis">AED <?= sprintf("%0.2f", $cart->rate - $tax) ?></span>
                                         </td>
                                     </tr>
                                 <?php } ?>
@@ -106,8 +112,8 @@ use common\models\Settings;
                                 <th class="total-line__name" scope="row">Tax</th>
                                 <td class="total-line__price">
                                     <span class="order-summary__emphasis" data-checkout-total-shipping-target="0">
-                                        <?php $tax = common\models\Cart::tax($cart_items); ?>
-                                        AED <?= sprintf("%0.2f", $tax) ?>
+
+                                        AED <?= sprintf("%0.2f", $tax_amount) ?>
                                     </span>
                                 </td>
                             </tr>
@@ -128,7 +134,7 @@ use common\models\Settings;
                                 <td class="total-line__price payment-due">
                                     <!--<span class="payment-due__currency">USD</span>-->
                                     <span class="payment-due__price" data-checkout-payment-due-target="20000">
-                                        <?php $grand_total = $grand_total + $tax ?>
+                                        
                                         AED <?= sprintf("%0.2f", $grand_total) ?>
                                     </span>
                                 </td>

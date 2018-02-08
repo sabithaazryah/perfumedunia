@@ -156,10 +156,8 @@ class Cart extends \yii\db\ActiveRecord {
         return $subtotal;
     }
 
-    public static function tax($cart) {
+    public static function tax($cart,$product) {
         $subtotal = '0';
-        foreach ($cart as $cart_item) {
-            $product = Product::find()->where(['id' => $cart_item->product_id, 'status' => '1'])->one();
             $tax = Tax::find()->where(['id' => $product->tax])->one();
             if ($product->offer_price == '0' || $product->offer_price == '') {
                 $price = $product->price;
@@ -168,14 +166,12 @@ class Cart extends \yii\db\ActiveRecord {
             }
 //            echo 'price-'.$price.'/qnty/'.$cart_item->quantity.'<br>';
             if ($tax->type == 1) {
-                $total = $price * $cart_item->quantity;
-                $subtotal += (($total * $tax->value) / 100);
-//                echo 'tax1--'.$subtotal.'<br>';
+                $total = $price * $cart->quantity;
+                $subtotal = (($total * $tax->value) / 100);
             }else{
-                $subtotal +=($tax->value * $cart_item->quantity);
-//                echo 'tax2--'.$subtotal2.'<br>';
+                $subtotal =($tax->value * $cart->quantity);
             }
-        }
+//        }
          return $subtotal;
     }
 
@@ -265,7 +261,8 @@ class Cart extends \yii\db\ActiveRecord {
         $model->user_id = Yii::$app->user->identity->id;
         $total_amt = Cart::total($cart);
         $model->total_amount = $total_amt;
-        $model->tax = Cart::tax($cart);
+        $model->shipping_charge = Cart::shippingcharge($total_amt);
+//        $model->tax = Cart::tax($cart);
         $model->net_amount = Cart::net_amount($total_amt);
         $model->status = 1;
         $model->order_date = date('Y-m-d H:i:s');
@@ -296,6 +293,7 @@ class Cart extends \yii\db\ActiveRecord {
             }
             $model_prod->item_type = $cart->item_type;
             $model_prod->amount = $price;
+            $model_prod->tax = Cart::tax($cart,$prod_details);
             $model_prod->rate = ($cart->quantity) * ($price);
             $model_prod->status = '0';
             if ($model_prod->save()) {
@@ -331,6 +329,15 @@ class Cart extends \yii\db\ActiveRecord {
             $net_amnt = $extra + $total_amt;
         }
         return $net_amnt;
+    }
+    public static function shippingcharge($total_amt) {
+        $limit = Settings::findOne(1)->value;
+        $ship_amnt = 0;
+        if ($limit > $total_amt) {
+            $extra = Settings::findOne(2)->value;
+            $ship_amnt = $extra;
+        }
+        return $ship_amnt;
     }
 
     public static function orderbilling($bill_address) {

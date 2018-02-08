@@ -65,6 +65,7 @@ class OrderDetailsSearch extends OrderDetails
             'product_id' => $this->product_id,
             'quantity' => $this->quantity,
             'amount' => $this->amount,
+            'tax' => $this->tax,
             'delivered_date' => $this->delivered_date,
             'rate' => $this->rate,
             'doc' => $this->doc,
