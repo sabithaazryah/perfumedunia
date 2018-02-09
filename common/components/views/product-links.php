@@ -57,7 +57,7 @@ else
                         <div class="product-meta">
                                 <div class="warp-info">
                                         <h3 class="name">
-                                                <a href="" title="<?= $model->product_name ?>"><?= substr($model->product_name, 0, 20) ?></a>
+                                                <a href="" title="<?= $model->product_name ?>"><?= $model->product_name ?></a>
                                         </h3>
 
                                         <span class="price"><span class="amount">AED <?= $model->offer_price; ?></span></span>

@@ -260,7 +260,7 @@ class Cart extends \yii\db\ActiveRecord {
                 $cart = Cart::find()->where(['user_id' => Yii::$app->user->identity->id])->all();
                 $orders = Cart::addOrder($cart);
                 if (Cart::orderProducts($orders, $cart)) {
-//            Cart::Addpromotions($orders);
+                        Cart::Addpromotions($orders);
                         Cart::clearcart($cart);
                         Cart::stock_clear($orders);
 //                Yii::$app->response->redirect(['checkout/payment', 'id' => $orders['order_id']])->send();
@@ -319,6 +319,49 @@ class Cart extends \yii\db\ActiveRecord {
                         }
                 }
                 return TRUE;
+        }
+
+        public static function Addpromotions($orders) {
+
+                $coupons = \common\models\TempSession::find()->where(['user_id' => Yii::$app->user->identity->id, 'type_id' => 3])->all();
+                $cart_products = Cart::find()->where(['user_id' => Yii::$app->user->identity->id])->all();
+                $cart_amount = Cart::total($cart_products);
+                $total_promotion_discount = 0;
+                foreach ($coupons as $coupons) {
+                        $add_promption = new \common\models\OrderPromotions();
+                        $add_promption->order_master_id = $orders['master_id'];
+                        $add_promption->promotion_id = $coupons->value;
+                        $promotion = \common\models\Promotions::findOne($coupons->value);
+                        if ($promotion->promotion_type == 1) {
+                                $condition = Cart::usercheck();
+                                $cart_items = Cart::find()->where($condition)->all();
+                                $price = Cart::Promotionuniqueproduct($code_exists, $code, $cart_items);
+                        } else {
+                                $price = $cart_amount;
+                        }
+
+                        if ($promotion->type == 1) {
+                                $promotion_discount = ($price * $promotion->price) / 100;
+                        } else {
+                                $promotion_discount = $promotion->price;
+                        }
+                        $total_promotion_discount += $promotion_discount;
+                        $add_promption->promotion_discount = $promotion_discount;
+                        $add_promption->save();
+
+                        if ($promotion->code_usage == 1) {
+                                Cart::AddUsed($promotion);
+                        }
+                }
+                $order_master_detail = OrderMaster::findOne($orders['master_id']);
+                $order_master_detail->net_amount = $order_master_detail->net_amount - $total_promotion_discount;
+                $order_master_detail->update();
+        }
+
+        public static function AddUsed($code_exists) {
+
+                $code_exists->code_used = $code_exists->code_used . ',' . Yii::$app->user->identity->id;
+                $code_exists->save();
         }
 
         public static function generateProductEan($prefix, $serial_no) {

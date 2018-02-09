@@ -241,7 +241,7 @@ class SiteController extends Controller {
                 if ($modellogin->load(Yii::$app->request->post()) && $modellogin->login()) {
                         $user = User::findOne(Yii::$app->user->identity->id);
                         Yii::$app->session['log-return'] = '';
-//            $user->update();
+
                         return $this->redirect($go);
                 } else {
                         Yii::$app->session['log-return'] = 1;
@@ -263,19 +263,13 @@ class SiteController extends Controller {
                                         if (Yii::$app->getUser()->login($user)) {
                                                 // $this->Emailverification($user);
                                                 return $this->redirect($go);
-//                        return $this->goHome();
                                         }
-                                } else {
-                                        Yii::$app->session['log-return'] = 1;
-                                        return $this->redirect(Yii::$app->request->referrer);
                                 }
                         }
+                } else {
+                        Yii::$app->session['log-return'] = 1;
+                        return $this->redirect(Yii::$app->request->referrer);
                 }
-//        $model_login = new LoginForm();
-//        return $this->render('login-signup', [
-//                    'model_login' => $model_login,
-//                    'model' => $model,
-//        ]);
         }
 
         public function actionVerification($verify) {

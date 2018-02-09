@@ -14,35 +14,46 @@ use yii\filters\VerbFilter;
  */
 class TaxController extends Controller {
 
-    /**
-     * @inheritdoc
-     */
-    public function behaviors() {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * Lists all Tax models.
-     * @return mixed
-     */
-    public function actionIndex($id) {
-
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'id' => $model->id]);
-        } else {
-            return $this->render('update', [
-                        'model' => $model,
-            ]);
+        public function beforeAction($action) {
+                if (!parent::beforeAction($action)) {
+                        return false;
+                }
+                if (Yii::$app->user->isGuest) {
+                        $this->redirect(['/site/index']);
+                        return false;
+                }
+                return true;
         }
+
+        /**
+         * @inheritdoc
+         */
+        public function behaviors() {
+                return [
+                    'verbs' => [
+                        'class' => VerbFilter::className(),
+                        'actions' => [
+                            'delete' => ['POST'],
+                        ],
+                    ],
+                ];
+        }
+
+        /**
+         * Lists all Tax models.
+         * @return mixed
+         */
+        public function actionIndex($id) {
+
+                $model = $this->findModel($id);
+
+                if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                        return $this->redirect(['index', 'id' => $model->id]);
+                } else {
+                        return $this->render('update', [
+                                    'model' => $model,
+                        ]);
+                }
 //        $searchModel = new TaxSearch();
 //        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 //
@@ -50,24 +61,24 @@ class TaxController extends Controller {
 //                    'searchModel' => $searchModel,
 //                    'dataProvider' => $dataProvider,
 //        ]);
-    }
+        }
 
-    /**
-     * Displays a single Tax model.
-     * @param integer $id
-     * @return mixed
-     */
+        /**
+         * Displays a single Tax model.
+         * @param integer $id
+         * @return mixed
+         */
 //    public function actionView($id) {
 //        return $this->render('view', [
 //                    'model' => $this->findModel($id),
 //        ]);
 //    }
 
-    /**
-     * Creates a new Tax model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
+        /**
+         * Creates a new Tax model.
+         * If creation is successful, the browser will be redirected to the 'view' page.
+         * @return mixed
+         */
 //    public function actionCreate() {
 //        $model = new Tax();
 //
@@ -80,12 +91,12 @@ class TaxController extends Controller {
 //        }
 //    }
 
-    /**
-     * Updates an existing Tax model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
+        /**
+         * Updates an existing Tax model.
+         * If update is successful, the browser will be redirected to the 'view' page.
+         * @param integer $id
+         * @return mixed
+         */
 //    public function actionUpdate($id) {
 //        $model = $this->findModel($id);
 //
@@ -98,31 +109,31 @@ class TaxController extends Controller {
 //        }
 //    }
 
-    /**
-     * Deletes an existing Tax model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
+        /**
+         * Deletes an existing Tax model.
+         * If deletion is successful, the browser will be redirected to the 'index' page.
+         * @param integer $id
+         * @return mixed
+         */
 //    public function actionDel($id) {
 //        $this->findModel($id)->delete();
 //
 //        return $this->redirect(['index']);
 //    }
 
-    /**
-     * Finds the Tax model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Tax the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id) {
-        if (($model = Tax::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new NotFoundHttpException('The requested page does not exist.');
+        /**
+         * Finds the Tax model based on its primary key value.
+         * If the model is not found, a 404 HTTP exception will be thrown.
+         * @param integer $id
+         * @return Tax the loaded model
+         * @throws NotFoundHttpException if the model cannot be found
+         */
+        protected function findModel($id) {
+                if (($model = Tax::findOne($id)) !== null) {
+                        return $model;
+                } else {
+                        throw new NotFoundHttpException('The requested page does not exist.');
+                }
         }
-    }
 
 }

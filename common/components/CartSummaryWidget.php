@@ -31,26 +31,27 @@ class CartSummaryWidget extends Widget {
 
 //    public $id;
 
-    public function init() {
-        parent::init();
-        if (!isset(Yii::$app->user->identity->id)) {
-            return '';
+        public function init() {
+                parent::init();
+                if (!isset(Yii::$app->user->identity->id)) {
+                        return '';
+                }
         }
-    }
 
-    public function run() {
-        $user_id = Yii::$app->user->identity->id;
-        $master = OrderMaster::find()->where(['user_id' => Yii::$app->user->identity->id, 'order_id' => Yii::$app->session['orderid']])->andWhere(['not in', 'status', [4, 5]])->one();
-        $cart_items = OrderDetails::find()->where(['order_id' => $master->order_id])->all();
-        $shipping_limit = Settings::findOne('1')->value;
-        $ship_charge = Settings::findOne('2')->value;
-        $subtotal = Cart::total($cart_items);
-        $shipping = $shipping_limit > $subtotal ? $ship_charge : '0';
-        $grand_total = $shipping + $subtotal;
-        $promotions = OrderPromotions::find()->where(['order_master_id' => $master->id])->sum('promotion_discount');
-        return $this->render('cart_summary', ['cart_items' => $cart_items, 'shipping' => $shipping, 'shipping_limit' => $shipping_limit, 'subtotal' => $subtotal, 'promotions' => $promotions, 'grand_total' => $grand_total]);
-        //return Html::encode($this->message);
-    }
+        public function run() {
+                $user_id = Yii::$app->user->identity->id;
+                $master = OrderMaster::find()->where(['user_id' => Yii::$app->user->identity->id, 'order_id' => Yii::$app->session['orderid']])->andWhere(['not in', 'status', [4, 5]])->one();
+                $cart_items = OrderDetails::find()->where(['order_id' => $master->order_id])->all();
+                $shipping_limit = Settings::findOne('1')->value;
+                $ship_charge = Settings::findOne('2')->value;
+                $subtotal = Cart::total($cart_items);
+                $shipping = $shipping_limit > $subtotal ? $ship_charge : '0';
+                $promotions = OrderPromotions::find()->where(['order_master_id' => $master->id])->sum('promotion_discount');
+                $grand_total = $shipping + $subtotal - $promotions;
+
+                return $this->render('cart_summary', ['cart_items' => $cart_items, 'shipping' => $shipping, 'shipping_limit' => $shipping_limit, 'subtotal' => $subtotal, 'promotions' => $promotions, 'grand_total' => $grand_total]);
+                //return Html::encode($this->message);
+        }
 
 }
 
