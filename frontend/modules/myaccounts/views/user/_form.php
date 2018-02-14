@@ -48,7 +48,7 @@ use common\models\Emirates;
 
 
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padlft0 padright0">
-                    <?= $form->field($model, 'post_code')->textInput(['maxlength' => true, 'class' => 'field__input field__input--zip input-width billing', 'placeholder' => 'Pincode'])->label(FALSE) ?>
+                    <?= $form->field($model, 'post_code')->textInput(['maxlength' => true, 'class' => 'field__input field__input--zip input-width billing mobile', 'placeholder' => 'Pincode'])->label(FALSE) ?>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 padlft0 padright0">
                     <select class="day" style="position: absolute; border-right: 1px solid #d1d2d0;height: 45px;" id="useraddress-country_code" name="UserAddress[country_code]">
@@ -57,7 +57,7 @@ use common\models\Emirates;
                         <?php }
                         ?>
                     </select>
-                    <?= $form->field($model, 'mobile_number')->textInput(['class' => 'field__input field__input--zip input-width billing', 'style' => 'width: 85%;padding-left: 70px;margin-left: 63px;'])->label(FALSE) ?>
+                    <?= $form->field($model, 'mobile_number')->textInput(['class' => 'field__input field__input--zip input-width billing mobile', 'style' => 'width: 85%;padding-left: 70px;margin-left: 63px;'])->label(FALSE) ?>
                 </div>
             </div>
         </div>

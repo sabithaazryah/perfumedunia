@@ -868,7 +868,7 @@ and open the template in the editor.
                                 <!--<input type="text" name="User[gender]" placeholder="Gender" required="">-->
                                 <!--</div>-->
                                 <!--<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pad0 lastname">-->
-                                <input type="date" name="User[dob]" placeholder="DOB" required="">
+                                <input placeholder="Date of Birth" class="textbox-n" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="User[dob]" required="">
                                 <!--<input type="date" name="User[dob]" placeholder="DOB" required="">-->
                                 <!--</div>-->
                                 <input type="password" name="User[password]" placeholder="Password" required="" id='password'>
@@ -925,9 +925,7 @@ and open the template in the editor.
                         if ($('#signup-email').val()) {
 
                                 if (!validateMail($(this).val())) {
-                                        alert('validated');
                                         var res = $("#email-check").val();
-                                        alert(res);
                                         if (res == 0) {
 
                                                 $(".email-validations").empty();
@@ -935,7 +933,6 @@ and open the template in the editor.
                                                 $(".email-validations").show();
                                                 var valid = 1;
                                         } else {
-                                                alert('else');
                                                 $(".email-validations").hide();
                                         }
                                 }

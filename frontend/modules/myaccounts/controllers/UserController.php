@@ -214,7 +214,7 @@ class UserController extends Controller {
     }
     public function actionNewAddress() {
         $model = new UserAddress();
-        $user_address = UserAddress::find()->where(['user_id' => Yii::$app->user->identity->id])->all();
+//        $user_address = UserAddress::find()->where(['user_id' => Yii::$app->user->identity->id])->all();
         $country_codes = ArrayHelper::map(\common\models\CountryCode::find()->where(['status' => 1])->orderBy(['id' => SORT_ASC])->all(), 'id', 'country_code');
         if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate()) {
             if (empty($user_address)) {
@@ -228,7 +228,6 @@ class UserController extends Controller {
         }
         return $this->render('create_address', [
                     'model' => $model,
-                    'user_address' => $user_address,
                     'country_codes' => $country_codes,
         ]);
     }
@@ -244,7 +243,6 @@ class UserController extends Controller {
         }
         return $this->render('addresses_form', [
                     'model' => $model,
-//                    'user_address' => $user_address,
                     'country_codes' => $country_codes,
         ]);
     }

@@ -20,7 +20,7 @@ $action = Yii::$app->controller->id . '/' . Yii::$app->controller->action->id;
                 <li><?= Html::a('change password', ['/myaccounts/user/change-password'], ['class' => '' . $action == 'user/change-password' ? 'list-group-item active' : '']) ?></li>
                 <!--<li><a href=""> Change Password</a></li>-->
                 <!--adresses-->
-                <li><?= Html::a('Address Books', ['/myaccounts/user/user-address'], ['class' => '' . $action == 'user/user-address' || $action == 'user/change-address' ? 'list-group-item active' : '']) ?></li>
+                <li><?= Html::a('Address Books', ['/myaccounts/user/user-address'], ['class' => '' . $action == 'user/user-address' || $action == 'user/change-address' || $action == 'user/new-address' ? 'list-group-item active' : '']) ?></li>
                 <li><?= Html::a('Order History', ['/myaccounts/my-orders/index'], ['class' => '' . $action == 'my-orders/index' ? 'list-group-item active' : '']) ?></li>
                 <li><?= Html::a('Reviews and Ratings', ['/myaccounts/user/my-reviews'], ['class' => '' . $action == 'user/my-reviews' ? 'list-group-item active' : '']) ?></li>
                 <!--<li><a href=""> Returns Requests</a></li>-->

@@ -27,7 +27,6 @@ use common\models\Emirates;
                     <?=
                     Yii::$app->controller->renderPartial('_form', [
                         'model' => $model,
-                        'user_address' => $user_address,
                         'country_codes' => $country_codes,
                     ]);
                     ?>
