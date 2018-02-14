@@ -224,18 +224,12 @@ class CheckoutController extends \yii\web\Controller {
             $qty = Yii::$app->request->post()['quantity'];
             if (isset($cart_id)) {
                 $cart = OrderDetails::findone(yii::$app->EncryptDecrypt->Encrypt('decrypt', $cart_id));
-
                 $product = Product::findOne($cart->product_id);
                 if ($qty == 0 || $qty == "") {
                     $qty = 1;
                 }
                 $cart->quantity = $qty > $product->stock ? $product->stock : $qty;
-                ///
-                if ($product->offer_price == '0' || $product->offer_price == '') {
-                    $price = $product->price;
-                } else {
-                    $price = $product->offer_price;
-                }
+                $price = cart::productPrice($cart->product_id);
                 $total = $price * $cart->quantity;
                 $cart->amount = $price;
                 $cart->rate = $total;
@@ -243,9 +237,13 @@ class CheckoutController extends \yii\web\Controller {
                     $cart_items = OrderDetails::find()->where(['order_id' => $cart->order_id])->all();
                     if (!empty($cart_items)) {
                         $subtotal = Cart::total($cart_items);
+                        $shippinng_limit = Settings::findOne(1)->value;
+                        $ship_charge = Settings::findOne(2)->value;
+                        $shipping = $shippinng_limit > $subtotal ? $ship_charge : 0;
+                        $grandtotal = $shipping + $subtotal;
                     }
                     Cart::updatemaster($cart->order_id, $subtotal);
-                    echo json_encode(array('msg' => 'success', 'quantity' => $cart->quantity, 'total' => sprintf('%0.2f', $total), 'subtotal' => sprintf('%0.2f', $subtotal)));
+                    echo json_encode(array('msg' => 'success', 'subtotal' => sprintf('%0.2f', $subtotal), 'grandtotal' => sprintf('%0.2f', $grandtotal), 'shipping' => sprintf('%0.2f', $shipping)));
                 } else {
                     echo json_encode(array('msg' => 'error', 'content' => 'Cannot be Changed'));
                 }

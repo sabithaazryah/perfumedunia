@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $('.yith_magnifier_thumbnail').addClass('product_gallery_thumb');
         jQuery(".add-cart").click(function () {
                 showLoader();
                 jQuery('.alert-success').addClass('hide');

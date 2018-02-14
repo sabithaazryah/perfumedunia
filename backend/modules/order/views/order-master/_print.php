@@ -107,9 +107,7 @@
                         <?php
                         $qty_total += $value->quantity;
                         $amount_total += $value->rate;
-
-                        $tax = common\models\Cart::tax($value, $product);
-                        $total_tax += $tax;
+                        $total_tax += $producttax;
                     }
                     $shiplimit = \common\models\Settings::findOne('1')->value;
                     $delivary_charge = 0;

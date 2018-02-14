@@ -25,6 +25,7 @@ return [
     'personal-info' => 'myaccounts/user/personal-info',
     'change-password' => 'myaccounts/user/change-password',
     'adresses' => 'myaccounts/user/user-address',
+    'new-address' => 'myaccounts/user/new-address',
     'contact-info' => 'myaccounts/user/update-contact-info',
     'coral-perfumes-blog-detail/<id>' => 'site/blog-detail',
     'coral-perfumes-blogs' => 'site/our-blog',
@@ -34,4 +35,5 @@ return [
     'products/<featured>/<category>' => 'product/index',
     'products/<featured>' => 'product/index',
     'product-detail/<product:\w+(-\w+)*>' => 'product/product_detail',
+    'change-address/<id>' => 'myaccounts/user/change-address',
 ];

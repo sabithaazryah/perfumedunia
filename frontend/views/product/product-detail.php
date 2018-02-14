@@ -40,7 +40,7 @@ use yii\helpers\Html;
                                                                 <div class="caroufredsel_wrapper" style="display: block; text-align: center; float: none; position: relative; top: auto; right: auto; bottom: auto; left: auto; z-index: auto; height: 150px; margin: 0px; overflow: hidden;">
                                                                         <ul class="yith_magnifier_gallery" style="text-align: left; float: none; position: absolute; top: 0px; right: auto; bottom: auto; left: 0px; margin: 0px; width: 2130px; height: 150px; z-index: auto;">
                                                                                 <?php if (file_exists($product_image)) { ?>
-                                                                                        <li class="yith_magnifier_thumbnail" style="width: 142px;"><a href="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/profile/' . $product_details->canonical_name . '_big.' . $product_details->profile ?>" class="yith_magnifier_thumbnail first" title="product1" data-small="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/profile/' . $product_details->canonical_name . '_big.' . $product_details->profile ?>"><img width="84" height="120" src="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/profile/' . $product_details->canonical_name . '_big.' . $product_details->profile ?>" class="attachment-shop_thumbnail" alt="product1"></a></li>
+                                            <li class="yith_magnifier_thumbnail" style="width: 142px;"><a href="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/profile/' . $product_details->canonical_name . '_big.' . $product_details->profile ?>" class="yith_magnifier_thumbnail first" title="product1" data-small="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/profile/' . $product_details->canonical_name . '_big.' . $product_details->profile ?>"><img src="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/profile/' . $product_details->canonical_name . '_big.' . $product_details->profile ?>" class="attachment-shop_thumbnail gallery_thumb" alt="product1"></a></li>
 
                                                                                         <?php
                                                                                 }
@@ -53,15 +53,12 @@ use yii\helpers\Html;
                                                                                                 $img_nmees = explode('.', $img_nmee);
                                                                                                 if ($img_nmees['1'] != '') {
                                                                                                         ?>
-                                                                                                        <li class="yith_magnifier_thumbnail first" style="width: 142px;"><a href="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/gallery/' . end($arry) ?>" class="yith_magnifier_thumbnail first" title="product1" data-small="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/gallery/' . end($arry) ?>"><img width="84" height="120" src="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/gallery/' . end($arry) ?>" class="attachment-shop_thumbnail" alt="product1"></a></li>
+                                                    <li class="yith_magnifier_thumbnail first" style="width: 142px;"><a href="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/gallery/' . end($arry) ?>" class="yith_magnifier_thumbnail first" title="product1" data-small="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/gallery/' . end($arry) ?>"><img  src="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/gallery/' . end($arry) ?>" class="attachment-shop_thumbnail gallery_thumb" alt="product1"></a></li>
                                                                                                         <?php
                                                                                                 }
                                                                                         }
                                                                                 }
-                                                                                if (count(glob("{$path}/*")) < 2) {
                                                                                         ?>
-                                                                                        <li class="yith_magnifier_thumbnail first" style="width: 142px;"><a href="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/gallery/' . end($arry) ?>" class="yith_magnifier_thumbnail first" title="product1" data-small="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/gallery/' . end($arry) ?>"><img width="84" height="120" src="<?= Yii::$app->homeUrl . 'uploads/product/' . $product_details->id . '/gallery/' . end($arry) ?>" class="attachment-shop_thumbnail" alt="product1"></a></li>
-                                                                                <?php } ?>
                                                                         </ul>
                                                                 </div>
 
@@ -272,6 +269,10 @@ use yii\helpers\Html;
                                                                                                                 <option value="2">Not that bad</option>
                                                                                                                 <option value="1">Very Poor</option>
                                                                                                         </select></p>-->
+                                                <p class="comment-form-comment"><label for="comment">Title</label>
+                                                    <?= $form->field($model_review, 'tittle')->textInput(['id' => 'title', 'class' => 'form-control'])->label(FALSE) ?>
+
+                                                </p>
                                                                                                 <p class="comment-form-comment"><label for="comment">Your Review</label>
                                                                                                         <?= $form->field($model_review, 'description')->textarea(['rows' => 8, 'cols' => 45, 'style' => 'height:auto', 'id' => 'comment', 'class' => 'form-control', 'required' => ''])->label(FALSE) ?>
                                                                                                         <!--s<textarea class="form-control" id="comment" name="comment" cols="45" rows="8" aria-required="true"></textarea>-->
@@ -347,7 +348,7 @@ use yii\helpers\Html;
                                                                 <div class="item-product-widget clearfix">
                                                                         <div class="images pull-left">
                                                                                 <?php if (file_exists($product_images)) { ?>
-                                                                                        <img src="<?= Yii::$app->homeUrl . 'uploads/product/' . $related_product->id . '/profile/' . $related_product->canonical_name . '_thumb.' . $related_product->profile ?>" class="attachment-shop_thumbnail wp-post-image" alt="product-3">
+                                            <img src="<?= Yii::$app->homeUrl . 'uploads/product/' . $related_product->id . '/profile/' . $related_product->canonical_name . '_thumb.' . $related_product->profile ?>" class="attachment-shop_thumbnail gallery_thumb wp-post-image" alt="product-3">
                                                                                 <?php } else { ?>
                                                                                         <img src="<?= Yii::$app->homeUrl . 'uploads/product/gallery_dummy.png' ?>" class="attachment-shop_catalog image-hover" alt="product18" />
                                                                                 <?php } ?>

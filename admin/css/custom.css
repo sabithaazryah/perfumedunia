@@ -356,3 +356,11 @@ nav.navbar {
 .product-create-form{
 	float: left;
 }
+.url_gen {
+    padding: 0;
+    border: none;
+    background-color: inherit;
+    font-size: 15px;
+    color: #005e9e;
+    font-weight: bold;
+}

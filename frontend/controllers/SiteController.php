@@ -533,7 +533,9 @@ class SiteController extends Controller {
         }
 
         public function actionForgot() {
-//        $this->layout = 'adminlogin';
+        if (isset(Yii::$app->user->identity->id)) {
+            return $this->goHome();
+        }
                 $model = new User();
                 if ($model->load(Yii::$app->request->post())) {
 
@@ -550,17 +552,13 @@ class SiteController extends Controller {
                                 $this->sendMail($val, $check_exists);
                                 Yii::$app->getSession()->setFlash('success', 'A verification email has been sent to ' . $check_exists->email . ', please check the spam box if you cannot find the mail in your inbox ');
                         } else {
-                                Yii::$app->getSession()->setFlash('error', 'Invalid username');
+                Yii::$app->getSession()->setFlash('error', 'Invalid user');
                         }
-                        return $this->render('forgot-password', [
-                                    'model' => $model,
-                        ]);
-                } else {
+        }
                         return $this->render('forgot-password', [
                                     'model' => $model,
                         ]);
                 }
-        }
 
         public function tokenGenerator() {
 

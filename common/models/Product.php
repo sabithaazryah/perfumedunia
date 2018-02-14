@@ -120,10 +120,10 @@ class Product extends \yii\db\ActiveRecord {
         if (\yii::$app->basePath . '/../uploads') {
             $path = yii::$app->basePath . '/../uploads/product/' . $model->id . '/profile/' . $model->canonical_name . '_big.' . $file->extension;
 
-            Image::thumbnail($path, 250, 250)
+            Image::thumbnail($path, 180, 250)
                     ->save(\yii::$app->basePath . '/../uploads/product/' . $model->id . '/profile/' . $model->canonical_name . '.' . $file->extension, ['quality' => 50]);
 
-            Image::thumbnail($path, 70, 70)
+            Image::thumbnail($path, 60, 90)
                     ->save(\yii::$app->basePath . '/../uploads/product/' . $model->id . '/profile/' . $model->canonical_name . '_thumb.' . $file->extension, ['quality' => 50]);
 //
             return true;
@@ -155,7 +155,7 @@ class Product extends \yii\db\ActiveRecord {
                     mkdir(\yii::$app->basePath . '/../uploads/product/' . $product_id . '/gallery_thumb/');
                     chmod(\yii::$app->basePath . '/../uploads/product/' . $product_id . '/gallery_thumb/', 0777);
                 }
-                Image::thumbnail($path . '/' . $name, 91, 63)
+                Image::thumbnail($path . '/' . $name, 122, 174)
                         ->save($main_path . '/gallery_thumb/' . $name, ['quality' => 80]);
             }
 //            if ($file->saveAs(\yii::$app->basePath . '/../uploads/product/' . $product_id . '/' . $file->name . '.' . $file->extension))

@@ -5,121 +5,116 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 ?>
-<div class="pad-20 hide-xs"></div>
+<div id="wpo-mainbody" class="container wpo-mainbody">
 
-<div class="container">
-    <div class="breadcrumb">
-        <span class="current-page">My account</span>
-        <ol class="path">
-            <li><?= Html::a('<span>Home</span>', ['/site/index'], ['class' => '']) ?></li>
-            <li><?= Html::a('<span>My account</span>', ['/myaccounts/user/index'], ['class' => '']) ?></li>
-            <li class="active">Change Password</li>
-        </ol>
-    </div>
-</div>
+    <nav class="woocommerce-breadcrumb"><a class="home" href="">Home</a>&nbsp;/&nbsp;My Account Change Password</nav>
 
-<div id="our-product" class="my-account">
-    <div class="container">
-        <div class="col-md-3">
-        <?= Yii::$app->controller->renderPartial('_leftside_menu'); ?>
-        </div>
-        <div class="col-md-9">
-        <div class="settings">
-            <div class="col-lg-12 col-md-8 col-sm-12 col-xs-12 right-box" style="padding: 50px 15px;">
-                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 my-account-cntnt align-center">
-                    <div class="form-feild-box">
-                        <?php
-                        $form = ActiveForm::begin(
-                                        [
-                                            'id' => 'change-password',
-                                            'method' => 'post',
-                                            'options' => [
-                                                'class' => 'loginn-form fade-in-effect changepassword-form'
-                                            ]
-                                        ]
-                        );
-                        ?>
-                        <?php if (!empty(Yii::$app->session->getFlash('error'))) { ?>
-                            <div class="error-summary">
-                                <?= Yii::$app->session->getFlash('error'); ?>
-                            </div>
-                        <?php } ?>
-                        <?php if (!empty(Yii::$app->session->getFlash('success'))): ?>
+    <div id="my-aacount">
+        <section class="wrapper sec-space my-account">                  
+            <div class="container">
+                <!-- My Account Starts -->
+                <div class="row">  
+                    <div class="col-md-3">
+                        <?= Yii::$app->controller->renderPartial('_leftside_menu'); ?>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="settings">
+                            <div class="col-lg-12 col-md-8 col-sm-12 col-xs-12 right-box" style="padding: 50px 15px;">
+                                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 my-account-cntnt align-center">
+                                    <div class="form-feild-box">
+                                        <?php
+                                        $form = ActiveForm::begin(
+                                                        [
+                                                            'id' => 'change-password',
+                                                            'method' => 'post',
+                                                            'options' => [
+                                                                'class' => 'loginn-form fade-in-effect changepassword-form'
+                                                            ]
+                                                        ]
+                                        );
+                                        ?>
+                                        <?php if (!empty(Yii::$app->session->getFlash('error'))) { ?>
+                                            <div class="error-summary">
+                                                <?= Yii::$app->session->getFlash('error'); ?>
+                                            </div>
+                                        <?php } ?>
+                                        <?php if (!empty(Yii::$app->session->getFlash('success'))): ?>
 
 
-                            <div class="alert alert-success" role="alert">
-                                <button type="button" class="close" data-dismiss="alert">
-                                    <span aria-hidden="true">&times;</span>
-                                    <span class="sr-only">Close</span>
-                                </button>
-                                <?= Yii::$app->session->getFlash('success') ?>
-                            </div>
-                        <?php endif; ?>
-                        <div class="section__content">
-                            <div class="fieldset" data-address-fields="">
+                                            <div class="alert alert-success" role="alert">
+                                                <button type="button" class="close" data-dismiss="alert">
+                                                    <span aria-hidden="true">&times;</span>
+                                                    <span class="sr-only">Close</span>
+                                                </button>
+                                                <?= Yii::$app->session->getFlash('success') ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <div class="section__content">
+                                            <div class="fieldset" data-address-fields="">
 
 
-                                <div class="field field--optional field--half" data-address-field="first_name">
+                                                <div class="field field--optional field--half" data-address-field="first_name">
 
-                                    <div class="form-row">
-                                        <label for="pwd">Old Password*</label>
-                                        <input type="password" class="input-text" id="change-old-password" name="old-password" placeholder="Old Password" />
-                                        <label class="label-helper" for="input">Old Password</label>
+                                                    <div class="form-row">
+                                                        <label for="pwd">Old Password*</label>
+                                                        <input type="password" class="input-text" id="change-old-password" name="old-password" placeholder="Old Password" />
+                                                        <label class="label-helper" for="input">Old Password</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="section__content">
+                                            <div class="fieldset" data-address-fields="">
+
+
+                                                <div class="field field--optional field--half" data-address-field="first_name">
+
+                                                    <div class="form-row">
+                                                        <label for="pwd">New Password*</label>
+                                                        <input type="password" class="input-text" id="change-new-password" name="new-password" placeholder="New Password" />
+                                                        <label class="label-helper" for="input">New Password</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="section__content">
+                                            <div class="fieldset" data-address-fields="">
+
+
+                                                <div class="field field--optional field--half" data-address-field="first_name">
+
+                                                    <div class="form-row">
+                                                        <label for="pwd">Confirm Password*</label>
+                                                        <input type="password" class="input-text" id="change-confirm-password" name="confirm-password" placeholder="Confirm Password" />
+                                                        <label class="label-helper" for="input">Confirm Password</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!--                        <div class="form-group col-md-12">
+                                                                    <label for="pwd">Old Password*</label>
+                                                                    <input type="password" name="old-password" class="form-control"  placeholder="********" id="change-old-password">
+                                                                </div>
+                                                                <div class="form-group col-md-12">
+                                                                    <label for="pwd">New Password*</label>
+                                                                    <input type="password" class="form-control" name="new-password"  placeholder="********" id="change-new-password">
+                                                                </div>-->
+
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 save">
+                                            <?= Html::submitButton('Save Changes', ['class' => 'green2']) ?>
+                                        </div>
+                                        <?php ActiveForm::end(); ?>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="section__content">
-                            <div class="fieldset" data-address-fields="">
-
-
-                                <div class="field field--optional field--half" data-address-field="first_name">
-
-                                    <div class="form-row">
-                                        <label for="pwd">New Password*</label>
-                                        <input type="password" class="input-text" id="change-new-password" name="new-password" placeholder="New Password" />
-                                        <label class="label-helper" for="input">New Password</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="section__content">
-                            <div class="fieldset" data-address-fields="">
-
-
-                                <div class="field field--optional field--half" data-address-field="first_name">
-
-                                    <div class="form-row">
-                                        <label for="pwd">Confirm Password*</label>
-                                        <input type="password" class="input-text" id="change-confirm-password" name="confirm-password" placeholder="Confirm Password" />
-                                        <label class="label-helper" for="input">Confirm Password</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-<!--                        <div class="form-group col-md-12">
-                            <label for="pwd">Old Password*</label>
-                            <input type="password" name="old-password" class="form-control"  placeholder="********" id="change-old-password">
-                        </div>
-                        <div class="form-group col-md-12">
-                            <label for="pwd">New Password*</label>
-                            <input type="password" class="form-control" name="new-password"  placeholder="********" id="change-new-password">
-                        </div>-->
-                        
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 save">
-                            <?= Html::submitButton('Save Changes', ['class' => 'green2']) ?>
-                        </div>
-                        <?php ActiveForm::end(); ?>
-
                     </div>
                 </div>
-            </div>
-        </div>
-        </div>
-    </div>
 
-</div>
+            </div>
+    </div>
 </div>
 
 <div class="pad-20"></div>

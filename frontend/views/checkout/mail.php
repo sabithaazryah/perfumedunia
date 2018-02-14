@@ -48,35 +48,23 @@ $user_detail = common\models\User::findOne($order_master->user_id);
                                 <div class="main-header">
                                     <div class="" style=";padding-left: 40px;text-align: center;">
                                         <?php echo Html::img('http://' . Yii::$app->request->serverName . '/images/logo.png', $options = ['width' => '']) ?>
-<?php //echo Html::img('@web/admin/images/logos/logo-1.png', $options = ['width' => '200px'])  ?>
+                                        <?php //echo Html::img('@web/admin/images/logos/logo-1.png', $options = ['width' => '200px'])  ?>
                                     </div>
                                 </div>
                                 <br/>
-                                <div class="navigation-bar"style="text-align: center;">
-                                    <ul style="text-align: center;width: 100%;padding: 5px 0px;margin: 0;list-style-type: none;background-color: #93c622;">
-                                        <li style="display: inline;"><a target="_blank" style="width: 6em;text-decoration: none;color: white;padding: 0.2em 0.6em;border-right: 1px solid white;" href="http://<?= Yii::$app->request->serverName ?>/about-coral-perfumes">ABOUT US</a></li>
-                                        <li style="display: inline;"><a target="_blank" style="width: 6em;text-decoration: none;color: white;padding: 0.2em 0.6em;border-right: 1px solid white;" href="http://<?= Yii::$app->request->serverName ?>/product/index?featured=1">OUR PRODUCTS</a></li>
-                                        <li style="display: inline;"><a target="_blank" style="width: 6em;text-decoration: none;color: white;padding: 0.2em 0.6em;border-right: 1px solid white;" href="http://<?= Yii::$app->request->serverName ?>/coral-perfumes-showrooms">SHOWROOMS</a></li>
-                                        <li style="display: inline;"><a target="_blank" style="width: 6em;text-decoration: none;color: white;padding: 0.2em 0.6em;" href="http://<?= Yii::$app->request->serverName ?>/coral-perfumes-contact">CONTACT US</a></li>
-                                    </ul>
-                                </div>
+                                <!--                                <div class="navigation-bar"style="text-align: center;">
+                                                                    <ul style="text-align: center;width: 100%;padding: 5px 0px;margin: 0;list-style-type: none;background-color: #93c622;">
+                                                                        <li style="display: inline;"><a target="_blank" style="width: 6em;text-decoration: none;color: white;padding: 0.2em 0.6em;border-right: 1px solid white;" href="http://<?= Yii::$app->request->serverName ?>/about-coral-perfumes">ABOUT US</a></li>
+                                                                        <li style="display: inline;"><a target="_blank" style="width: 6em;text-decoration: none;color: white;padding: 0.2em 0.6em;border-right: 1px solid white;" href="http://<?= Yii::$app->request->serverName ?>/product/index?featured=1">OUR PRODUCTS</a></li>
+                                                                        <li style="display: inline;"><a target="_blank" style="width: 6em;text-decoration: none;color: white;padding: 0.2em 0.6em;border-right: 1px solid white;" href="http://<?= Yii::$app->request->serverName ?>/coral-perfumes-showrooms">SHOWROOMS</a></li>
+                                                                        <li style="display: inline;"><a target="_blank" style="width: 6em;text-decoration: none;color: white;padding: 0.2em 0.6em;" href="http://<?= Yii::$app->request->serverName ?>/coral-perfumes-contact">CONTACT US</a></li>
+                                                                    </ul>
+                                                                </div>-->
                             </div>
                         </th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td style="width:100%">
 
-                            <hr style="border: 1px solid #93c622;">
-                                <div class="main-content" style="text-align:center;">
-                                    <p style="margin:0px;font-size: 13px;"><a href="mailto:info@coralperfumes.com" style="color:#501a8f;text-decoration: none;"><span style="font-weight: 600;">Email : </span></i>info@coralperfumes.com</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="http://www.coralperfumes.com" style="color:#501a8f;text-decoration: none;"><span style="font-weight: 600;">Web : </span>coralperfumes.com</a></p>
-                                    <br/>
-                                    <p style="margin-top:0px;margin-bottom: 0px;font-size: 15px;">Coral Perfumes Industry LLC, Dubai - 186887</p>
-                                </div>
-                        </td>
-                    </tr>
-                </tbody>
             </table>
         </div>
         <body>
@@ -85,7 +73,7 @@ $user_detail = common\models\User::findOne($order_master->user_id);
                     <tr>
                         <td style="padding-bottom: 1em;">
                             <p><strong>Dear <?= $user_detail->first_name . ' ' . $user_detail->last_name ?>, </strong><br><br>
-                                        Thank you for placing your order with Coral Perfumes. Here is a summary of your purchase </p>
+                                        Thank you for placing your order with Perfume Dunia. Here is a summary of your purchase </p>
                                         </td>
                                         </tr>
 
@@ -129,7 +117,7 @@ $user_detail = common\models\User::findOne($order_master->user_id);
                                                                         <p >Tel : <?= $bill_address->mobile_number ?></p>
                                                                     </td>
                                                                 </tr>
-<?php } ?>
+                                                            <?php } ?>
                                                         </table>
                                                     </div>
                                                     <div class="main-right left-address" style="margin: 0px 30px 0px 0px;float: right;">
@@ -151,7 +139,7 @@ $user_detail = common\models\User::findOne($order_master->user_id);
                                                                         <p >Tel : <?= $ship_address->mobile_number ?></p>
                                                                     </td>
                                                                 </tr>
-<?php } ?>
+                                                            <?php } ?>
                                                         </table>
                                                     </div>
                                                 </div>
@@ -207,7 +195,7 @@ $user_detail = common\models\User::findOne($order_master->user_id);
                                                                 <td style="padding-bottom: 1em;font-size: 12px;"><?= $order_product->quantity ?></td>
                                                                 <td style="padding-bottom: 1em;font-size: 12px;">AED <?= sprintf('%0.2f', $order_product->rate) ?></td>
                                                             </tr>
-<?php } ?>
+                                                        <?php } ?>
 
 
                                                         <tr>
@@ -242,7 +230,7 @@ $user_detail = common\models\User::findOne($order_master->user_id);
                                                             <td colspan="2" style="padding-bottom: 1em;font-size: 14px;"><b>Shipping Charge</b></td>
                                                             <td style="padding-bottom: 1em;font-size: 14px;">AED <?= sprintf('%0.2f', $ship_charge) ?></td>
                                                         </tr>
-<?php $grand_total = $total_amount + $ship_charge - $promotion_disvount + $tax_amount; ?>
+                                                        <?php $grand_total = $total_amount + $ship_charge - $promotion_disvount + $tax_amount; ?>
                                                         <tr>
                                                             <td colspan="2" style="padding-bottom: 1em;font-size: 14px;"><b>Grand Total (inclusive of VAT)</b></td>
                                                             <td style="padding-bottom: 1em;font-size: 14px;"><b>AED <?= sprintf('%0.2f', $grand_total) ?></b></td>
@@ -265,7 +253,19 @@ $user_detail = common\models\User::findOne($order_master->user_id);
                                                             </td>
                                                             </tr>
 
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td style="width:100%">
 
+                                                                        <hr style="border: 1px solid #93c622;">
+                                                                            <div class="main-content" style="text-align:center;">
+                                                                                <p style="margin:0px;font-size: 13px;"><a href="mailto:info@perfumedunia.com" style="color:#501a8f;text-decoration: none;"><span style="font-weight: 600;">Email : </span></i>info@perfumedunia.com</a> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a target="_blank" href="http://www.perfumedunia.com" style="color:#501a8f;text-decoration: none;"><span style="font-weight: 600;">Web : </span>perfumedunia.com</a></p>
+                                                                                <br/>
+                                                                                <p style="margin-top:0px;margin-bottom: 0px;font-size: 15px;">Perfume Dunia Industry LLC, Dubai - 186887</p>
+                                                                            </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
                                                             </table>
                                                             </div>
                                                             </body>

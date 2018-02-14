@@ -2,19 +2,18 @@
 
 use yii\helpers\Html;
 ?>
-
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 customer-reviews orders-box active">
-    <div class="pro-img-box col-lg-3 col-md-3 col-sm-3 col-xs-12">
+    <div class="pro-img-box col-lg-2 col-md-2 col-sm-2 col-xs-12">
         <?php
         $product = \common\models\Product::findOne($model->product_id);
         $product_image = Yii::$app->basePath . '/../uploads/product/' . $product->id . '/profile/' . $product->canonical_name . '_thumb.' . $product->profile;
         if (file_exists($product_image)) {
             ?>
-            <img src="<?= Yii::$app->homeUrl . 'uploads/product/' . $product->id . '/profile/' . $product->canonical_name . '_thumb.' . $product->profile ?>" height="100%" alt="1" />
+            <img src="<?= Yii::$app->homeUrl . 'uploads/product/' . $product->id . '/profile/' . $product->canonical_name . '_thumb.' . $product->profile ?>" width="90" height="90" alt="1" />
             <?php
         } else {
             ?>
-            <img src="<?= Yii::$app->homeUrl . 'uploads/product/profile_thumb.png' ?>" height="100%" alt="1" />
+            <img src="<?= Yii::$app->homeUrl . 'uploads/product/profile_thumb.png' ?>" width="90" height="90" alt="1" />
         <?php }
         ?>
     </div>
@@ -24,4 +23,5 @@ use yii\helpers\Html;
         <p class="message"><?= $model->description ?></p>
     </div>
 </div>
+
 

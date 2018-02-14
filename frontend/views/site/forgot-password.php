@@ -42,10 +42,10 @@ $this->title = 'Forgot-password';
                 <h6 style="font-family: roboto-medium; font-size: 16px; color: #8c8c8c; margin-top: 25px">No Problem!</h6>
                 <p class="sub-discrip">We will send you an email to reset your password. Just enter the same email address you used for registration on perfumedunia.com. We will send you an email with instructions for resetting your password.</p>
 
-                <?php $form = ActiveForm::begin(['id' => 'login-form']); ?>
+                <?php $form = ActiveForm::begin(['id' => 'forgot-form']); ?>
                 <label for="usr">E-Mail Address*</label>
 
-                <?= $form->field($model, 'email')->textInput(['class' => 'form-control', 'placeholder' => "Email", 'autocomplete' => 'off', 'autofocus' => true])->label(false) ?>
+                <?= $form->field($model, 'email')->textInput(['class' => 'form-control','id'=>'forgot-email', 'placeholder' => "Email", 'autocomplete' => 'off', 'autofocus' => true])->label(false) ?>
 
 
 

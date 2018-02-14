@@ -20,7 +20,7 @@ use yii\helpers\ArrayHelper;
  * UserController implements the CRUD actions for User model.
  */
 class UserController extends Controller {
-    
+
     public function beforeAction($action) {
         $this->enableCsrfValidation = false;
         return parent::beforeAction($action);
@@ -29,9 +29,6 @@ class UserController extends Controller {
             return false;
         }
     }
-
-   
-
 
     /**
      * @inheritdoc
@@ -209,23 +206,45 @@ class UserController extends Controller {
     public function actionUserAddress() {
         $model = new UserAddress();
         $user_address = UserAddress::find()->where(['user_id' => Yii::$app->user->identity->id])->all();
+        
+        return $this->render('addresses', [
+                    'model' => $model,
+                    'user_address' => $user_address,
+        ]);
+    }
+    public function actionNewAddress() {
+        $model = new UserAddress();
+        $user_address = UserAddress::find()->where(['user_id' => Yii::$app->user->identity->id])->all();
         $country_codes = ArrayHelper::map(\common\models\CountryCode::find()->where(['status' => 1])->orderBy(['id' => SORT_ASC])->all(), 'id', 'country_code');
-        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model)) {
+        if ($model->load(Yii::$app->request->post()) && Yii::$app->SetValues->Attributes($model) && $model->validate()) {
             if (empty($user_address)) {
                 $model->status = 1;
             }
             $model->user_id = Yii::$app->user->identity->id;
-            if($model->save()){
-                
-            }else{
-                var_dump($model->getErrors());exit;
+            if ($model->save()) {
+                $model = new UserAddress();
+                return $this->redirect(Yii::$app->request->referrer);
             }
-            $model = new UserAddress();
-            return $this->redirect(Yii::$app->request->referrer);
         }
-        return $this->render('addresses', [
+        return $this->render('create_address', [
                     'model' => $model,
                     'user_address' => $user_address,
+                    'country_codes' => $country_codes,
+        ]);
+    }
+
+    public function actionChangeAddress($id) {
+        $model = UserAddress::findOne(yii::$app->EncryptDecrypt->Encrypt('decrypt', $id));
+//        echo '<pre>';print_r($model);exit;
+        $country_codes = ArrayHelper::map(\common\models\CountryCode::find()->where(['status' => 1])->orderBy(['id' => SORT_ASC])->all(), 'id', 'country_code');
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if($model->save()){
+                $this->redirect(array('user-address'));
+            }
+        }
+        return $this->render('addresses_form', [
+                    'model' => $model,
+//                    'user_address' => $user_address,
                     'country_codes' => $country_codes,
         ]);
     }

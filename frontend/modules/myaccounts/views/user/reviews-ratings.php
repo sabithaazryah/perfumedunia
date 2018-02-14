@@ -5,49 +5,51 @@
 use yii\helpers\Html;
 use yii\widgets\ListView;
 ?>
-<style>
-    .summary{
-        display: none;
-    }
-</style>
-<div class="pad-20 hide-xs"></div>
+<div id="wpo-mainbody" class="container wpo-mainbody">
 
-<div class="container">
-    <div class="breadcrumb">
-        <span class="current-page">My orders</span>
-        <ol class="path">
-            <li><?= Html::a('<span>Home</span>', ['/site/index'], ['class' => '']) ?></li>
-            <li><?= Html::a('<span>My account</span>', ['/myaccounts/user/index'], ['class' => '']) ?></li>
-            <li class="active">Reviews</li>
-        </ol>
-    </div>
-</div>
+    <nav class="woocommerce-breadcrumb"><a class="home" href="">Home</a>&nbsp;/&nbsp;My Account</nav>
 
-<div id="our-product" class="my-account">
-    <div class="container">
-        <div class="col-md-3">
-            <?= Yii::$app->controller->renderPartial('_leftside_menu'); ?>
-        </div>
+    <div id="my-aacount">
+        <section class="wrapper sec-space my-account">                  
+            <div class="container">
+                <!-- My Account Starts -->
+                <div class="row">  
+                    <!-- Sidebar Starts --> 
+                    <div class="col-md-3">
+                        <?= Yii::$app->controller->renderPartial('_leftside_menu'); ?>
+                    </div>  
+                    <!-- Sidebar Ends --> 
 
-        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 my-account-cntnt">
-            <div id="reviews-ratings">
-                <?=
-                ListView::widget([
-                    'dataProvider' => $dataProvider,
-                    'itemView' => 'my_reviews',
-                    'pager' => [
-                        'firstPageLabel' => 'first',
-                        'lastPageLabel' => 'last',
-                        'prevPageLabel' => '<',
-                        'nextPageLabel' => '>',
-                        'maxButtonCount' => 3,
-                    ],
-                ]);
-                ?>
+                    <!-- Product Details Starts--> 
+                    <aside class="col-md-9 col-sm-8">
+
+                        <div id="reviews-ratings">
+
+                            <h3 class="title2">Reviews</h3>
+                            <br/>
+
+                            <?=
+                            ListView::widget([
+                                'dataProvider' => $dataProvider,
+                                'itemView' => 'my_reviews',
+                                'pager' => [
+                                    'firstPageLabel' => 'first',
+                                    'lastPageLabel' => 'last',
+                                    'prevPageLabel' => '<',
+                                    'nextPageLabel' => '>',
+                                    'maxButtonCount' => 3,
+                                ],
+                            ]);
+                            ?>
+                        </div>
+
+                    </aside>
+                    <!-- Product Details Ends --> 
+                </div>
+                <!-- / My Account Ends -->
             </div>
-        </div>
 
+        </section>
     </div>
-</div>
 
-<div class="pad-20"></div>
+</div>

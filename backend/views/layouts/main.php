@@ -6,6 +6,9 @@ use backend\assets\AppAsset;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\helpers\Url;
+use yii\bootstrap\Modal;
+use common\components\ModalViewWidget;
 use yii\widgets\Breadcrumbs;
 use common\widgets\Alert;
 
@@ -16,7 +19,7 @@ AppAsset::register($this);
 <html lang="<?= Yii::$app->language ?>">
     <head>
         <meta charset="<?= Yii::$app->charset ?>">
-		<link rel="shortcut icon" href="<?= yii::$app->homeUrl; ?>images/favicon.ico"  />
+        <link rel="shortcut icon" href="<?= yii::$app->homeUrl; ?>images/favicon.ico"  />
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <?= Html::csrfMetaTags() ?>
@@ -331,7 +334,9 @@ AppAsset::register($this);
                                 </li>
                             </ul>
                         </li>
-
+<!--                        <li style="    padding: 15px;">
+                            <? Html::button('Create URL', ['value' => Url::to(['/url-creation']), 'class' => 'modalButton url_gen']) ?>
+                        </li>-->
 
 
                     </ul>

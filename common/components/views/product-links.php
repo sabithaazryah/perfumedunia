@@ -18,14 +18,20 @@ else
                                 <a class="close-alert"><i class="fa fa-close"></i></a>
                         </div>
                         <div class="image">
+
+ <?php if ($model->stock_availability != 1 || $model->stock < 1) { ?>
+                                        <div class="outofstock">
+                                                <p>OUT OF STOCk</p>
+                                        </div>
+                                <?php } ?>
                                 <a href="<?= Yii::$app->homeUrl . 'product-detail/' . $model->canonical_name ?>">
 
                                         <?php
                                         $product_image = Yii::$app->basePath . '/../uploads/product/' . $model->id . '/profile/' . $model->canonical_name . '.' . $model->profile;
                                         if (file_exists($product_image)) {
                                                 ?>
-                                                <img src="<?= Yii::$app->homeUrl . 'uploads/product/' . $model->id . '/profile/' . $model->canonical_name . '.' . $model->profile ?>" class="attachment-shop_catalog image-hover" alt="product18" />
-                                                <img src="<?= Yii::$app->homeUrl . 'uploads/product/' . $model->id . '/profile/' . $model->canonical_name . '.' . $model->profile ?>" class="image-effect wp-post-image" alt="product16" />
+                        <img src="<?= Yii::$app->homeUrl . 'uploads/product/' . $model->id . '/profile/' . $model->canonical_name . '.' . $model->profile ?>" class="attachment-shop_catalog image-hover img-responsive" alt="product18" />
+                        <img src="<?= Yii::$app->homeUrl . 'uploads/product/' . $model->id . '/profile/' . $model->canonical_name . '.' . $model->profile ?>" class="image-effect wp-post-image img-responsive" alt="product16" />
                                         <?php } else { ?>
                                                 <img src="<?= Yii::$app->homeUrl . 'uploads/product/gallery_dummy.png' ?>" class="attachment-shop_catalog image-hover" alt="product18" />
                                                 <img src="<?= Yii::$app->homeUrl . 'uploads/product/gallery_dummy.png' ?>" class="image-effect wp-post-image" alt="product16" />

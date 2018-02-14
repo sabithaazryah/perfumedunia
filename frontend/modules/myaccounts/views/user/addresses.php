@@ -18,160 +18,80 @@ use yii\helpers\ArrayHelper;
         line-height: 15px;
     }
 </style>
-<div class="pad-20 hide-xs"></div>
+<div id="wpo-mainbody" class="container wpo-mainbody">
 
-<div class="container">
-    <div class="breadcrumb">
-        <span class="current-page">personal information</span>
-        <ol class="path">
-            <li><?= Html::a('<span>Home</span>', ['/site/index'], ['class' => '']) ?></li>
-            <li><?= Html::a('<span>My account</span>', ['/myaccounts/user/index'], ['class' => '']) ?></li>
-            <li class="active">personal information</li>
-        </ol>
-    </div>
-</div>
+    <nav class="woocommerce-breadcrumb"><a class="home" href="">Home</a>&nbsp;/&nbsp;My Account &nbsp;/&nbsp;Address Book</nav>
 
-<div id="our-product" class="my-account">
-    <div class="container">
-        <div class="col-md-3">
-        <?= Yii::$app->controller->renderPartial('_leftside_menu'); ?>
-        </div>
-        <div class="col-md-9">
-        <div class="settings">
-            <div class="col-lg-12 col-md-8 col-sm-12 col-xs-12 right-box" style="padding: 50px 15px;">
-                <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 my-account-cntnt margin-auto align-center">
-                    <div class="form-feild-box">
-                        <?php
-                        $form = ActiveForm::begin([
-                                    'options' => [
-                                        'autocomplete' => 'off'
-                                    ],
-                        ]);
-                        ?>
-
-                        <div class="section__content">
-                            <div class="fieldset" data-address-fields="">
-
-
-                                <div class="field field--optional field--half" data-address-field="name">
-
-                                    <div class="form-row">
-                                          <!--<? $form->field($model, 'name')->textInput(['class'=>'input-text','placeholder'=>'Name']);?>-->
-                                        <input type="text" class="input-text"  name="UserAddress[name]" placeholder="Name" />
-                                        <label class="label-helper" for="input">Name</label>
-                                    </div>
-                                </div>
-                                <div class="field field--optional field--half" data-address-field="address">
-
-                                    <div class="form-row">
-                                        <input type="text" class="input-text" name="UserAddress[address]" id="input checkout_shipping_address_first_name" placeholder="Address" />
-                                        <label class="label-helper" for="input">Address</label>
-                                    </div>
-                                </div>
-                                <div class="field field--optional field--half" data-address-field="landmark">
-
-                                    <div class="form-row">
-                                        <input type="text" class="input-text" name="UserAddress[landmark]" id="input checkout_shipping_address_first_name" placeholder="Landmark" />
-                                        <label class="label-helper" for="input">Landmark</label>
-                                    </div>
-                                </div>
-                                <div class="field field--optional field--half" data-address-field="location">
-
-                                    <div class="form-row">
-                                        <input type="text" class="input-text" name="UserAddress[location]" id="input checkout_shipping_address_first_name" placeholder="Location" />
-                                        <label class="label-helper" for="input">Location</label>
-                                    </div>
-                                </div>
-                                <div class="field field--required field--show-floating-label field--three-eights ptop10" data-address-field="country" data-google-places="true">
-
-                                    <div class="field__input-wrapper field__input-wrapper--select">
-                                        <label class="field__label field__label--visible label-helper" for="checkout_shipping_address_country">Country</label>
-                                        <?= $form->field($model, 'emirate')->dropDownList(ArrayHelper::map(Emirates::find()->all(), 'id', 'name'), ['prompt' => 'select', 'class' => 'field__input field__input--select'])->label(FALSE); ?>
-<!--                                        <select size="1" autocomplete="shipping country" data-backup="country" class="field__input field__input--select" aria-required="true" name="checkout[shipping_address][country]" id="checkout_shipping_address_country">
-                                            <option data-code="IN" selected="selected" value="India">India</option>
-                                            <option data-code="US" value="United States">United States</option>
-                                        </select>-->
-                                    </div>    
-                                </div> 
-                                <div class="field field--optional field--half" data-address-field="post_code">
-
-                                    <div class="form-row">
-                                        <input type="text" class="input-text" name="UserAddress[post_code]" id="input checkout_shipping_address_first_name" placeholder="Post Code" />
-                                        <label class="label-helper" for="input">Post Code</label>
-                                    </div>
-                                </div>
-                                <div class="field field--optional field--half" data-address-field="country_code">
-                                    <div class="date-dropdowns" style="">
-                                <select class="day" style="position: absolute; border-right: 1px solid #d1d2d0" id="user-country_code" name="UserAddress[country_code]">
-                                <!--<select id="signupform-day" class="day" name="SignupForm[day]">-->
-                                    <?php foreach ($country_codes as $country_code) { ?>
-                                        <option value="<?= $country_code ?>" ><?= $country_code ?></option>
-                                    <?php }
-                                    ?>
-                                </select>
-                                <?= $form->field($model, 'mobile_number')->textInput([ 'style' => 'padding-left: 70px;'])->label(FALSE) ?>
-                                <!--<input style="padding-left: 70px;" type="phone" id="user-mobile_number" class="form-control" name="UserAddress[mobile_number]" value="<?= $model->mobile_number ?>" maxlength="15" aria-invalid="false" data-format="+1 (ddd) ddd-dddd">-->
-                            </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-
-                        
-                        <?= Html::submitButton('Create', ['class' => 'green2']) ?>
-                        <?php ActiveForm::end(); ?>
+    <div id="my-aacount">
+        <section class="wrapper sec-space my-account">                  
+            <div class="container">
+                <!-- My Account Starts -->
+                <div class="row">  
+                    <div class="col-md-3">
+                        <?= Yii::$app->controller->renderPartial('_leftside_menu'); ?>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 user-addresses">
-                <?php
-                if (!empty($user_address)) {
-                    ?>
-                    <h6>Your Saved Addresses:</h6>
-                    <?php
-                    foreach ($user_address as $value) {
-                        ?>
-                        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 user-adddress lit-blue" id="useraddress-<?= $value->id ?>">
-                            <div class="user-address-hei">
-                                <p><strong><?= $value->name ?></strong></p>
-                                <p><?= $value->address ?></p>
-                                <p><?= $value->landmark ?></p>
-                                <p><?= $value->location ?></p>
-                                <p><?= $value->post_code ?></p>
-                                <p><?= $value->mobile_number ?></p>
-                            </div>
-                            <label id="Radio0">
-                                <input type="radio" name="default-address" value="<?= $value->id ?>" <?php
-                                if ($value->status == 1) {
-                                    echo ' checked';
-                                }
-                                ?> data-waschecked="true" />
-                                Default address
-                            </label>
-                            <a href="" class="delete-address" data-val="<?= $value->id ?>"><i class="fa fa-trash" aria-hidden="true"></i>Delete address</a>
-                        </div>
-                        <?php
-                    }
-                } else {
-                    ?>
-                    <h6 style="text-transform: none;">You have no saved addresses:</h6>
-                <?php }
-                ?>
 
+                    <!-- Product Details Starts--> 
+                    <aside class="col-md-9 col-sm-8">
+                        <h3 class="title2">Addresses</h3>
+                        <p>The following addresses will be used on the checkout page.</p>
+                        <div class="u-columns woocommerce-Addresses col2-set addresses">
+                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 f-right">
+                                <a href="<?= yii::$app->homeUrl.'new-address'?>" class="button alt wc-forward checkout">Add Address</a>
+                            </div>
+
+                            <?php
+                            if (!empty($user_address)) {
+                                ?>
+                                <div class="u-column1 col-1 woocommerce-Address">
+                                    <header class="woocommerce-Address-title title">
+                                        <h3 class="title2">Your Saved Addresses:</h3>
+                                    </header>
+                                    <div class="row">  
+                                        <?php foreach ($user_address as $value) { ?>
+                                            <div class="col-md-6">
+                                                <a href="<?= yii::$app->homeUrl . 'change-address/' . yii::$app->EncryptDecrypt->Encrypt('encrypt', $value->id); ?>" class="edit">Edit</a>
+                                                <address><strong><?= $value->name ?></strong><br>
+                                                    <?= $value->address ?><br>
+                                                    <?= $value->landmark ?><br>
+                                                    <?= $value->location ?><br>
+                                                    <?= $value->post_code ?><br>
+                                                    <?= $value->mobile_number ?><br>
+                                                    <label id="Radio0">
+                                                        <input type="radio" name="default-address" value="<?= $value->id ?>" <?php
+                                                        if ($value->status == 1) {
+                                                            echo ' checked';
+                                                        }
+                                                        ?> data-waschecked="true" />
+                                                        Default address
+                                                    </label>
+                                                    <a href="" class="delete-address" data-val="<?= $value->id ?>"><i class="fa fa-trash" aria-hidden="true"></i>Delete address</a></address><br>
+                                            </div>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                                <?php
+                            }
+                            ?>
+
+
+
+                        </div>
+                    </aside>
+                    <!-- Product Details Ends --> 
+                </div>
+                <!-- / My Account Ends -->
             </div>
-        </div>
-        </div>
+
+        </section>
+
     </div>
 
 </div>
-</div>
-
-<div class="pad-20"></div>
-
 <script>
     $(document).ready(function () {
         $('input[type=radio][name=default-address]').change(function () {
+            showLoader();
             var idd = $(this).val();
             jQuery.ajax({
                 url: '<?= Yii::$app->homeUrl; ?>myaccounts/user/change-status',
@@ -182,6 +102,7 @@ use yii\helpers\ArrayHelper;
 //                            $("#useraddress-" + idd).remove();
 //                            location.reload();
                     }
+                    hideLoader();
                 }
             });
         });
@@ -204,3 +125,4 @@ use yii\helpers\ArrayHelper;
         });
     });
 </script>
+

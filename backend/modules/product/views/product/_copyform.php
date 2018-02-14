@@ -189,7 +189,7 @@ use dosamigos\ckeditor\CKEditor;
                     <?= $form->field($model, 'gallery_alt')->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class='col-md-6 col-sm-6 col-xs-12 '>
-                    <?= $form->field($model, 'profile')->fileInput()->label('profile Picture<i> (455*315)</i>') ?>
+                    <?= $form->field($model, 'profile')->fileInput()->label('profile Picture<i> (600*860)</i>') ?>
                     <?php
                     if (!$model->isNewRecord) {
                         echo "<hr class='appoint_history'/> <h4 class='sub-heading'>Profile Image</h4>";
@@ -203,7 +203,7 @@ use dosamigos\ckeditor\CKEditor;
                     <?php } ?>
                 </div>
                 <div class='col-md-6 col-sm-6 col-xs-12 '>
-                    <?= $form->field($model, 'other_image[]')->fileInput(['multiple' => true, 'accept' => 'image/*'])->label('Gallery Images<i> (455*315)</i>') ?>
+                    <?= $form->field($model, 'other_image[]')->fileInput(['multiple' => true, 'accept' => 'image/*'])->label('Gallery Images<i> (600*860) [Min : Two Images]</i>') ?>
                     <?php if (!$model->isNewRecord) { ?>
                                                                                                                                                                                                                                     <!--<a href=''><img src="<?= yii::$app->homeUrl ?>/../../uploads/product/1/dasda_0.jpg" width="100" alt="Delete"></a>-->
                         <div class="row">
